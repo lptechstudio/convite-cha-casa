@@ -16,9 +16,9 @@
 
 <meta property="og:description" content="Estamos muito felizes em compartilhar esse momento especial com você.">
 
-<meta property="og:image" content="https://SEUUSUARIO.github.io/convite/capa-whatsapp.png">
+<meta property="og:image" content="https://lptechstudio.github.io/convite/capa-whatsapp.png">
 
-<meta property="og:url" content="https://SEUUSUARIO.github.io/convite/">
+<meta property="og:url" content="https://lptechstudio.github.io/convite/">
 
 <meta property="og:site_name" content="Chá de Casa Nova">
 
@@ -82,3 +82,172 @@ fontFamily: {
 }
 }
 </script>
+
+<style type="text/tailwindcss">
+@layer utilities {
+.premium-shadow {
+box-shadow: 0 20px 50px rgba(46, 59, 35, 0.15);
+}
+
+.envelope-shadow {
+box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
+}
+
+.fade-in {
+opacity: 0;
+animation: fadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fade-in-up {
+opacity: 0;
+transform: translateY(30px);
+animation: fadeInUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+to {
+opacity: 1;
+}
+}
+
+@keyframes fadeInUp {
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+.unfold-top {
+animation: unfoldTop 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+transform-origin: top;
+}
+
+.unfold-bottom {
+animation: unfoldBottom 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+transform-origin: bottom;
+}
+
+@keyframes unfoldTop {
+to {
+transform: rotateX(-115deg);
+opacity: 0;
+visibility: hidden;
+}
+}
+
+@keyframes unfoldBottom {
+to {
+transform: rotateX(115deg);
+opacity: 0;
+visibility: hidden;
+}
+}
+
+.confetti {
+position: fixed;
+width: 8px;
+height: 8px;
+border-radius: 2px;
+z-index: 1000;
+pointer-events: none;
+}
+
+.hidden-state {
+display: none;
+}
+
+body {
+scroll-behavior: smooth;
+}
+}
+</style>
+</head>
+
+<body class="bg-background text-on-background antialiased min-h-screen overflow-x-hidden relative">
+
+<div class="fixed inset-0 bg-[url('capa-whatsapp.png')] bg-cover bg-center opacity-20 z-0"></div>
+
+<section class="min-h-screen flex items-center justify-center px-6 py-20 relative z-10">
+
+<div class="bg-white/80 backdrop-blur-xl rounded-[3rem] p-10 md:p-20 max-w-3xl w-full shadow-2xl border border-white/40 text-center">
+
+<div class="space-y-8">
+
+<div class="inline-flex items-center justify-center w-28 h-28 rounded-full bg-primary/10 border border-primary/20">
+<span class="material-symbols-outlined text-primary text-6xl">home_pin</span>
+</div>
+
+<h1 class="font-display-lg text-primary text-5xl md:text-7xl font-bold leading-tight">
+Chá de Casa Nova
+</h1>
+
+<p class="font-display-lg italic text-secondary text-3xl md:text-4xl">
+Ana Kelly & Lourenço Paz
+</p>
+
+<p class="font-body-lg text-on-surface-variant text-lg leading-relaxed max-w-xl mx-auto">
+Estamos muito felizes em compartilhar esse momento especial com você.
+Venha celebrar nossa nova conquista e encher nosso novo lar de boas energias ❤️
+</p>
+
+<div class="border-t border-outline-variant pt-10 space-y-6">
+
+<div class="flex items-center justify-center gap-4 text-primary">
+<span class="material-symbols-outlined text-secondary">event</span>
+<span class="font-semibold tracking-wide">
+15 de Outubro de 2024
+</span>
+</div>
+
+<div class="flex items-center justify-center gap-4 text-primary">
+<span class="material-symbols-outlined text-secondary">schedule</span>
+<span class="font-semibold tracking-wide">
+Às 15:00 horas
+</span>
+</div>
+
+<div class="flex items-center justify-center gap-4 text-primary">
+<span class="material-symbols-outlined text-secondary">location_on</span>
+<span class="font-semibold tracking-wide">
+Rua Joaquim Boticário, 2523 • Monte, Canindé
+</span>
+</div>
+
+</div>
+
+<div class="pt-10 flex flex-col sm:flex-row gap-5 justify-center">
+
+<button
+onclick="window.open('https://wa.me/5585988660540?text=Olá Ana Kelly e Lourenço Paz! Gostaria de confirmar minha presença no Chá de Casa Nova.', '_blank')"
+class="px-10 py-5 rounded-full bg-secondary text-white font-semibold uppercase tracking-[0.2em] text-sm shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3">
+
+<span class="material-symbols-outlined">
+check_circle
+</span>
+
+Confirmar Presença
+
+</button>
+
+<button
+onclick="window.open('https://maps.google.com/?q=Rua+Joaquim+Boticário,+2523,+Monte,+Canindé', '_blank')"
+class="px-10 py-5 rounded-full bg-white border border-primary/10 text-primary font-semibold uppercase tracking-[0.2em] text-sm shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3">
+
+<span class="material-symbols-outlined">
+map
+</span>
+
+Ver Localização
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</body>
+</html>
