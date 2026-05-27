@@ -11,9 +11,7 @@
 
 <!-- Open Graph / WhatsApp -->
 <meta property="og:type" content="website">
-
 <meta property="og:title" content="Chá de Casa Nova • Ana Kelly & Lourenço Paz">
-
 <meta property="og:description" content="Estamos muito felizes em compartilhar esse momento especial com você.">
 
 <meta property="og:image" content="https://lptechstudio.github.io/convite/capa-whatsapp.png">
@@ -23,7 +21,6 @@
 <meta property="og:site_name" content="Chá de Casa Nova">
 
 <meta property="og:image:width" content="1200">
-
 <meta property="og:image:height" content="630">
 
 <meta name="twitter:card" content="summary_large_image">
@@ -85,6 +82,7 @@ fontFamily: {
 
 <style type="text/tailwindcss">
 @layer utilities {
+
 .premium-shadow {
 box-shadow: 0 20px 50px rgba(46, 59, 35, 0.15);
 }
@@ -117,97 +115,95 @@ transform: translateY(0);
 }
 }
 
-.unfold-top {
-animation: unfoldTop 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-transform-origin: top;
-}
-
-.unfold-bottom {
-animation: unfoldBottom 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-transform-origin: bottom;
-}
-
-@keyframes unfoldTop {
-to {
-transform: rotateX(-115deg);
-opacity: 0;
-visibility: hidden;
-}
-}
-
-@keyframes unfoldBottom {
-to {
-transform: rotateX(115deg);
-opacity: 0;
-visibility: hidden;
-}
-}
-
-.confetti {
-position: fixed;
-width: 8px;
-height: 8px;
-border-radius: 2px;
-z-index: 1000;
-pointer-events: none;
-}
-
-.hidden-state {
-display: none;
-}
-
 body {
 scroll-behavior: smooth;
 }
+
+.bg-main {
+background-image: url('capa-whatsapp.png');
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
+}
+
+.glass-card {
+background: rgba(255,255,255,0.75);
+backdrop-filter: blur(18px);
+border: 1px solid rgba(255,255,255,0.4);
+}
+
+.btn-main {
+background: linear-gradient(135deg,#b35a38,#91462a);
+color: white;
+box-shadow: 0 15px 30px rgba(179,90,56,0.35);
+transition: all .3s ease;
+}
+
+.btn-main:hover {
+transform: scale(1.05);
+}
+
 }
 </style>
+
 </head>
 
 <body class="bg-background text-on-background antialiased min-h-screen overflow-x-hidden relative">
 
-<div class="fixed inset-0 bg-[url('capa-whatsapp.png')] bg-cover bg-center opacity-20 z-0"></div>
+<div class="fixed inset-0 bg-main opacity-20 z-0"></div>
 
-<section class="min-h-screen flex items-center justify-center px-6 py-20 relative z-10">
+<section class="min-h-screen flex flex-col items-center justify-center relative px-6 py-20 z-10">
 
-<div class="bg-white/80 backdrop-blur-xl rounded-[3rem] p-10 md:p-20 max-w-3xl w-full shadow-2xl border border-white/40 text-center">
+<div class="glass-card rounded-[3rem] p-10 md:p-20 max-w-4xl w-full text-center shadow-2xl">
 
 <div class="space-y-8">
 
-<div class="inline-flex items-center justify-center w-28 h-28 rounded-full bg-primary/10 border border-primary/20">
-<span class="material-symbols-outlined text-primary text-6xl">home_pin</span>
+<div class="inline-flex items-center justify-center w-32 h-32 rounded-full bg-primary/10 border border-primary/20">
+<span class="material-symbols-outlined text-primary text-7xl">
+home_pin
+</span>
 </div>
 
-<h1 class="font-display-lg text-primary text-5xl md:text-7xl font-bold leading-tight">
+<h1 class="font-['Playfair_Display'] text-primary text-5xl md:text-7xl font-bold leading-tight">
 Chá de Casa Nova
 </h1>
 
-<p class="font-display-lg italic text-secondary text-3xl md:text-4xl">
+<p class="font-['Playfair_Display'] italic text-secondary text-3xl md:text-4xl">
 Ana Kelly & Lourenço Paz
 </p>
 
-<p class="font-body-lg text-on-surface-variant text-lg leading-relaxed max-w-xl mx-auto">
+<p class="font-['Plus_Jakarta_Sans'] text-on-surface-variant text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
 Estamos muito felizes em compartilhar esse momento especial com você.
 Venha celebrar nossa nova conquista e encher nosso novo lar de boas energias ❤️
 </p>
 
-<div class="border-t border-outline-variant pt-10 space-y-6">
+<div class="border-t border-outline-variant/40 pt-10 space-y-6">
 
 <div class="flex items-center justify-center gap-4 text-primary">
-<span class="material-symbols-outlined text-secondary">event</span>
+<span class="material-symbols-outlined text-secondary">
+event
+</span>
+
 <span class="font-semibold tracking-wide">
-15 de Outubro de 2024
+Sábado • 15 de Outubro de 2024
 </span>
 </div>
 
 <div class="flex items-center justify-center gap-4 text-primary">
-<span class="material-symbols-outlined text-secondary">schedule</span>
+<span class="material-symbols-outlined text-secondary">
+schedule
+</span>
+
 <span class="font-semibold tracking-wide">
 Às 15:00 horas
 </span>
 </div>
 
 <div class="flex items-center justify-center gap-4 text-primary">
-<span class="material-symbols-outlined text-secondary">location_on</span>
+<span class="material-symbols-outlined text-secondary">
+location_on
+</span>
+
 <span class="font-semibold tracking-wide">
 Rua Joaquim Boticário, 2523 • Monte, Canindé
 </span>
@@ -219,7 +215,7 @@ Rua Joaquim Boticário, 2523 • Monte, Canindé
 
 <button
 onclick="window.open('https://wa.me/5585988660540?text=Olá Ana Kelly e Lourenço Paz! Gostaria de confirmar minha presença no Chá de Casa Nova.', '_blank')"
-class="px-10 py-5 rounded-full bg-secondary text-white font-semibold uppercase tracking-[0.2em] text-sm shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3">
+class="px-10 py-5 rounded-full btn-main font-semibold uppercase tracking-[0.2em] text-sm flex items-center justify-center gap-3">
 
 <span class="material-symbols-outlined">
 check_circle
@@ -250,4 +246,5 @@ Ver Localização
 </section>
 
 </body>
+
 </html>
