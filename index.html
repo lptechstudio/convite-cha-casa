@@ -3,14 +3,7 @@
 <html class="light" lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ControlCont - Gestão de Cobranças</title>
-<link rel="manifest" href="manifest.json"/>
-<meta name="theme-color" content="#091426"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="ControlCont"/>
-<meta name="description" content="Sistema de controle de cobranças e clientes."/>
-<link rel="apple-touch-icon" href="icon-192.png"/>
+<title>Livro de Cobranças - Gestão Financeira</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -315,88 +308,171 @@
 <!-- Profile Header -->
 <div class="bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm">
 <div class="bg-primary p-lg flex items-center gap-6">
-<div class="w-20 h-20 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container text-headline-lg font-bold border-4 border-surface/20">
-                        AD
-                    </div>
+<div class="w-20 h-20 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container text-headline-lg font-bold border-4 border-surface/20" id="avatarCircle">AD</div>
 <div>
-<h3 class="text-headline-md font-bold text-on-primary">Administrador</h3>
-<p class="text-body-md text-on-primary opacity-80">admin@financeiro.com.br</p>
+<h3 class="text-headline-md font-bold text-on-primary" id="profileName">Administrador</h3>
+<p class="text-body-md text-on-primary opacity-80" id="profileEmail">admin@financeiro.com.br</p>
 <span class="inline-block mt-sm px-3 py-1 bg-secondary-container/20 text-secondary-container text-xs font-bold rounded-full border border-secondary-container/30 uppercase tracking-wider">Conta Pro</span>
 </div>
 </div>
 <div class="p-md bg-surface-container-low border-t border-outline-variant flex justify-end">
-<button class="text-primary font-bold text-label-md flex items-center gap-1 hover:underline">
-<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
-                        Editar Foto
-                    </button>
+<button class="text-primary font-bold text-label-md flex items-center gap-1 hover:underline" onclick="openModal('modalPerfil')">
+<span class="material-symbols-outlined text-sm">edit</span> Editar Perfil
+</button>
 </div>
 </div>
 <!-- Menu List -->
 <div class="bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm">
 <div class="flex flex-col divide-y divide-outline-variant">
-<button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group">
+<button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group" onclick="openModal('modalConfig')">
 <div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all">
-<span class="material-symbols-outlined">settings</span>
-</div>
-<div>
-<h4 class="font-bold text-primary">Configurações da Conta</h4>
-<p class="text-body-sm text-on-surface-variant">Preferências gerais e dados da empresa</p>
-</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all"><span class="material-symbols-outlined">settings</span></div>
+<div><h4 class="font-bold text-primary">Configurações da Conta</h4><p class="text-body-sm text-on-surface-variant">Taxa de juros e dados da empresa</p></div>
 </div>
 <span class="material-symbols-outlined text-outline">chevron_right</span>
 </button>
-<button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group">
+<button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group" onclick="openModal('modalNotif')">
 <div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all">
-<span class="material-symbols-outlined">notifications</span>
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all"><span class="material-symbols-outlined">notifications</span></div>
+<div><h4 class="font-bold text-primary">Notificações</h4><p class="text-body-sm text-on-surface-variant">Alertas de vencimento e avisos</p></div>
 </div>
-<div>
-<h4 class="font-bold text-primary">Notificações</h4>
-<p class="text-body-sm text-on-surface-variant">Alertas de vencimento e avisos por e-mail</p>
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold px-2 py-1 rounded-full" id="notifBadge" style="background:#e8f5e9;color:#006e2f">ATIVO</span>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
 </div>
+</button>
+<button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group" onclick="openModal('modalSeg')">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all"><span class="material-symbols-outlined">security</span></div>
+<div><h4 class="font-bold text-primary">Segurança</h4><p class="text-body-sm text-on-surface-variant">PIN de acesso ao sistema</p></div>
 </div>
 <span class="material-symbols-outlined text-outline">chevron_right</span>
 </button>
-<button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group">
+<button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group" onclick="openModal('modalAjuda')">
 <div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all">
-<span class="material-symbols-outlined">security</span>
-</div>
-<div>
-<h4 class="font-bold text-primary">Segurança</h4>
-<p class="text-body-sm text-on-surface-variant">Senhas, 2FA e logs de acesso</p>
-</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all"><span class="material-symbols-outlined">help</span></div>
+<div><h4 class="font-bold text-primary">Ajuda e Suporte</h4><p class="text-body-sm text-on-surface-variant">Documentação e contato</p></div>
 </div>
 <span class="material-symbols-outlined text-outline">chevron_right</span>
 </button>
-<button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group">
+<button class="flex items-center justify-between p-lg hover:bg-error-container/10 transition-all text-left group" onclick="confirmarSair()">
 <div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all">
-<span class="material-symbols-outlined">help</span>
-</div>
-<div>
-<h4 class="font-bold text-primary">Ajuda e Suporte</h4>
-<p class="text-body-sm text-on-surface-variant">Documentação e contato com a equipe</p>
-</div>
-</div>
-<span class="material-symbols-outlined text-outline">chevron_right</span>
-</button>
-<button class="flex items-center justify-between p-lg hover:bg-error-container/10 transition-all text-left group" onclick="alert('Saindo do sistema...')">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-error-container text-error flex items-center justify-center transition-all">
-<span class="material-symbols-outlined">logout</span>
-</div>
-<div>
-<h4 class="font-bold text-error">Sair</h4>
-<p class="text-body-sm text-error/70">Encerrar sua sessão atual</p>
-</div>
+<div class="w-10 h-10 rounded-full bg-error-container text-error flex items-center justify-center transition-all"><span class="material-symbols-outlined">logout</span></div>
+<div><h4 class="font-bold text-error">Sair e Limpar Dados</h4><p class="text-body-sm text-error/70">Encerrar sessão e apagar tudo</p></div>
 </div>
 </button>
 </div>
 </div>
-<div class="text-center p-md">
-<p class="text-body-sm text-on-surface-variant">Versão do Sistema: 2.1.0-stable</p>
+<div class="text-center p-md"><p class="text-body-sm text-on-surface-variant">Versão do Sistema: 2.1.0-stable</p></div>
+</div>
+</div>
+
+<!-- ===== MODAIS ===== -->
+<style>
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:#f7f9fb;border-radius:16px;width:100%;max-width:440px;padding:24px;transform:translateY(20px);transition:transform .2s;box-shadow:0 8px 32px rgba(0,0,0,0.18)}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+.modal-title{font-size:18px;font-weight:700;color:#091426;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.modal-input{width:100%;border:1px solid #c5c6cd;border-radius:8px;padding:10px 12px;font-size:14px;background:#fff;color:#191c1e;margin-bottom:12px}
+.modal-input:focus{outline:none;border-color:#091426}
+.modal-btn{padding:10px 20px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;transition:opacity .15s}
+.modal-btn:hover{opacity:.85}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #e0e3e5}
+.toggle-row:last-child{border-bottom:none}
+.toggle{position:relative;width:44px;height:24px;cursor:pointer}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:#c5c6cd;border-radius:24px;transition:.3s}
+.toggle-slider:before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.3s}
+.toggle input:checked+.toggle-slider{background:#006e2f}
+.toggle input:checked+.toggle-slider:before{transform:translateX(20px)}
+</style>
+
+<!-- Modal Editar Perfil -->
+<div class="modal-overlay" id="modalPerfil" onclick="closeModalOutside(event,'modalPerfil')">
+<div class="modal-box">
+<div class="modal-title"><span class="material-symbols-outlined">manage_accounts</span> Editar Perfil</div>
+<label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Nome</label>
+<input class="modal-input" id="inputNome" placeholder="Seu nome" type="text"/>
+<label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">E-mail</label>
+<input class="modal-input" id="inputEmail" placeholder="seu@email.com" type="email"/>
+<label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Iniciais do Avatar</label>
+<input class="modal-input" id="inputIniciais" maxlength="2" placeholder="Ex: AD" type="text"/>
+<div class="flex gap-2 justify-end mt-2">
+<button class="modal-btn" onclick="closeModal('modalPerfil')" style="background:#eceef0;color:#45474c">Cancelar</button>
+<button class="modal-btn" onclick="salvarPerfil()" style="background:#091426;color:#fff">Salvar</button>
+</div>
+</div>
+</div>
+
+<!-- Modal Configurações -->
+<div class="modal-overlay" id="modalConfig" onclick="closeModalOutside(event,'modalConfig')">
+<div class="modal-box">
+<div class="modal-title"><span class="material-symbols-outlined">settings</span> Configurações da Conta</div>
+<label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Nome da Empresa</label>
+<input class="modal-input" id="inputEmpresa" placeholder="Nome da empresa" type="text"/>
+<label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Taxa de Juros (%)</label>
+<input class="modal-input" id="inputJuros" max="100" min="0" placeholder="Ex: 20" step="0.1" type="number"/>
+<p class="text-xs text-on-surface-variant mb-4">A taxa é aplicada sobre o valor original de cada cobrança em atraso.</p>
+<div class="flex gap-2 justify-end">
+<button class="modal-btn" onclick="closeModal('modalConfig')" style="background:#eceef0;color:#45474c">Cancelar</button>
+<button class="modal-btn" onclick="salvarConfig()" style="background:#091426;color:#fff">Salvar</button>
+</div>
+</div>
+</div>
+
+<!-- Modal Notificações -->
+<div class="modal-overlay" id="modalNotif" onclick="closeModalOutside(event,'modalNotif')">
+<div class="modal-box">
+<div class="modal-title"><span class="material-symbols-outlined">notifications</span> Notificações</div>
+<div class="toggle-row">
+<div><p class="font-bold text-primary text-sm">Alertas de atraso</p><p class="text-xs text-on-surface-variant">Avisar quando houver cobranças vencidas</p></div>
+<label class="toggle"><input id="toggleAtraso" type="checkbox"/><span class="toggle-slider"></span></label>
+</div>
+<div class="toggle-row">
+<div><p class="font-bold text-primary text-sm">Resumo diário</p><p class="text-xs text-on-surface-variant">Resumo dos valores em aberto por dia</p></div>
+<label class="toggle"><input id="toggleResumo" type="checkbox"/><span class="toggle-slider"></span></label>
+</div>
+<div class="toggle-row">
+<div><p class="font-bold text-primary text-sm">Novidades do sistema</p><p class="text-xs text-on-surface-variant">Atualizações e melhorias do app</p></div>
+<label class="toggle"><input id="toggleNews" type="checkbox"/><span class="toggle-slider"></span></label>
+</div>
+<div class="flex gap-2 justify-end mt-4">
+<button class="modal-btn" onclick="closeModal('modalNotif')" style="background:#eceef0;color:#45474c">Cancelar</button>
+<button class="modal-btn" onclick="salvarNotif()" style="background:#091426;color:#fff">Salvar</button>
+</div>
+</div>
+</div>
+
+<!-- Modal Segurança -->
+<div class="modal-overlay" id="modalSeg" onclick="closeModalOutside(event,'modalSeg')">
+<div class="modal-box">
+<div class="modal-title"><span class="material-symbols-outlined">security</span> Segurança — PIN</div>
+<p class="text-sm text-on-surface-variant mb-4">Defina um PIN de 4 dígitos para proteger o acesso ao sistema.</p>
+<label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Novo PIN</label>
+<input class="modal-input" id="inputPin1" inputmode="numeric" maxlength="4" pattern="[0-9]*" placeholder="••••" type="password"/>
+<label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Confirmar PIN</label>
+<input class="modal-input" id="inputPin2" inputmode="numeric" maxlength="4" pattern="[0-9]*" placeholder="••••" type="password"/>
+<p class="text-xs text-error mb-2 hidden" id="pinError">Os PINs não coincidem ou são inválidos.</p>
+<div class="flex gap-2 justify-end">
+<button class="modal-btn" onclick="closeModal('modalSeg')" style="background:#eceef0;color:#45474c">Cancelar</button>
+<button class="modal-btn" onclick="salvarPin()" style="background:#091426;color:#fff">Salvar PIN</button>
+</div>
+</div>
+</div>
+
+<!-- Modal Ajuda -->
+<div class="modal-overlay" id="modalAjuda" onclick="closeModalOutside(event,'modalAjuda')">
+<div class="modal-box">
+<div class="modal-title"><span class="material-symbols-outlined">help</span> Ajuda e Suporte</div>
+<div class="space-y-3 text-sm text-on-surface-variant">
+<div class="bg-surface-container-low rounded-lg p-3"><p class="font-bold text-primary mb-1">📋 Como adicionar um cliente?</p><p>Vá em Registros e clique em "Adicionar Cliente". Preencha os campos diretamente na tabela.</p></div>
+<div class="bg-surface-container-low rounded-lg p-3"><p class="font-bold text-primary mb-1">💰 Como funciona o juros?</p><p>A taxa configurada em Configurações é aplicada sobre o valor original de cada cobrança. Ajuste em Menu → Configurações da Conta.</p></div>
+<div class="bg-surface-container-low rounded-lg p-3"><p class="font-bold text-primary mb-1">📥 Como exportar os dados?</p><p>Na tela de Registros, clique em "Exportar" para baixar um arquivo CSV com todas as cobranças.</p></div>
+<div class="bg-surface-container-low rounded-lg p-3"><p class="font-bold text-primary mb-1">☁️ Os dados ficam salvos?</p><p>Sim, tudo é salvo automaticamente no seu dispositivo via localStorage.</p></div>
+</div>
+<div class="flex justify-end mt-4">
+<button class="modal-btn" onclick="closeModal('modalAjuda')" style="background:#091426;color:#fff">Fechar</button>
 </div>
 </div>
 </div>
@@ -667,19 +743,159 @@
         });
     }
 
-    // Initialize the application
-    renderTable();
-    // Set initial view properly
-    switchView('livro');
-</script>
+    // ===== CONFIGURAÇÕES SALVAS =====
+    const CONFIG_KEY = 'controlcont_config';
+    let appConfig = JSON.parse(localStorage.getItem(CONFIG_KEY)) || {
+        nome: 'Administrador',
+        email: 'admin@financeiro.com.br',
+        iniciais: 'AD',
+        empresa: 'Minha Empresa',
+        juros: 20,
+        notifAtraso: true,
+        notifResumo: false,
+        notifNews: true,
+        pin: ''
+    };
 
-<script>
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("/sw.js")
-        .then(reg => console.log("SW registrado:", reg.scope))
-        .catch(err => console.warn("SW falhou:", err));
-    });
-  }
+    function saveConfig() {
+        localStorage.setItem(CONFIG_KEY, JSON.stringify(appConfig));
+    }
+
+    function applyProfileUI() {
+        const el = id => document.getElementById(id);
+        if (el('profileName')) el('profileName').textContent = appConfig.nome;
+        if (el('profileEmail')) el('profileEmail').textContent = appConfig.email;
+        if (el('avatarCircle')) el('avatarCircle').textContent = appConfig.iniciais;
+        updateNotifBadge();
+    }
+
+    function updateNotifBadge() {
+        const badge = document.getElementById('notifBadge');
+        if (!badge) return;
+        const any = appConfig.notifAtraso || appConfig.notifResumo || appConfig.notifNews;
+        badge.textContent = any ? 'ATIVO' : 'INATIVO';
+        badge.style.background = any ? '#e8f5e9' : '#fbe9e7';
+        badge.style.color = any ? '#006e2f' : '#ba1a1a';
+    }
+
+    // ===== MODAIS =====
+    function openModal(id) {
+        const m = document.getElementById(id);
+        if (!m) return;
+        // Preencher campos ao abrir
+        if (id === 'modalPerfil') {
+            document.getElementById('inputNome').value = appConfig.nome;
+            document.getElementById('inputEmail').value = appConfig.email;
+            document.getElementById('inputIniciais').value = appConfig.iniciais;
+        }
+        if (id === 'modalConfig') {
+            document.getElementById('inputEmpresa').value = appConfig.empresa;
+            document.getElementById('inputJuros').value = appConfig.juros;
+        }
+        if (id === 'modalNotif') {
+            document.getElementById('toggleAtraso').checked = appConfig.notifAtraso;
+            document.getElementById('toggleResumo').checked = appConfig.notifResumo;
+            document.getElementById('toggleNews').checked = appConfig.notifNews;
+        }
+        if (id === 'modalSeg') {
+            document.getElementById('inputPin1').value = '';
+            document.getElementById('inputPin2').value = '';
+            document.getElementById('pinError').classList.add('hidden');
+        }
+        m.classList.add('open');
+    }
+
+    function closeModal(id) {
+        const m = document.getElementById(id);
+        if (m) m.classList.remove('open');
+    }
+
+    function closeModalOutside(event, id) {
+        if (event.target.id === id) closeModal(id);
+    }
+
+    // ===== SALVAR PERFIL =====
+    function salvarPerfil() {
+        const nome = document.getElementById('inputNome').value.trim();
+        const email = document.getElementById('inputEmail').value.trim();
+        const iniciais = document.getElementById('inputIniciais').value.trim().toUpperCase();
+        if (!nome) return alert('Informe seu nome.');
+        appConfig.nome = nome;
+        appConfig.email = email || appConfig.email;
+        appConfig.iniciais = iniciais || appConfig.iniciais;
+        saveConfig();
+        applyProfileUI();
+        closeModal('modalPerfil');
+    }
+
+    // ===== SALVAR CONFIGURAÇÕES =====
+    function salvarConfig() {
+        const empresa = document.getElementById('inputEmpresa').value.trim();
+        const juros = parseFloat(document.getElementById('inputJuros').value);
+        if (isNaN(juros) || juros < 0 || juros > 100) return alert('Informe uma taxa de juros válida (0–100).');
+        appConfig.empresa = empresa || appConfig.empresa;
+        appConfig.juros = juros;
+        saveConfig();
+        renderTable(searchInput ? searchInput.value : '');
+        closeModal('modalConfig');
+        alert(`Taxa de juros atualizada para ${juros}%!`);
+    }
+
+    // ===== SALVAR NOTIFICAÇÕES =====
+    function salvarNotif() {
+        appConfig.notifAtraso = document.getElementById('toggleAtraso').checked;
+        appConfig.notifResumo = document.getElementById('toggleResumo').checked;
+        appConfig.notifNews = document.getElementById('toggleNews').checked;
+        saveConfig();
+        updateNotifBadge();
+        closeModal('modalNotif');
+    }
+
+    // ===== SALVAR PIN =====
+    function salvarPin() {
+        const p1 = document.getElementById('inputPin1').value;
+        const p2 = document.getElementById('inputPin2').value;
+        const errEl = document.getElementById('pinError');
+        if (p1.length !== 4 || !/^\d{4}$/.test(p1) || p1 !== p2) {
+            errEl.classList.remove('hidden');
+            return;
+        }
+        errEl.classList.add('hidden');
+        appConfig.pin = p1;
+        saveConfig();
+        closeModal('modalSeg');
+        alert('PIN salvo com sucesso!');
+    }
+
+    // ===== SAIR =====
+    function confirmarSair() {
+        if (confirm('Deseja sair e apagar todos os dados locais?')) {
+            localStorage.clear();
+            location.reload();
+        }
+    }
+
+    // Sobrescrever calculateMetrics para usar juros dinâmico
+    const _origCalc = calculateMetrics;
+    calculateMetrics = function(row) {
+        const valorOrig = parseFloat(row.valorOriginal) || 0;
+        const taxa = (appConfig.juros || 0) / 100;
+        const juros = valorOrig * taxa;
+        let dias = 0;
+        if (row.dataCobranca) {
+            const today = new Date(); today.setHours(0,0,0,0);
+            const d = new Date(row.dataCobranca);
+            d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
+            d.setHours(0,0,0,0);
+            dias = Math.floor((today - d) / 86400000);
+            dias = dias > 0 ? dias : 0;
+        }
+        return { diasAtraso: dias, juros: juros, total: valorOrig + juros };
+    };
+
+    // Initialize the application
+    applyProfileUI();
+    renderTable();
+    switchView('livro');
 </script>
 </body></html>
