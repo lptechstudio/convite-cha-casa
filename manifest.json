@@ -10,6 +10,7 @@
   "theme_color": "#ffffff",
   "id": "com.controlcont.app",
   "description": "Sistema de controle de cobranças e clientes.",
+
   "icons": [
     {
       "src": "icon-192.png",
