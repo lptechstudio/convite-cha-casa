@@ -641,7 +641,7 @@
                     <input type="text" value="${row.aquisicao || ''}" oninput="updateRowSilent(${row.id}, 'aquisicao', this.value)" class="w-full bg-transparent border-none p-1 rounded hover:bg-surface-container-highest transition-all" placeholder="Item/Serviço">
                 </td>
                 <td class="px-md py-2 border-r border-outline-variant text-right">
-                    <input type="number" step="0.01" value="${row.valorOriginal !== null ? row.valorOriginal : ''}" oninput="updateRowImmediate(${row.id}, 'valorOriginal', this.value)" class="w-full bg-transparent border-none text-right p-1 rounded hover:bg-surface-container-highest transition-all" placeholder="0.00">
+                    <input type="number" step="0.01" value="${row.valorOriginal !== null ? row.valorOriginal : ''}" onchange="updateRowImmediate(${row.id}, 'valorOriginal', this.value)" onblur="updateRowImmediate(${row.id}, 'valorOriginal', this.value)" class="w-full bg-transparent border-none text-right p-1 rounded hover:bg-surface-container-highest transition-all" placeholder="0.00">
                 </td>
                 <td class="px-md py-2 border-r border-outline-variant text-center">
                     <input type="date" value="${row.dataCobranca || ''}" onchange="updateRowImmediate(${row.id}, 'dataCobranca', this.value)" class="w-full bg-transparent border-none p-1 rounded hover:bg-surface-container-highest transition-all text-center">
