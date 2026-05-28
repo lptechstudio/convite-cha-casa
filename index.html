@@ -1,453 +1,685 @@
-```html
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#1e293b">
-
-<title>Controle de Cobranças</title>
-
-<link rel="manifest" href="manifest.json">
-
-<link href="https://cdn.tailwindcss.com?plugins=forms,container-queries" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ControlCont - Gestão de Cobranças</title>
+<link rel="manifest" href="manifest.json"/>
+<meta name="theme-color" content="#091426"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="ControlCont"/>
+<meta name="description" content="Sistema de controle de cobranças e clientes."/>
+<link rel="apple-touch-icon" href="icon-192.png"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#6bff8f",
+                    "on-secondary-fixed": "#002109",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#191c1e",
+                    "primary-fixed-dim": "#bcc7de",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed": "#410004",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary-container": "#ff5250",
+                    "tertiary-fixed-dim": "#ffb3ad",
+                    "inverse-on-surface": "#eff1f3",
+                    "inverse-primary": "#bcc7de",
+                    "outline": "#75777d",
+                    "on-surface-variant": "#45474c",
+                    "on-primary-container": "#8590a6",
+                    "tertiary": "#330002",
+                    "surface-dim": "#d8dadc",
+                    "outline-variant": "#c5c6cd",
+                    "on-secondary-container": "#007432",
+                    "on-tertiary-fixed-variant": "#930013",
+                    "on-primary-fixed": "#111c2d",
+                    "surface-bright": "#f7f9fb",
+                    "surface-container": "#eceef0",
+                    "surface-container-low": "#f2f4f6",
+                    "secondary": "#006e2f",
+                    "primary-container": "#1e293b",
+                    "primary-fixed": "#d8e3fb",
+                    "tertiary-container": "#5a0008",
+                    "background": "#f7f9fb",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#ffdad7",
+                    "surface-container-highest": "#e0e3e5",
+                    "secondary-fixed-dim": "#4ae176",
+                    "secondary-fixed": "#6bff8f",
+                    "primary": "#091426",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#3c475a",
+                    "surface-tint": "#545f73",
+                    "on-background": "#191c1e",
+                    "on-secondary-fixed-variant": "#005321",
+                    "surface-container-high": "#e6e8ea",
+                    "surface": "#f7f9fb",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "surface-variant": "#e0e3e5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "32px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "gutter": "16px",
+                    "base": "4px",
+                    "md": "16px",
+                    "sm": "8px",
+                    "margin-mobile": "16px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "data-tabular": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "data-tabular": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
 <style>
-body{
-font-family:Inter,sans-serif;
-background:#f7f9fb;
-margin:0;
-padding:0;
-}
-
-.view-section{
-display:none;
-}
-
-.view-section.active{
-display:block;
-}
-
-.material-symbols-outlined{
-vertical-align:middle;
-}
-
-input{
-width:100%;
-padding:8px;
-border:1px solid #ccc;
-border-radius:6px;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-background:#fff;
-min-width:1000px;
-}
-
-th,td{
-padding:12px;
-border:1px solid #ddd;
-}
-
-th{
-background:#1e293b;
-color:white;
-}
-
-button{
-cursor:pointer;
-}
-</style>
-
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        input:focus {
+            outline: none !important;
+            box-shadow: inset 0 0 0 2px #091426 !important;
+        }
+        .data-grid-container::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        .data-grid-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .data-grid-container::-webkit-scrollbar-thumb {
+            background: #c5c6cd;
+            border-radius: 4px;
+        }
+        .data-grid-container::-webkit-scrollbar-thumb:hover {
+            background: #75777d;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+        .view-section {
+            display: none;
+        }
+        .view-section.active {
+            display: block;
+        }
+    </style>
 </head>
-
-<body>
-
-<header class="bg-slate-900 text-white fixed top-0 left-0 w-full h-16 flex items-center justify-between px-6 z-50 shadow">
-
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- Top Navigation Shell -->
+<header class="bg-surface border-b border-outline-variant flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-16 fixed top-0 z-50">
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined">account_balance</span>
-<h1 class="text-xl font-bold">Controle de Cobranças</h1>
+<span class="material-symbols-outlined text-primary text-headline-sm" data-icon="account_balance">account_balance</span>
+<h1 class="text-headline-sm font-headline-sm font-bold text-primary">Controle de Cobranças</h1>
 </div>
-
-<nav class="hidden md:flex gap-6">
-<button onclick="switchView('inicio')">Dashboard</button>
-<button onclick="switchView('livro')">Registros</button>
-<button onclick="switchView('stats')">Relatórios</button>
-<button onclick="switchView('menu')">Menu</button>
+<div class="hidden md:flex gap-8 items-center">
+<nav class="flex gap-6">
+<a class="text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded transition-colors text-label-lg cursor-pointer" onclick="switchView('inicio')">Dashboard</a>
+<a class="text-primary font-bold text-label-lg transition-colors cursor-pointer" id="nav-desktop-livro-link" onclick="switchView('livro')">Registros</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded transition-colors text-label-lg cursor-pointer" onclick="switchView('stats')">Relatórios</a>
 </nav>
-
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined cursor-pointer hover:bg-surface-container-high p-2 rounded-full" data-icon="search">search</span>
+<span class="material-symbols-outlined cursor-pointer hover:bg-surface-container-high p-2 rounded-full" data-icon="notifications">notifications</span>
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-bold text-xs cursor-pointer" onclick="switchView('menu')">AD</div>
+</div>
+</div>
 </header>
-
-<div class="flex pt-16">
-
-<aside class="hidden md:flex flex-col w-64 bg-white border-r min-h-screen p-4 gap-3 fixed left-0 top-16">
-
-<button class="bg-slate-900 text-white p-3 rounded-lg" onclick="switchView('inicio')">
-Painel Principal
+<!-- Sidebar for Desktop -->
+<aside class="hidden md:flex flex-col fixed left-0 top-0 h-full w-72 bg-surface-container-low border-r border-outline-variant pt-20 z-40">
+<div class="px-6 mb-8">
+<h2 class="text-headline-md font-headline-md font-bold text-primary">Gestor Financeiro</h2>
+</div>
+<nav class="flex flex-col px-4 gap-1">
+<button class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all text-left" id="nav-desktop-inicio" onclick="switchView('inicio')">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md">Painel Principal</span>
 </button>
-
-<button class="bg-slate-900 text-white p-3 rounded-lg" onclick="switchView('livro')">
-Livro de Contas
+<button class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container font-bold rounded-full transition-all text-left" id="nav-desktop-livro" onclick="switchView('livro')">
+<span class="material-symbols-outlined" data-icon="table_chart">table_chart</span>
+<span class="font-body-md">Livro de Contas</span>
 </button>
-
-<button class="bg-slate-900 text-white p-3 rounded-lg" onclick="switchView('stats')">
-Relatórios
+<button class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all text-left" id="nav-desktop-stats" onclick="switchView('stats')">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-body-md">Relatórios</span>
 </button>
-
-<button class="bg-slate-900 text-white p-3 rounded-lg" onclick="switchView('menu')">
-Configurações
+<button class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all text-left" id="nav-desktop-menu" onclick="switchView('menu')">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md">Configurações</span>
 </button>
-
+</nav>
 </aside>
-
-<main class="flex-1 md:ml-64 p-6">
-
-<div id="view-inicio" class="view-section">
-<h2 class="text-3xl font-bold mb-4">Dashboard</h2>
-
-<div class="grid md:grid-cols-3 gap-4">
-
-<div class="bg-slate-900 text-white rounded-xl p-6">
-<p>Total em Aberto</p>
-<h3 class="text-3xl font-bold" id="dashTotal">R$ 0,00</h3>
+<!-- Main Content Area -->
+<main class="flex-1 mt-16 md:ml-72 p-margin-mobile md:p-margin-desktop mb-20 md:mb-0">
+<!-- INICIO VIEW -->
+<div class="view-section" id="view-inicio">
+<div class="mb-lg">
+<h2 class="text-headline-md font-bold text-primary mb-2">Bem-vindo, Administrador</h2>
+<p class="text-on-surface-variant">Aqui está o resumo da sua saúde financeira hoje.</p>
 </div>
-
-<div class="bg-white rounded-xl p-6 border">
-<p>Clientes em Atraso</p>
-<h3 class="text-3xl font-bold" id="dashLate">0</h3>
-</div>
-
-<div class="bg-white rounded-xl p-6 border">
-<p>Juros Acumulados</p>
-<h3 class="text-3xl font-bold" id="dashInterest">R$ 0,00</h3>
-</div>
-
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg mb-xl">
+<div class="bg-primary text-on-primary p-lg rounded-xl shadow-lg flex flex-col justify-between h-40">
+<span class="text-label-md uppercase opacity-80">Saldo Projetado</span>
+<h3 class="text-headline-lg font-bold" id="dashTotalOpen">R$ 0,00</h3>
+<div class="flex items-center gap-2 text-sm">
+<span class="material-symbols-outlined text-secondary-fixed">trending_up</span>
+<span>+12% em relação ao mês anterior</span>
 </div>
 </div>
-
-<div id="view-livro" class="view-section active">
-
-<div class="flex flex-col md:flex-row gap-4 justify-between items-center mb-6">
-
-<input type="text" id="searchInput" placeholder="Pesquisar cliente..." class="max-w-md">
-
-<div class="flex gap-3">
-<button onclick="addRow()" class="bg-slate-900 text-white px-4 py-2 rounded-lg">
-Adicionar Cliente
-</button>
-
-<button onclick="exportToCSV()" class="bg-green-600 text-white px-4 py-2 rounded-lg">
-Exportar
-</button>
-
-<button onclick="clearAllData()" class="bg-red-600 text-white px-4 py-2 rounded-lg">
-Limpar
-</button>
+<div class="bg-surface border border-outline-variant p-lg rounded-xl flex flex-col justify-between h-40">
+<span class="text-label-md text-on-surface-variant uppercase">Eficiência de Cobrança</span>
+<div class="flex items-end gap-2">
+<h3 class="text-headline-lg font-bold text-primary">84%</h3>
+<div class="w-full bg-surface-container-high h-2 rounded-full mb-3 overflow-hidden">
+<div class="bg-secondary h-full" style="width: 84%"></div>
 </div>
-
 </div>
-
-<div class="overflow-x-auto bg-white rounded-xl border shadow">
-
-<table>
-<thead>
+<p class="text-body-sm text-on-surface-variant">Melhor desempenho que 90% dos usuários.</p>
+</div>
+</div>
+</div>
+<!-- LIVRO VIEW (Primary Table) -->
+<div class="view-section active" id="view-livro">
+<!-- Action Bar -->
+<section class="mb-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<div class="relative w-full md:w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg focus:border-primary text-body-md transition-all" id="searchInput" placeholder="Filtrar por nome do cliente..." type="text"/>
+</div>
+<div class="flex flex-wrap items-center gap-sm w-full md:w-auto">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-primary text-on-primary px-lg py-2 rounded-xl font-label-lg hover:opacity-90 transition-all active:scale-95" onclick="addRow()">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    ADICIONAR CLIENTE
+                </button>
+<button class="flex items-center justify-center gap-2 border border-outline-variant text-on-surface-variant px-md py-2 rounded-xl font-label-lg hover:bg-surface-container-high transition-all" onclick="exportToCSV()">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                    EXPORTAR
+                </button>
+<button class="flex items-center justify-center gap-2 border border-outline-variant text-error px-md py-2 rounded-xl font-label-lg hover:bg-error-container transition-all" onclick="clearAllData()">
+<span class="material-symbols-outlined" data-icon="delete_sweep">delete_sweep</span>
+                    LIMPAR
+                </button>
+</div>
+</section>
+<!-- Data Grid -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm mb-xl">
+<div class="data-grid-container overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[1100px]" id="ledgerTable">
+<thead class="bg-surface-container-high text-on-surface-variant font-label-md uppercase tracking-wider">
 <tr>
-<th>#</th>
-<th>Nome</th>
-<th>Aquisição</th>
-<th>Valor</th>
-<th>Data Cobrança</th>
-<th>Dias Atraso</th>
-<th>Juros</th>
-<th>Total</th>
-<th>Ações</th>
+<th class="px-md py-3 border-r border-outline-variant w-12 text-center">#</th>
+<th class="px-md py-3 border-r border-outline-variant">Nome</th>
+<th class="px-md py-3 border-r border-outline-variant">Aquisição</th>
+<th class="px-md py-3 border-r border-outline-variant text-right">Valor Original (R$)</th>
+<th class="px-md py-3 border-r border-outline-variant text-center">Data Cobrança</th>
+<th class="px-md py-3 border-r border-outline-variant text-center">Dias Atraso</th>
+<th class="px-md py-3 border-r border-outline-variant text-right">Juros (20%)</th>
+<th class="px-md py-3 border-r border-outline-variant text-right font-bold">Total</th>
+<th class="px-md py-3 text-center w-16">Ações</th>
 </tr>
 </thead>
-
-<tbody id="ledgerBody"></tbody>
+<tbody class="font-data-tabular" id="ledgerBody">
+<!-- Filas injetadas por JavaScript -->
+</tbody>
 </table>
-
 </div>
 </div>
-
-<div id="view-stats" class="view-section">
-<h2 class="text-3xl font-bold mb-6">Relatórios</h2>
-
-<div class="grid md:grid-cols-3 gap-4">
-
-<div class="bg-white border rounded-xl p-6">
-<p>Total Geral</p>
-<h3 class="text-2xl font-bold" id="totalOpen">R$ 0,00</h3>
 </div>
-
-<div class="bg-white border rounded-xl p-6">
-<p>Clientes em atraso</p>
-<h3 class="text-2xl font-bold" id="countLate">0</h3>
+<!-- STATS VIEW -->
+<div class="view-section" id="view-stats">
+<div class="mb-lg">
+<h2 class="text-headline-md font-bold text-primary mb-2">Estatísticas Financeiras</h2>
+<p class="text-on-surface-variant">Visão detalhada dos valores em aberto e juros.</p>
 </div>
-
-<div class="bg-white border rounded-xl p-6">
-<p>Juros acumulados</p>
-<h3 class="text-2xl font-bold" id="totalInterest">R$ 0,00</h3>
+<!-- Summary Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<div class="bg-surface border border-outline-variant p-lg rounded-xl flex items-center justify-between">
+<div>
+<p class="text-label-md text-on-surface-variant mb-base uppercase">Total em Aberto</p>
+<h3 class="text-headline-md font-bold text-primary" id="totalOpen">R$ 0,00</h3>
 </div>
-
+<div class="bg-error-container text-on-error-container p-3 rounded-full">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
 </div>
 </div>
-
-<div id="view-menu" class="view-section">
-<h2 class="text-3xl font-bold mb-6">Configurações</h2>
-
-<div class="bg-white border rounded-xl p-6">
-<p>Sistema de controle financeiro PWA funcionando.</p>
+<div class="bg-surface border border-outline-variant p-lg rounded-xl flex items-center justify-between">
+<div>
+<p class="text-label-md text-on-surface-variant mb-base uppercase">Clientes em Atraso</p>
+<h3 class="text-headline-md font-bold text-primary" id="countLate">0</h3>
+</div>
+<div class="bg-tertiary-container text-tertiary-fixed p-3 rounded-full">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
 </div>
 </div>
-
-</main>
+<div class="bg-surface border border-outline-variant p-lg rounded-xl flex items-center justify-between">
+<div>
+<p class="text-label-md text-on-surface-variant mb-base uppercase">Juros Acumulados</p>
+<h3 class="text-headline-md font-bold text-secondary" id="totalInterest">R$ 0,00</h3>
 </div>
-
-<script>
-
-const STORAGE_KEY = 'billing_ledger_data';
-
-let ledgerData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-
-const ledgerBody = document.getElementById('ledgerBody');
-const searchInput = document.getElementById('searchInput');
-
-function switchView(viewId){
-
-const views = document.querySelectorAll('.view-section');
-
-views.forEach(view=>{
-view.classList.remove('active');
-});
-
-const target = document.getElementById(`view-${viewId}`);
-
-if(target){
-target.classList.add('active');
-}
-
-updateTotals();
-}
-
-function formatCurrency(value){
-return new Intl.NumberFormat('pt-BR',{
-style:'currency',
-currency:'BRL'
-}).format(value || 0);
-}
-
-function calculateMetrics(row){
-
-const valor = parseFloat(row.valorOriginal) || 0;
-const juros = valor * 0.20;
-
-let dias = 0;
-
-if(row.dataCobranca){
-
-const today = new Date();
-const cobranca = new Date(row.dataCobranca);
-
-dias = Math.floor((today - cobranca) / (1000 * 60 * 60 * 24));
-
-if(dias < 0){
-dias = 0;
-}
-}
-
-const total = valor + juros;
-
-return {
-dias,
-juros,
-total
-};
-}
-
-function renderTable(filter=''){
-
-ledgerBody.innerHTML = '';
-
-const filtered = ledgerData.filter(row=>
-(row.nome || '').toLowerCase().includes(filter.toLowerCase())
-);
-
-filtered.forEach((row,index)=>{
-
-const metrics = calculateMetrics(row);
-
-const tr = document.createElement('tr');
-
-tr.innerHTML = `
-<td>${index+1}</td>
-
-<td>
-<input type="text"
-value="${row.nome || ''}"
-oninput="updateRow(${row.id},'nome',this.value)">
-</td>
-
-<td>
-<input type="text"
-value="${row.aquisicao || ''}"
-oninput="updateRow(${row.id},'aquisicao',this.value)">
-</td>
-
-<td>
-<input type="number"
-value="${row.valorOriginal || ''}"
-oninput="updateRow(${row.id},'valorOriginal',this.value)">
-</td>
-
-<td>
-<input type="date"
-value="${row.dataCobranca || ''}"
-onchange="updateRow(${row.id},'dataCobranca',this.value)">
-</td>
-
-<td>${metrics.dias}</td>
-<td>${formatCurrency(metrics.juros)}</td>
-<td>${formatCurrency(metrics.total)}</td>
-
-<td>
-<button onclick="deleteRow(${row.id})" class="bg-red-600 text-white px-3 py-1 rounded">
-Excluir
+<div class="bg-secondary-container text-on-secondary-container p-3 rounded-full">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+</div>
+</div>
+</div>
+</div>
+<!-- MENU VIEW -->
+<div class="view-section" id="view-menu">
+<div class="mb-lg">
+<h2 class="text-headline-md font-bold text-primary mb-2">Configurações e Perfil</h2>
+<p class="text-on-surface-variant">Gerencie sua conta e preferências do sistema.</p>
+</div>
+<div class="max-w-3xl mx-auto space-y-md">
+<!-- Profile Header -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="bg-primary p-lg flex items-center gap-6">
+<div class="w-20 h-20 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container text-headline-lg font-bold border-4 border-surface/20">
+                        AD
+                    </div>
+<div>
+<h3 class="text-headline-md font-bold text-on-primary">Administrador</h3>
+<p class="text-body-md text-on-primary opacity-80">admin@financeiro.com.br</p>
+<span class="inline-block mt-sm px-3 py-1 bg-secondary-container/20 text-secondary-container text-xs font-bold rounded-full border border-secondary-container/30 uppercase tracking-wider">Conta Pro</span>
+</div>
+</div>
+<div class="p-md bg-surface-container-low border-t border-outline-variant flex justify-end">
+<button class="text-primary font-bold text-label-md flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+                        Editar Foto
+                    </button>
+</div>
+</div>
+<!-- Menu List -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="flex flex-col divide-y divide-outline-variant">
+<button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">settings</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">Configurações da Conta</h4>
+<p class="text-body-sm text-on-surface-variant">Preferências gerais e dados da empresa</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
 </button>
-</td>
-`;
+<button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">Notificações</h4>
+<p class="text-body-sm text-on-surface-variant">Alertas de vencimento e avisos por e-mail</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">security</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">Segurança</h4>
+<p class="text-body-sm text-on-surface-variant">Senhas, 2FA e logs de acesso</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">help</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">Ajuda e Suporte</h4>
+<p class="text-body-sm text-on-surface-variant">Documentação e contato com a equipe</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<button class="flex items-center justify-between p-lg hover:bg-error-container/10 transition-all text-left group" onclick="alert('Saindo do sistema...')">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-error-container text-error flex items-center justify-center transition-all">
+<span class="material-symbols-outlined">logout</span>
+</div>
+<div>
+<h4 class="font-bold text-error">Sair</h4>
+<p class="text-body-sm text-error/70">Encerrar sua sessão atual</p>
+</div>
+</div>
+</button>
+</div>
+</div>
+<div class="text-center p-md">
+<p class="text-body-sm text-on-surface-variant">Versão do Sistema: 2.1.0-stable</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation for Mobile -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface border-t border-outline-variant shadow-md">
+<button class="flex flex-col items-center justify-center text-on-surface-variant w-1/4 h-full" id="nav-mobile-inicio" onclick="switchView('inicio')">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[10px] font-bold uppercase">Início</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 mx-2" id="nav-mobile-livro" onclick="switchView('livro')">
+<span class="material-symbols-outlined" data-icon="grid_on">grid_on</span>
+<span class="text-[10px] font-bold uppercase">Livro</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant w-1/4 h-full" id="nav-mobile-stats" onclick="switchView('stats')">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-[10px] font-bold uppercase">Stats</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant w-1/4 h-full" id="nav-mobile-menu" onclick="switchView('menu')">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+<span class="text-[10px] font-bold uppercase">Menu</span>
+</button>
+</nav>
+<script>
+    const STORAGE_KEY = 'billing_ledger_data_v2';
+    let ledgerData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [
+        { id: Date.now(), nome: "Acme Corp", aquisicao: "Serviços Cloud", valorOriginal: 1200.00, dataCobranca: "2023-10-15" },
+        { id: Date.now() + 1, nome: "Fintech Solutions", aquisicao: "Consultoria", valorOriginal: 5000.00, dataCobranca: "2024-05-20" }
+    ];
 
-ledgerBody.appendChild(tr);
-});
+    const searchInput = document.getElementById('searchInput');
+    const ledgerBody = document.getElementById('ledgerBody');
 
-localStorage.setItem(STORAGE_KEY,JSON.stringify(ledgerData));
+    function switchView(viewId) {
+        // Hide all views
+        document.querySelectorAll('.view-section').forEach(view => {
+            view.classList.remove('active');
+        });
+        // Show target view
+        const targetView = document.getElementById(`view-${viewId}`);
+        if (targetView) targetView.classList.add('active');
 
-updateTotals();
-}
+        // Update Desktop Header Link colors
+        const navLinks = ['inicio', 'livro', 'stats'];
+        navLinks.forEach(link => {
+            const el = document.getElementById(`nav-desktop-${link}-link`);
+            if (el) {
+                if (link === viewId) {
+                    el.className = "text-primary font-bold text-label-lg transition-colors cursor-pointer";
+                } else {
+                    el.className = "text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded transition-colors text-label-lg cursor-pointer";
+                }
+            }
+        });
 
-function addRow(){
+        // Update navigation states (Mobile)
+        const mobileNavs = ['inicio', 'livro', 'stats', 'menu'];
+        mobileNavs.forEach(id => {
+            const btn = document.getElementById(`nav-mobile-${id}`);
+            if (btn) {
+                if (id === viewId) {
+                    btn.className = "flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 mx-2 transition-all duration-300";
+                } else {
+                    btn.className = "flex flex-col items-center justify-center text-on-surface-variant w-1/4 h-full transition-all duration-300";
+                }
+            }
+        });
 
-const proximoMes = new Date();
-proximoMes.setMonth(proximoMes.getMonth()+1);
+        // Update navigation states (Desktop Sidebar)
+        mobileNavs.forEach(id => {
+            const btn = document.getElementById(`nav-desktop-${id}`);
+            if (btn) {
+                if (id === viewId) {
+                    btn.className = "flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container font-bold rounded-full transition-all text-left";
+                } else {
+                    btn.className = "flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all text-left";
+                }
+            }
+        });
 
-ledgerData.unshift({
-id:Date.now(),
-nome:'',
-aquisicao:'',
-valorOriginal:0,
-dataCobranca:proximoMes.toISOString().split('T')[0]
-});
+        // Ensure stats or dash update if needed
+        if (viewId === 'inicio' || viewId === 'stats') {
+            updateTotals();
+        }
+    }
 
-renderTable(searchInput.value);
-}
+    function formatCurrency(value) {
+        if (value === null || value === undefined || isNaN(value)) return "R$ 0,00";
+        return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+    }
 
-function updateRow(id,field,value){
+    function calculateMetrics(row) {
+        const valorOrig = parseFloat(row.valorOriginal) || 0;
+        
+        // Juros is ALWAYS 20% of Original Value
+        const juros = valorOrig * 0.20;
+        
+        let dias = 0;
+        if (row.dataCobranca) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const cobrancaDate = new Date(row.dataCobranca);
+            // Handling UTC offset for local date
+            cobrancaDate.setMinutes(cobrancaDate.getMinutes() + cobrancaDate.getTimezoneOffset());
+            cobrancaDate.setHours(0,0,0,0);
 
-const index = ledgerData.findIndex(r=>r.id===id);
+            dias = Math.floor((today - cobrancaDate) / (1000 * 60 * 60 * 24));
+            dias = dias > 0 ? dias : 0;
+        }
+        
+        const total = valorOrig + juros;
 
-if(index !== -1){
+        return { 
+            diasAtraso: dias, 
+            juros: juros, 
+            total: total 
+        };
+    }
 
-ledgerData[index][field] = value;
+    function updateTotals() {
+        let openTotal = 0;
+        let lateCount = 0;
+        let totalInterest = 0;
 
-renderTable(searchInput.value);
-}
-}
+        ledgerData.forEach(row => {
+            const metrics = calculateMetrics(row);
+            openTotal += metrics.total;
+            if (metrics.diasAtraso > 0) lateCount++;
+            totalInterest += metrics.juros;
+        });
 
-function deleteRow(id){
+        const formattedOpen = formatCurrency(openTotal);
+        const formattedInterest = formatCurrency(totalInterest);
 
-ledgerData = ledgerData.filter(r=>r.id !== id);
+        const totalOpenEl = document.getElementById('totalOpen');
+        const dashTotalOpenEl = document.getElementById('dashTotalOpen');
+        const countLateEl = document.getElementById('countLate');
+        const totalInterestEl = document.getElementById('totalInterest');
 
-renderTable(searchInput.value);
-}
+        if (totalOpenEl) totalOpenEl.textContent = formattedOpen;
+        if (dashTotalOpenEl) dashTotalOpenEl.textContent = formattedOpen;
+        if (countLateEl) countLateEl.textContent = lateCount;
+        if (totalInterestEl) totalInterestEl.textContent = formattedInterest;
+    }
 
-function clearAllData(){
+    function renderTable(filter = "") {
+        if (!ledgerBody) return;
+        ledgerBody.innerHTML = "";
+        const filtered = ledgerData.filter(row => 
+            (row.nome || "").toLowerCase().includes(filter.toLowerCase())
+        );
 
-if(confirm('Deseja apagar todos os dados?')){
-ledgerData = [];
-renderTable();
-}
-}
+        filtered.forEach((row, index) => {
+            const metrics = calculateMetrics(row);
+            const isLate = metrics.diasAtraso > 0;
+            
+            const tr = document.createElement('tr');
+            tr.className = `group hover:bg-surface-container transition-colors ${isLate ? 'bg-error-container/5' : 'bg-secondary-container/5'}`;
+            
+            tr.innerHTML = `
+                <td class="px-md py-2 border-r border-outline-variant text-center text-on-surface-variant font-label-md">${index + 1}</td>
+                <td class="px-md py-2 border-r border-outline-variant">
+                    <input type="text" value="${row.nome || ''}" oninput="updateRowSilent(${row.id}, 'nome', this.value)" class="w-full bg-transparent border-none p-1 rounded hover:bg-surface-container-highest transition-all" placeholder="Nome do Cliente">
+                </td>
+                <td class="px-md py-2 border-r border-outline-variant">
+                    <input type="text" value="${row.aquisicao || ''}" oninput="updateRowSilent(${row.id}, 'aquisicao', this.value)" class="w-full bg-transparent border-none p-1 rounded hover:bg-surface-container-highest transition-all" placeholder="Item/Serviço">
+                </td>
+                <td class="px-md py-2 border-r border-outline-variant text-right">
+                    <input type="number" step="0.01" value="${row.valorOriginal !== null ? row.valorOriginal : ''}" oninput="updateRowImmediate(${row.id}, 'valorOriginal', this.value)" class="w-full bg-transparent border-none text-right p-1 rounded hover:bg-surface-container-highest transition-all" placeholder="0.00">
+                </td>
+                <td class="px-md py-2 border-r border-outline-variant text-center">
+                    <input type="date" value="${row.dataCobranca || ''}" onchange="updateRowImmediate(${row.id}, 'dataCobranca', this.value)" class="w-full bg-transparent border-none p-1 rounded hover:bg-surface-container-highest transition-all text-center">
+                </td>
+                <td class="px-md py-2 border-r border-outline-variant text-center font-bold ${isLate ? 'text-error' : 'text-secondary'}">
+                    ${metrics.diasAtraso}
+                </td>
+                <td class="px-md py-2 border-r border-outline-variant text-right ${isLate ? 'text-error font-bold' : 'text-on-surface-variant'}">
+                    ${formatCurrency(metrics.juros)}
+                </td>
+                <td class="px-md py-2 border-r border-outline-variant text-right font-bold ${isLate ? 'text-error' : 'text-secondary'}">
+                    ${formatCurrency(metrics.total)}
+                </td>
+                <td class="px-md py-2 text-center">
+                    <button onclick="deleteRow(${row.id})" class="text-on-surface-variant hover:text-error transition-colors p-1" title="Excluir">
+                        <span class="material-symbols-outlined text-xl" data-icon="delete">delete</span>
+                    </button>
+                </td>
+            `;
+            ledgerBody.appendChild(tr);
+        });
+        updateTotals();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(ledgerData));
+    }
 
-function exportToCSV(){
+    function addRow() {
+        const newRow = {
+            id: Date.now(),
+            nome: "",
+            aquisicao: "",
+            valorOriginal: 0,
+            dataCobranca: new Date().toISOString().split('T')[0]
+        };
+        ledgerData.unshift(newRow);
+        renderTable(searchInput ? searchInput.value : "");
+    }
 
-let csv = 'Nome;Aquisição;Valor;Data;Dias;Juros;Total\n';
+    function updateRowSilent(id, field, value) {
+        const index = ledgerData.findIndex(r => r.id === id);
+        if (index !== -1) {
+            ledgerData[index][field] = value;
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(ledgerData));
+        }
+    }
 
-ledgerData.forEach(row=>{
+    function updateRowImmediate(id, field, value) {
+        const index = ledgerData.findIndex(r => r.id === id);
+        if (index !== -1) {
+            if (field === 'valorOriginal') {
+                const val = parseFloat(value);
+                ledgerData[index][field] = isNaN(val) ? 0 : val;
+            } else {
+                ledgerData[index][field] = value;
+            }
+            renderTable(searchInput ? searchInput.value : "");
+        }
+    }
 
-const m = calculateMetrics(row);
+    function deleteRow(id) {
+        if (confirm("Deseja realmente excluir este registro?")) {
+            ledgerData = ledgerData.filter(r => r.id !== id);
+            renderTable(searchInput ? searchInput.value : "");
+        }
+    }
 
-csv += `${row.nome};${row.aquisicao};${row.valorOriginal};${row.dataCobranca};${m.dias};${m.juros};${m.total}\n`;
-});
+    function clearAllData() {
+        if (confirm("ATENÇÃO: Isso apagará permanentemente todos os seus dados. Continuar?")) {
+            ledgerData = [];
+            renderTable();
+        }
+    }
 
-const blob = new Blob([csv], {type:'text/csv'});
+    function exportToCSV() {
+        if (ledgerData.length === 0) {
+            alert("Não há dados para exportar.");
+            return;
+        }
 
-const link = document.createElement('a');
+        let csv = "ID;Nome;Aquisicao;Valor Original;Data Cobranca;Dias Atraso;Juros;Total\n";
+        ledgerData.forEach((row, i) => {
+            const m = calculateMetrics(row);
+            csv += `${i + 1};${row.nome || ''};${row.aquisicao || ''};${row.valorOriginal || 0};${row.dataCobranca || ''};${m.diasAtraso || 0};${m.juros || 0};${m.total || 0}\n`;
+        });
 
-link.href = URL.createObjectURL(blob);
-link.download = 'controle-cobrancas.csv';
-link.click();
-}
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", "livro_de_cobrancas.csv");
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
 
-function updateTotals(){
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            renderTable(e.target.value);
+        });
+    }
 
-let total = 0;
-let late = 0;
-let interest = 0;
-
-ledgerData.forEach(row=>{
-
-const m = calculateMetrics(row);
-
-total += m.total;
-interest += m.juros;
-
-if(m.dias > 0){
-late++;
-}
-});
-
-const totalFormatted = formatCurrency(total);
-const interestFormatted = formatCurrency(interest);
-
-const totalOpen = document.getElementById('totalOpen');
-const countLate = document.getElementById('countLate');
-const totalInterest = document.getElementById('totalInterest');
-const dashTotal = document.getElementById('dashTotal');
-const dashLate = document.getElementById('dashLate');
-const dashInterest = document.getElementById('dashInterest');
-
-if(totalOpen) totalOpen.textContent = totalFormatted;
-if(countLate) countLate.textContent = late;
-if(totalInterest) totalInterest.textContent = interestFormatted;
-if(dashTotal) dashTotal.textContent = totalFormatted;
-if(dashLate) dashLate.textContent = late;
-if(dashInterest) dashInterest.textContent = interestFormatted;
-}
-
-if(searchInput){
-searchInput.addEventListener('input',e=>{
-renderTable(e.target.value);
-});
-}
-
-renderTable();
-switchView('livro');
-
-if('serviceWorker' in navigator){
-window.addEventListener('load',()=>{
-navigator.serviceWorker.register('./sw.js')
-.then(()=>console.log('Service Worker registrado'))
-.catch(error=>console.log('Erro SW:',error));
-});
-}
-
+    // Initialize the application
+    renderTable();
+    // Set initial view properly
+    switchView('livro');
 </script>
 
-</body>
-</html>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/sw.js")
+        .then(reg => console.log("SW registrado:", reg.scope))
+        .catch(err => console.warn("SW falhou:", err));
+    });
+  }
+</script>
+</body></html>
