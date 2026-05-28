@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Chá de Casa Nova - Felipe \u0026 Maria",
+  "description": "Convite interativo elegante e premium para o Chá de Casa Nova de Felipe e Maria.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
