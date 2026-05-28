@@ -1,4 +1,4 @@
-const CACHE_NAME = 'controlcont-v1';
+const CACHE_NAME = 'controlcont-v2';
 const ASSETS = [
   '/controle-contas/',
   '/controle-contas/index.html',
@@ -28,7 +28,6 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   if (!event.request.url.startsWith(self.location.origin)) return;
-
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached;
