@@ -1,100 +1,162 @@
+```html
 <!DOCTYPE html>
-<html class="light" lang="pt-BR">
-
+<html lang="pt-BR">
 <head>
 
-<meta charset="utf-8"/>
-
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1e293b">
 
 <title>Controle de Cobranças</title>
 
 <link rel="manifest" href="manifest.json">
 
-<meta name="theme-color" content="#ffffff">
-
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://cdn.tailwindcss.com?plugins=forms,container-queries" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
 <style>
-
 body{
 font-family:Inter,sans-serif;
 background:#f7f9fb;
 margin:0;
-padding:20px;
+padding:0;
 }
 
-h1{
-color:#1e293b;
-margin-bottom:20px;
+.view-section{
+display:none;
 }
 
-table{
-width:100%;
-border-collapse:collapse;
-background:#ffffff;
-box-shadow:0 2px 10px rgba(0,0,0,0.05);
+.view-section.active{
+display:block;
 }
 
-th,td{
-border:1px solid #ddd;
-padding:10px;
-text-align:left;
-}
-
-th{
-background:#1e293b;
-color:#ffffff;
-}
-
-button{
-padding:10px 15px;
-border:none;
-background:#1e293b;
-color:#ffffff;
-cursor:pointer;
-border-radius:5px;
-font-weight:bold;
-}
-
-button:hover{
-opacity:0.9;
+.material-symbols-outlined{
+vertical-align:middle;
 }
 
 input{
 width:100%;
 padding:8px;
 border:1px solid #ccc;
-border-radius:4px;
-box-sizing:border-box;
+border-radius:6px;
 }
 
-.actions{
-display:flex;
-gap:10px;
-margin-bottom:20px;
+table{
+width:100%;
+border-collapse:collapse;
+background:#fff;
+min-width:1000px;
 }
 
+th,td{
+padding:12px;
+border:1px solid #ddd;
+}
+
+th{
+background:#1e293b;
+color:white;
+}
+
+button{
+cursor:pointer;
+}
 </style>
 
 </head>
 
 <body>
 
-<h1>Controle de Cobranças</h1>
+<header class="bg-slate-900 text-white fixed top-0 left-0 w-full h-16 flex items-center justify-between px-6 z-50 shadow">
 
-<div class="actions">
-<button onclick="addRow()">Adicionar Cliente</button>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">account_balance</span>
+<h1 class="text-xl font-bold">Controle de Cobranças</h1>
 </div>
 
+<nav class="hidden md:flex gap-6">
+<button onclick="switchView('inicio')">Dashboard</button>
+<button onclick="switchView('livro')">Registros</button>
+<button onclick="switchView('stats')">Relatórios</button>
+<button onclick="switchView('menu')">Menu</button>
+</nav>
+
+</header>
+
+<div class="flex pt-16">
+
+<aside class="hidden md:flex flex-col w-64 bg-white border-r min-h-screen p-4 gap-3 fixed left-0 top-16">
+
+<button class="bg-slate-900 text-white p-3 rounded-lg" onclick="switchView('inicio')">
+Painel Principal
+</button>
+
+<button class="bg-slate-900 text-white p-3 rounded-lg" onclick="switchView('livro')">
+Livro de Contas
+</button>
+
+<button class="bg-slate-900 text-white p-3 rounded-lg" onclick="switchView('stats')">
+Relatórios
+</button>
+
+<button class="bg-slate-900 text-white p-3 rounded-lg" onclick="switchView('menu')">
+Configurações
+</button>
+
+</aside>
+
+<main class="flex-1 md:ml-64 p-6">
+
+<div id="view-inicio" class="view-section">
+<h2 class="text-3xl font-bold mb-4">Dashboard</h2>
+
+<div class="grid md:grid-cols-3 gap-4">
+
+<div class="bg-slate-900 text-white rounded-xl p-6">
+<p>Total em Aberto</p>
+<h3 class="text-3xl font-bold" id="dashTotal">R$ 0,00</h3>
+</div>
+
+<div class="bg-white rounded-xl p-6 border">
+<p>Clientes em Atraso</p>
+<h3 class="text-3xl font-bold" id="dashLate">0</h3>
+</div>
+
+<div class="bg-white rounded-xl p-6 border">
+<p>Juros Acumulados</p>
+<h3 class="text-3xl font-bold" id="dashInterest">R$ 0,00</h3>
+</div>
+
+</div>
+</div>
+
+<div id="view-livro" class="view-section active">
+
+<div class="flex flex-col md:flex-row gap-4 justify-between items-center mb-6">
+
+<input type="text" id="searchInput" placeholder="Pesquisar cliente..." class="max-w-md">
+
+<div class="flex gap-3">
+<button onclick="addRow()" class="bg-slate-900 text-white px-4 py-2 rounded-lg">
+Adicionar Cliente
+</button>
+
+<button onclick="exportToCSV()" class="bg-green-600 text-white px-4 py-2 rounded-lg">
+Exportar
+</button>
+
+<button onclick="clearAllData()" class="bg-red-600 text-white px-4 py-2 rounded-lg">
+Limpar
+</button>
+</div>
+
+</div>
+
+<div class="overflow-x-auto bg-white rounded-xl border shadow">
+
 <table>
-
 <thead>
-
 <tr>
 <th>#</th>
 <th>Nome</th>
@@ -102,16 +164,51 @@ margin-bottom:20px;
 <th>Valor</th>
 <th>Data Cobrança</th>
 <th>Dias Atraso</th>
-<th>Juros 20%</th>
+<th>Juros</th>
 <th>Total</th>
 <th>Ações</th>
 </tr>
-
 </thead>
 
 <tbody id="ledgerBody"></tbody>
-
 </table>
+
+</div>
+</div>
+
+<div id="view-stats" class="view-section">
+<h2 class="text-3xl font-bold mb-6">Relatórios</h2>
+
+<div class="grid md:grid-cols-3 gap-4">
+
+<div class="bg-white border rounded-xl p-6">
+<p>Total Geral</p>
+<h3 class="text-2xl font-bold" id="totalOpen">R$ 0,00</h3>
+</div>
+
+<div class="bg-white border rounded-xl p-6">
+<p>Clientes em atraso</p>
+<h3 class="text-2xl font-bold" id="countLate">0</h3>
+</div>
+
+<div class="bg-white border rounded-xl p-6">
+<p>Juros acumulados</p>
+<h3 class="text-2xl font-bold" id="totalInterest">R$ 0,00</h3>
+</div>
+
+</div>
+</div>
+
+<div id="view-menu" class="view-section">
+<h2 class="text-3xl font-bold mb-6">Configurações</h2>
+
+<div class="bg-white border rounded-xl p-6">
+<p>Sistema de controle financeiro PWA funcionando.</p>
+</div>
+</div>
+
+</main>
+</div>
 
 <script>
 
@@ -120,20 +217,35 @@ const STORAGE_KEY = 'billing_ledger_data';
 let ledgerData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
 const ledgerBody = document.getElementById('ledgerBody');
+const searchInput = document.getElementById('searchInput');
+
+function switchView(viewId){
+
+const views = document.querySelectorAll('.view-section');
+
+views.forEach(view=>{
+view.classList.remove('active');
+});
+
+const target = document.getElementById(`view-${viewId}`);
+
+if(target){
+target.classList.add('active');
+}
+
+updateTotals();
+}
 
 function formatCurrency(value){
-
 return new Intl.NumberFormat('pt-BR',{
 style:'currency',
 currency:'BRL'
 }).format(value || 0);
-
 }
 
 function calculateMetrics(row){
 
 const valor = parseFloat(row.valorOriginal) || 0;
-
 const juros = valor * 0.20;
 
 let dias = 0;
@@ -141,19 +253,13 @@ let dias = 0;
 if(row.dataCobranca){
 
 const today = new Date();
-
-today.setHours(0,0,0,0);
-
 const cobranca = new Date(row.dataCobranca);
-
-cobranca.setHours(0,0,0,0);
 
 dias = Math.floor((today - cobranca) / (1000 * 60 * 60 * 24));
 
 if(dias < 0){
 dias = 0;
 }
-
 }
 
 const total = valor + juros;
@@ -163,98 +269,82 @@ dias,
 juros,
 total
 };
-
 }
 
-function renderTable(){
+function renderTable(filter=''){
 
 ledgerBody.innerHTML = '';
 
-ledgerData.forEach((row,index)=>{
+const filtered = ledgerData.filter(row=>
+(row.nome || '').toLowerCase().includes(filter.toLowerCase())
+);
+
+filtered.forEach((row,index)=>{
 
 const metrics = calculateMetrics(row);
 
 const tr = document.createElement('tr');
 
 tr.innerHTML = `
-
 <td>${index+1}</td>
 
 <td>
-<input
-type="text"
+<input type="text"
 value="${row.nome || ''}"
 oninput="updateRow(${row.id},'nome',this.value)">
 </td>
 
 <td>
-<input
-type="text"
+<input type="text"
 value="${row.aquisicao || ''}"
 oninput="updateRow(${row.id},'aquisicao',this.value)">
 </td>
 
 <td>
-<input
-type="number"
-step="0.01"
+<input type="number"
 value="${row.valorOriginal || ''}"
 oninput="updateRow(${row.id},'valorOriginal',this.value)">
 </td>
 
 <td>
-<input
-type="date"
+<input type="date"
 value="${row.dataCobranca || ''}"
 onchange="updateRow(${row.id},'dataCobranca',this.value)">
 </td>
 
 <td>${metrics.dias}</td>
-
 <td>${formatCurrency(metrics.juros)}</td>
-
 <td>${formatCurrency(metrics.total)}</td>
 
 <td>
-<button onclick="deleteRow(${row.id})">
+<button onclick="deleteRow(${row.id})" class="bg-red-600 text-white px-3 py-1 rounded">
 Excluir
 </button>
 </td>
-
 `;
 
 ledgerBody.appendChild(tr);
-
 });
 
 localStorage.setItem(STORAGE_KEY,JSON.stringify(ledgerData));
 
+updateTotals();
 }
 
 function addRow(){
 
 const proximoMes = new Date();
+proximoMes.setMonth(proximoMes.getMonth()+1);
 
-proximoMes.setMonth(proximoMes.getMonth() + 1);
-
-const dataFormatada = proximoMes.toISOString().split('T')[0];
-
-ledgerData.push({
-
+ledgerData.unshift({
 id:Date.now(),
-
 nome:'',
-
 aquisicao:'',
-
 valorOriginal:0,
-
-dataCobranca:dataFormatada
-
+dataCobranca:proximoMes.toISOString().split('T')[0]
 });
 
-renderTable();
-
+renderTable(searchInput.value);
 }
 
 function updateRow(id,field,value){
@@ -265,33 +355,116 @@ if(index !== -1){
 
 ledgerData[index][field] = value;
 
-renderTable();
-
+renderTable(searchInput.value);
 }
-
 }
 
 function deleteRow(id){
 
 ledgerData = ledgerData.filter(r=>r.id !== id);
 
-renderTable();
+renderTable(searchInput.value);
+}
 
+function clearAllData(){
+
+if(confirm('Deseja apagar todos os dados?')){
+ledgerData = [];
+renderTable();
+}
+}
+
+function exportToCSV(){
+
+let csv = 'Nome;Aquisição;Valor;Data;Dias;Juros;Total\n';
+
+ledgerData.forEach(row=>{
+
+const m = calculateMetrics(row);
+
+csv += `${row.nome};${row.aquisicao};${row.valorOriginal};${row.dataCobranca};${m.dias};${m.juros};${m.total}\n`;
+});
+
+const blob = new Blob([csv], {type:'text/csv'});
+
+const link = document.createElement('a');
+
+link.href = URL.createObjectURL(blob);
+link.download = 'controle-cobrancas.csv';
+link.click();
+}
+
+function updateTotals(){
+
+let total = 0;
+let late = 0;
+let interest = 0;
+
+ledgerData.forEach(row=>{
+
+const m = calculateMetrics(row);
+
+total += m.total;
+interest += m.juros;
+
+if(m.dias > 0){
+late++;
+}
+});
+
+const totalFormatted = formatCurrency(total);
+const interestFormatted = formatCurrency(interest);
+
+const totalOpen = document.getElementById('totalOpen');
+const countLate = document.getElementById('countLate');
+const totalInterest = document.getElementById('totalInterest');
+const dashTotal = document.getElementById('dashTotal');
+const dashLate = document.getElementById('dashLate');
+const dashInterest = document.getElementById('dashInterest');
+
+if(totalOpen) totalOpen.textContent = totalFormatted;
+if(countLate) countLate.textContent = late;
+if(totalInterest) totalInterest.textContent = interestFormatted;
+if(dashTotal) dashTotal.textContent = totalFormatted;
+if(dashLate) dashLate.textContent = late;
+if(dashInterest) dashInterest.textContent = interestFormatted;
+}
+
+if(searchInput){
+searchInput.addEventListener('input',e=>{
+renderTable(e.target.value);
+});
 }
 
 renderTable();
+switchView('livro');
 
-</script>
-
-<script>
-
-if ('serviceWorker' in navigator) {
-
-navigator.serviceWorker.register('./sw.js');
-
+if('serviceWorker' in navigator){
+window.addEventListener('load',()=>{
+navigator.serviceWorker.register('./sw.js')
+.then(()=>console.log('Service Worker registrado'))
+.catch(error=>console.log('Erro SW:',error));
+});
 }
 
 </script>
 
 </body>
 </html>
+```
+
+Depois:
+
+1. Apague TODO o conteúdo antigo do index.html
+2. Cole esse código inteiro
+3. Commit changes
+4. Aguarde 1 minuto no Netlify
+5. Aperte CTRL + F5 no site
+
+Os arquivos no GitHub devem ficar assim:
+
+* index.html
+* manifest.json
+* sw.js
+* icon-192.png
+* icon-512.png
