@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "ControlCont",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Control",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "id": "com.controlcont.app",
+  "description": "Sistema de controle de cobranças e clientes."
+}
