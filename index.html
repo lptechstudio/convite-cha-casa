@@ -292,7 +292,7 @@
 <th class="px-md py-3 border-r border-outline-variant text-right">Valor Original (R$)</th>
 <th class="px-md py-3 border-r border-outline-variant text-center">Data Cobrança</th>
 <th class="px-md py-3 border-r border-outline-variant text-center">Dias Atraso</th>
-<th class="px-md py-3 border-r border-outline-variant text-right">Juros (20%)</th>
+<th class="px-md py-3 border-r border-outline-variant text-right" id="thJuros">Juros (20%)</th>
 <th class="px-md py-3 border-r border-outline-variant text-right font-bold">Total</th>
 <th class="px-md py-3 text-center w-16">Ações</th>
 </tr>
@@ -818,6 +818,8 @@
 
     function applyProfileUI() {
         const el = id => document.getElementById(id);
+        const thJuros = document.getElementById('thJuros');
+        if (thJuros) thJuros.textContent = 'Juros (' + (appConfig.juros || 20) + '%)';
         if (el('profileName')) el('profileName').textContent = appConfig.nome;
         if (el('profileEmail')) el('profileEmail').textContent = appConfig.email;
         const av = el('avatarCircle');
@@ -929,6 +931,8 @@
         appConfig.juros = juros;
         saveConfig();
         renderTable(searchInput ? searchInput.value : '');
+        const thJuros = document.getElementById('thJuros');
+        if (thJuros) thJuros.textContent = 'Juros (' + juros + '%)';
         closeModal('modalConfig');
         alert(`Taxa de juros atualizada para ${juros}%!`);
     }
