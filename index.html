@@ -141,6 +141,41 @@
         }
     </style>
 </head>
+
+<!-- ===== TELA DE BLOQUEIO PIN ===== -->
+<div id="pinLockScreen" style="display:none;position:fixed;inset:0;z-index:9999;background:#091426;flex-direction:column;align-items:center;justify-content:center;gap:24px;">
+  <div style="text-align:center;">
+    <div id="pinAvatarLock" style="width:72px;height:72px;border-radius:50%;background:#006e2f;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#fff;margin:0 auto 12px;overflow:hidden;"></div>
+    <p style="color:#bcc7de;font-size:14px;margin:0" id="pinLockName">ControlCont</p>
+    <h2 style="color:#fff;font-size:20px;font-weight:700;margin:4px 0 0">Digite seu PIN</h2>
+  </div>
+  <div style="display:flex;gap:12px;" id="pinDots">
+    <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+  </div>
+  <p id="pinLockError" style="color:#ff5250;font-size:13px;min-height:18px;margin:0;"></p>
+  <div style="display:grid;grid-template-columns:repeat(3,72px);gap:12px;">
+    <button class="pin-key" onclick="pinKey('1')">1</button>
+    <button class="pin-key" onclick="pinKey('2')">2</button>
+    <button class="pin-key" onclick="pinKey('3')">3</button>
+    <button class="pin-key" onclick="pinKey('4')">4</button>
+    <button class="pin-key" onclick="pinKey('5')">5</button>
+    <button class="pin-key" onclick="pinKey('6')">6</button>
+    <button class="pin-key" onclick="pinKey('7')">7</button>
+    <button class="pin-key" onclick="pinKey('8')">8</button>
+    <button class="pin-key" onclick="pinKey('9')">9</button>
+    <button class="pin-key pin-key-ghost" onclick="pinKey('back')" style="font-size:20px;">⌫</button>
+    <button class="pin-key" onclick="pinKey('0')">0</button>
+    <button class="pin-key pin-key-ghost" style="opacity:0" disabled></button>
+  </div>
+  <style>
+    .pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid #bcc7de;background:transparent;transition:background .15s}
+    .pin-dot.filled{background:#4ae176;border-color:#4ae176}
+    .pin-key{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.08);color:#fff;font-size:24px;font-weight:600;border:none;cursor:pointer;transition:background .15s;-webkit-tap-highlight-color:transparent;}
+    .pin-key:active{background:rgba(255,255,255,0.22)}
+    .pin-key-ghost{background:transparent!important}
+  </style>
+</div>
+
 <body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col">
 <!-- Top Navigation Shell -->
 <header class="bg-surface border-b border-outline-variant flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-16 fixed top-0 z-50">
@@ -308,7 +343,7 @@
 <!-- Profile Header -->
 <div class="bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm">
 <div class="bg-primary p-lg flex items-center gap-6">
-<div class="w-20 h-20 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container text-headline-lg font-bold border-4 border-surface/20" id="avatarCircle">AD</div>
+<div class="w-20 h-20 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container text-headline-lg font-bold border-4 border-surface/20 overflow-hidden" id="avatarCircle" style="cursor:pointer" onclick="openModal('modalPerfil')">AD</div>
 <div>
 <h3 class="text-headline-md font-bold text-on-primary" id="profileName">Administrador</h3>
 <p class="text-body-md text-on-primary opacity-80" id="profileEmail">admin@financeiro.com.br</p>
@@ -392,11 +427,22 @@
 <div class="modal-overlay" id="modalPerfil" onclick="closeModalOutside(event,'modalPerfil')">
 <div class="modal-box">
 <div class="modal-title"><span class="material-symbols-outlined">manage_accounts</span> Editar Perfil</div>
+<div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+  <div id="previewFoto" style="width:64px;height:64px;border-radius:50%;background:#1e293b;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;overflow:hidden;flex-shrink:0;"></div>
+  <div style="flex:1">
+    <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Foto de Perfil</label>
+    <label style="display:inline-flex;align-items:center;gap:6px;background:#eceef0;color:#45474c;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">
+      <span class="material-symbols-outlined" style="font-size:16px;">upload</span> Escolher foto
+      <input type="file" id="inputFoto" accept="image/*" style="display:none" onchange="previewPhoto(event)"/>
+    </label>
+    <button onclick="removerFoto()" style="margin-left:6px;font-size:11px;color:#ba1a1a;background:none;border:none;cursor:pointer;font-weight:600;">Remover</button>
+  </div>
+</div>
 <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Nome</label>
 <input class="modal-input" id="inputNome" placeholder="Seu nome" type="text"/>
 <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">E-mail</label>
 <input class="modal-input" id="inputEmail" placeholder="seu@email.com" type="email"/>
-<label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Iniciais do Avatar</label>
+<label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Iniciais do Avatar (sem foto)</label>
 <input class="modal-input" id="inputIniciais" maxlength="2" placeholder="Ex: AD" type="text"/>
 <div class="flex gap-2 justify-end mt-2">
 <button class="modal-btn" onclick="closeModal('modalPerfil')" style="background:#eceef0;color:#45474c">Cancelar</button>
@@ -454,8 +500,9 @@
 <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Confirmar PIN</label>
 <input class="modal-input" id="inputPin2" inputmode="numeric" maxlength="4" pattern="[0-9]*" placeholder="••••" type="password"/>
 <p class="text-xs text-error mb-2 hidden" id="pinError">Os PINs não coincidem ou são inválidos.</p>
-<div class="flex gap-2 justify-end">
+<div class="flex gap-2 justify-end flex-wrap">
 <button class="modal-btn" onclick="closeModal('modalSeg')" style="background:#eceef0;color:#45474c">Cancelar</button>
+<button class="modal-btn" onclick="removerPin()" style="background:#ffdad6;color:#ba1a1a">Remover PIN</button>
 <button class="modal-btn" onclick="salvarPin()" style="background:#091426;color:#fff">Salvar PIN</button>
 </div>
 </div>
@@ -765,7 +812,14 @@
         const el = id => document.getElementById(id);
         if (el('profileName')) el('profileName').textContent = appConfig.nome;
         if (el('profileEmail')) el('profileEmail').textContent = appConfig.email;
-        if (el('avatarCircle')) el('avatarCircle').textContent = appConfig.iniciais;
+        const av = el('avatarCircle');
+        if (av) {
+            if (appConfig.foto) {
+                av.innerHTML = '<img src="' + appConfig.foto + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
+            } else {
+                av.innerHTML = appConfig.iniciais;
+            }
+        }
         updateNotifBadge();
     }
 
@@ -787,6 +841,14 @@
             document.getElementById('inputNome').value = appConfig.nome;
             document.getElementById('inputEmail').value = appConfig.email;
             document.getElementById('inputIniciais').value = appConfig.iniciais;
+            const prev = document.getElementById('previewFoto');
+            if (prev) {
+                if (appConfig.foto) {
+                    prev.innerHTML = '<img src="' + appConfig.foto + '" style="width:100%;height:100%;object-fit:cover">';
+                } else {
+                    prev.innerHTML = appConfig.iniciais || 'AD';
+                }
+            }
         }
         if (id === 'modalConfig') {
             document.getElementById('inputEmpresa').value = appConfig.empresa;
@@ -814,6 +876,26 @@
         if (event.target.id === id) closeModal(id);
     }
 
+    // ===== FOTO PERFIL =====
+    let _tempFoto = null;
+    function previewPhoto(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = e => {
+            _tempFoto = e.target.result;
+            const prev = document.getElementById('previewFoto');
+            if (prev) prev.innerHTML = '<img src="' + _tempFoto + '" style="width:100%;height:100%;object-fit:cover">';
+        };
+        reader.readAsDataURL(file);
+    }
+    function removerFoto() {
+        _tempFoto = '';
+        const prev = document.getElementById('previewFoto');
+        const iniciais = document.getElementById('inputIniciais');
+        if (prev) prev.innerHTML = iniciais ? iniciais.value.toUpperCase() : 'AD';
+    }
+
     // ===== SALVAR PERFIL =====
     function salvarPerfil() {
         const nome = document.getElementById('inputNome').value.trim();
@@ -823,6 +905,8 @@
         appConfig.nome = nome;
         appConfig.email = email || appConfig.email;
         appConfig.iniciais = iniciais || appConfig.iniciais;
+        if (_tempFoto !== null) appConfig.foto = _tempFoto;
+        _tempFoto = null;
         saveConfig();
         applyProfileUI();
         closeModal('modalPerfil');
@@ -864,7 +948,16 @@
         appConfig.pin = p1;
         saveConfig();
         closeModal('modalSeg');
-        alert('PIN salvo com sucesso!');
+        alert('PIN salvo! Ele será pedido na próxima vez que abrir o app.');
+    }
+    function removerPin() {
+        if (!appConfig.pin) return alert('Nenhum PIN configurado.');
+        if (confirm('Remover o PIN de acesso?')) {
+            appConfig.pin = '';
+            saveConfig();
+            closeModal('modalSeg');
+            alert('PIN removido.');
+        }
     }
 
     // ===== SAIR =====
@@ -893,9 +986,73 @@
         return { diasAtraso: dias, juros: juros, total: valorOrig + juros };
     };
 
+    // ===== PIN LOCK =====
+    let pinBuffer = '';
+    let pinAttempts = 0;
+    let pinLocked = false;
+
+    function checkPinOnLoad() {
+        if (!appConfig.pin) return; // sem PIN, abre direto
+        const screen = document.getElementById('pinLockScreen');
+        screen.style.display = 'flex';
+        // Set avatar on lock screen
+        const av = document.getElementById('pinAvatarLock');
+        const nameEl = document.getElementById('pinLockName');
+        if (nameEl) nameEl.textContent = appConfig.nome || 'ControlCont';
+        if (av) {
+            if (appConfig.foto) {
+                av.innerHTML = '<img src="' + appConfig.foto + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
+            } else {
+                av.textContent = appConfig.iniciais || 'CC';
+            }
+        }
+    }
+
+    function pinKey(val) {
+        if (pinLocked) return;
+        const errEl = document.getElementById('pinLockError');
+        if (val === 'back') {
+            pinBuffer = pinBuffer.slice(0, -1);
+        } else {
+            if (pinBuffer.length >= 4) return;
+            pinBuffer += val;
+        }
+        updatePinDots();
+        if (pinBuffer.length === 4) {
+            setTimeout(() => {
+                if (pinBuffer === appConfig.pin) {
+                    document.getElementById('pinLockScreen').style.display = 'none';
+                    pinBuffer = '';
+                    pinAttempts = 0;
+                    updatePinDots();
+                } else {
+                    pinAttempts++;
+                    pinBuffer = '';
+                    updatePinDots();
+                    if (pinAttempts >= 3) {
+                        pinLocked = true;
+                        errEl.textContent = 'Muitas tentativas. Aguarde 30s...';
+                        setTimeout(() => { pinLocked = false; pinAttempts = 0; errEl.textContent = ''; }, 30000);
+                    } else {
+                        errEl.textContent = 'PIN incorreto. Tentativa ' + pinAttempts + '/3';
+                        setTimeout(() => errEl.textContent = '', 1500);
+                    }
+                }
+            }, 100);
+        }
+    }
+
+    function updatePinDots() {
+        const dots = document.querySelectorAll('.pin-dot');
+        dots.forEach((d, i) => {
+            d.classList.toggle('filled', i < pinBuffer.length);
+        });
+    }
+
     // Initialize the application
     applyProfileUI();
     renderTable();
     switchView('livro');
+    checkPinOnLoad();
 </script>
 </body></html>
