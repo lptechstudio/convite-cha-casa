@@ -1,42 +1,21 @@
-<!DOCTYPE html>
-
-<html class="light" lang="pt-BR"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Nossa Nova Casa - Ana Kelly & Lourenço Paz</title>
-        <meta name="description" content="Venha celebrar conosco esse momento especial ❤️">
-
-<!-- Open Graph / WhatsApp -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="Chá de Casa Nova • Ana Kelly & Lourenço Paz">
-<meta property="og:description" content="Estamos muito felizes em compartilhar esse momento especial com você.">
-
-<meta property="og:image" content="https://i.imgur.com/UMP31PY.jpeg">
-
-<meta property="og:url" content="https://lptechstudio.github.io/convite-cha-casa/">
-
-<meta property="og:site_name" content="Chá de Casa Nova">
-
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-
-<meta name="twitter:card" content="summary_large_image">
-
-<link rel="icon" href="favicon.png"/>     
+<!DOCTYPE html><html class="light" lang="pt-BR" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Nossa Nova Casa - Ana Kelly &amp; Lourenço Paz</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     "colors": {
-                        "primary": "#3d5a2c",
+                        "primary": "#3d5a2c", // Intense Olive Green
                         "on-primary": "#ffffff",
-                        "primary-container": "#2e3b23",
-                        "secondary": "#b35a38",
-                        "tertiary": "#c5a059",
+                        "primary-container": "#2e3b23", // Deep Moss Green
+                        "secondary": "#b35a38", // Strong Terracotta
+                        "tertiary": "#c5a059", // Matte Gold
                         "background": "#fdfaf6", 
                         "on-background": "#2e3b23",
                         "surface": "#ffffff",
@@ -153,12 +132,14 @@
     </style>
 </head>
 <body class="bg-background text-on-background antialiased min-h-screen overflow-x-hidden relative">
+<!-- Main Decorative Background -->
 <div class="fixed inset-0 bg-texture-rich opacity-40 z-0 scale-110"></div>
 <div class="fixed inset-0 bg-gradient-to-b from-white/20 via-transparent to-white/20 z-[1] pointer-events-none"></div>
-<div class="fixed inset-0 z-[200] flex items-center justify-center bg-primary-container/95 overflow-hidden p-6" id="envelope-cover">
+<!-- Screen 1: Envelope (Cover State) -->
+<div class="fixed inset-0 z-[200] flex items-center justify-center bg-primary-container/95 overflow-hidden p-6 hidden-state" id="envelope-cover" style="opacity: 0; transform: scale(1.1);">
 <div class="absolute inset-0 bg-texture-rich opacity-20 z-0"></div>
 <div class="relative w-full max-w-[440px] aspect-[4/5] bg-white rounded-lg envelope-shadow flex flex-col items-center justify-center overflow-hidden transition-all duration-1000 border border-outline-variant/50">
-<img alt="Invitation Cover Background" class="absolute inset-0 w-full h-full object-cover opacity-100 mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1JXdGVGFWnUoSKS1RDM1MPnYvbaHFVdMY8q8_d91S-VFrkcgd0su1krAXz4nPgIooOAtZNSeD7Ljd7MZ-rxqSYu1SGLsdtcH6F47PEP98sIOOG-epUV84WkSAQodm70Sp9U4hog2uPiY4NV7Rhml8qViWYIxs806R7aquw6rIwmi8YkHgkHD9ft1PgZRdiamAxKbViNh8VvZAD_jSUO6wfqYzEmrJp1oLoTNGikV6Rzkwx7DRHZyfJr6MVzbzFuOdO6YBB7-NE7hp"/>
+<img alt="Invitation Cover Background" class="absolute inset-0 w-full h-full object-cover opacity-100 mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1JXdGVGFWnUoSKS1RDM1MPnYvbaHFVdMY8q8_d91S-VFrkcgd0su1krAXz4nPgIooOAtZNSeD7Ljd7MZ-rxqSYu1SGLsdtcH6F47PEP98sIOOG-epUV84WkSAQodm70Sp9U4hog2uPiY4NV7Rhml8qViWYIxs806R7aquw6rIwmi8YkHgkHD9ft1PgZRdiamAxKbViNh8VvZAD_jSUO6wfqYzEmrJp1oLoTNGikV6Rzkwx7DRHZyfJr6MVzbzFuOdO6YBB7-NE7hp">
 <div class="z-20 flex flex-col items-center gap-10 text-center px-10">
 <button class="group relative flex flex-col items-center gap-8 focus:outline-none" onclick="openInvitation()">
 <div class="w-40 h-40 bg-white/95 backdrop-blur-xl rounded-full flex items-center justify-center border-2 border-tertiary/30 shadow-2xl group-hover:scale-110 group-hover:border-tertiary transition-all duration-700">
@@ -170,20 +151,22 @@
 </div>
 </button>
 </div>
-<div class="absolute top-0 left-0 w-full h-1/2 bg-[#fdfaf6] border-b border-outline-variant/30 origin-top z-10" id="flap-top"></div>
-<div class="absolute bottom-0 left-0 w-full h-1/2 bg-[#fdfaf6] border-t border-outline-variant/30 origin-bottom z-10" id="flap-bottom"></div>
+<div class="absolute top-0 left-0 w-full h-1/2 bg-[#fdfaf6] border-b border-outline-variant/30 origin-top z-10 unfold-top" id="flap-top"></div>
+<div class="absolute bottom-0 left-0 w-full h-1/2 bg-[#fdfaf6] border-t border-outline-variant/30 origin-bottom z-10 unfold-bottom" id="flap-bottom"></div>
 </div>
 </div>
-<div class="transition-opacity duration-1000 pb-24 relative z-10 hidden-state opacity-0" id="invitation-content">
+<!-- Main Content (Revealed State) -->
+<div class="transition-opacity duration-1000 pb-24 relative z-10 opacity-100" id="invitation-content">
 <main class="max-w-[1140px] mx-auto w-full">
-<section class="min-h-screen flex flex-col items-center justify-center relative px-container-padding-mobile py-section-gap text-center" id="inicio">
+<!-- Hero Section -->
+<section class="min-h-screen flex flex-col items-center justify-center relative px-container-padding-mobile py-section-gap text-center fade-in-up" id="inicio">
 <div class="z-10 space-y-12 max-w-2xl glass-card p-12 md:p-20 rounded-[3rem] reveal-stagger-1">
 <div class="space-y-8">
 <div class="inline-block p-6 rounded-full bg-primary/10 mb-2 ring-1 ring-primary/20">
 <span class="material-symbols-outlined text-primary text-6xl font-light">nest_eco_leaf</span>
 </div>
 <h1 class="font-display-lg text-primary text-5xl md:text-7xl tracking-tight leading-tight font-bold">Chá de Casa Nova</h1>
-<p class="font-display-lg text-secondary italic text-3xl md:text-4xl">Ana Kelly & Lourenço Paz</p>
+<p class="font-display-lg text-secondary italic text-3xl md:text-4xl">Maria Joaquina &amp;&nbsp;<div class="">Felipe amorim</div></p>
 </div>
 <p class="font-body-lg text-on-surface-variant leading-relaxed max-w-md mx-auto text-lg">
                         Estamos muito felizes em compartilhar esse momento especial com você. Venha celebrar nossa nova conquista e encher nosso novo lar de boas energias!
@@ -201,9 +184,9 @@
 <div class="flex flex-col items-center gap-2">
 <div class="flex items-center justify-center gap-5">
 <span class="material-symbols-outlined text-secondary text-3xl font-light">location_on</span>
-<span class="font-label-md tracking-[0.1em] text-lg font-semibold">Rua Joaquim Boticário, 2523</span>
+<span class="font-label-md tracking-[0.1em] text-lg font-semibold">Rua João Batista, 555</span>
 </div>
-<span class="text-base text-on-surface-variant font-body-md bg-secondary/5 px-4 py-1 rounded-full border border-secondary/10">Monte, Canindé</span>
+<span class="text-base text-on-surface-variant font-body-md bg-secondary/5 px-4 py-1 rounded-full border border-secondary/10">Montes Claros, São Paulo</span>
 </div>
 </div>
 </div>
@@ -212,7 +195,8 @@
 <span class="material-symbols-outlined text-3xl font-light">expand_more</span>
 </div>
 </section>
-<section class="py-12 px-container-padding-mobile">
+<!-- Info Box -->
+<section class="py-12 px-container-padding-mobile fade-in-up">
 <div class="glass-card rounded-[3.5rem] p-12 md:p-20 text-center relative overflow-hidden border-2 border-tertiary/20">
 <div class="absolute -top-10 -right-10 w-40 h-40 bg-secondary/5 rounded-full blur-3xl"></div>
 <div class="relative z-10 max-w-xl mx-auto space-y-8">
@@ -224,6 +208,7 @@
 </div>
 </div>
 </section>
+<!-- Gift List Section -->
 <section class="py-section-gap px-container-padding-mobile" id="presentes">
 <div class="text-center mb-20 space-y-6">
 <h2 class="font-display-lg text-primary text-4xl md:text-5xl font-bold">Sugestões de Presentes</h2>
@@ -263,8 +248,10 @@
 </button>
 </div>
 </section>
+<!-- Colors -->
 <section class="py-section-gap px-container-padding-mobile" id="cores">
 <div class="glass-card rounded-[4rem] p-16 text-center border-2 border-white relative overflow-hidden">
+<img alt="" class="absolute -top-32 -right-32 w-80 h-80 opacity-30 rotate-45 pointer-events-none mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1JXdGVGFWnUoSKS1RDM1MPnYvbaHFVdMY8q8_d91S-VFrkcgd0su1krAXz4nPgIooOAtZNSeD7Ljd7MZ-rxqSYu1SGLsdtcH6F47PEP98sIOOG-epUV84WkSAQodm70Sp9U4hog2uPiY4NV7Rhml8qViWYIxs806R7aquw6rIwmi8YkHgkHD9ft1PgZRdiamAxKbViNh8VvZAD_jSUO6wfqYzEmrJp1oLoTNGikV6Rzkwx7DRHZyfJr6MVzbzFuOdO6YBB7-NE7hp">
 <h2 class="font-display-lg text-primary text-3xl md:text-4xl font-bold mb-6">Cores do Nosso Lar</h2>
 <p class="font-body-md text-on-surface-variant max-w-lg mx-auto mb-16 text-lg italic">
                         Tonalidades que guiam a decoração do nosso novo espaço.
@@ -289,8 +276,10 @@
 </div>
 </div>
 </section>
+<!-- RSVP -->
 <section class="py-section-gap px-container-padding-mobile text-center" id="rsvp">
 <div class="glass-card p-16 md:p-24 rounded-[4rem] border-2 border-tertiary/30 max-w-3xl mx-auto shadow-2xl relative overflow-hidden">
+<img alt="" class="absolute -bottom-40 -left-40 w-96 h-96 opacity-30 pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1JXdGVGFWnUoSKS1RDM1MPnYvbaHFVdMY8q8_d91S-VFrkcgd0su1krAXz4nPgIooOAtZNSeD7Ljd7MZ-rxqSYu1SGLsdtcH6F47PEP98sIOOG-epUV84WkSAQodm70Sp9U4hog2uPiY4NV7Rhml8qViWYIxs806R7aquw6rIwmi8YkHgkHD9ft1PgZRdiamAxKbViNh8VvZAD_jSUO6wfqYzEmrJp1oLoTNGikV6Rzkwx7DRHZyfJr6MVzbzFuOdO6YBB7-NE7hp">
 <div class="space-y-6 mb-16">
 <h2 class="font-display-lg text-primary text-4xl md:text-6xl font-bold">Esperamos por você!</h2>
 <div class="h-1.5 w-16 bg-secondary mx-auto rounded-full"></div>
@@ -310,6 +299,7 @@
 </section>
 </main>
 </div>
+<!-- Modal for Gift Items -->
 <div class="hidden fixed inset-0 z-[300] flex items-center justify-center p-6 bg-primary-container/40 backdrop-blur-md" id="gifts-modal">
 <div class="bg-white/95 backdrop-blur-2xl w-full max-w-lg rounded-[3rem] p-10 shadow-[0_50px_100px_rgba(0,0,0,0.3)] flex flex-col max-h-[85vh] border border-white">
 <div class="flex justify-between items-center mb-10">
@@ -320,7 +310,10 @@
 <button class="material-symbols-outlined p-3 bg-secondary/5 hover:bg-secondary/10 rounded-full text-secondary transition-colors" onclick="closeModal()">close</button>
 </div>
 <div class="overflow-y-auto flex-1 space-y-8 pr-2 custom-scrollbar">
-<div class="grid grid-cols-1 gap-3" id="gift-list"></div>
+<div class="grid grid-cols-1 gap-3" id="gift-list">
+<!-- Items injected via JS -->
+</div>
+<!-- Selection Preview & Form -->
 <div class="hidden-state space-y-10 pt-10 border-t border-outline-variant/30 animate-fade-in" id="selection-form">
 <div class="bg-primary/5 rounded-3xl p-6 flex items-center gap-6 border border-primary/10 shadow-inner">
 <div class="w-16 h-16 rounded-2xl overflow-hidden bg-white flex items-center justify-center shadow-sm">
@@ -334,7 +327,7 @@
 <div class="space-y-6">
 <div class="space-y-3">
 <label class="block text-xs font-bold text-primary uppercase tracking-[0.2em] ml-2" for="guest-name">Seu Nome Completo</label>
-<input class="w-full px-6 py-5 rounded-[1.5rem] border-primary/20 focus:ring-secondary focus:border-secondary bg-white font-body-md placeholder:text-on-surface-variant/30 shadow-sm" id="guest-name" placeholder="Como devemos lhe chamar?" type="text"/>
+<input class="w-full px-6 py-5 rounded-[1.5rem] border-primary/20 focus:ring-secondary focus:border-secondary bg-white font-body-md placeholder:text-on-surface-variant/30 shadow-sm" id="guest-name" placeholder="Como devemos lhe chamar?" type="text">
 </div>
 <button class="w-full btn-gold py-6 rounded-full flex items-center justify-center gap-4 uppercase tracking-[0.2em] text-sm font-bold" onclick="sendWhatsAppMessage()">
 <span class="material-symbols-outlined text-xl">send</span>
@@ -362,9 +355,12 @@
             const main = document.getElementById('invitation-content');
             const flapTop = document.getElementById('flap-top');
             const flapBottom = document.getElementById('flap-bottom');
+            
             flapTop.classList.add('unfold-top');
             flapBottom.classList.add('unfold-bottom');
+            
             createConfetti();
+
             setTimeout(() => {
                 cover.style.opacity = '0';
                 cover.style.transform = 'scale(1.1)';
@@ -390,11 +386,18 @@
                 confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 confetti.style.opacity = Math.random() * 0.9;
                 confetti.style.transform = `rotate(${Math.random() * 360}deg) scale(${Math.random() * 1.2 + 0.2})`;
+                
                 document.body.appendChild(confetti);
+                
                 confetti.animate([
                     { transform: `translate(0, 0) rotate(0deg)`, opacity: confetti.style.opacity },
                     { transform: `translate(${(Math.random() - 0.5) * 1200}px, ${(Math.random() - 0.5) * 1200}px) rotate(${Math.random() * 1080}deg)`, opacity: 0 }
-                ], { duration: 3000 + Math.random() * 4000, easing: 'cubic-bezier(0.1, 1, 1, 1)', fill: 'forwards' });
+                ], {
+                    duration: 3000 + Math.random() * 4000,
+                    easing: 'cubic-bezier(0.1, 1, 1, 1)',
+                    fill: 'forwards'
+                });
+                
                 setTimeout(() => confetti.remove(), 7000);
             }
         }
@@ -402,9 +405,12 @@
         function initScrollObserver() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting) entry.target.classList.add('fade-in-up');
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in-up');
+                    }
                 });
             }, { threshold: 0.1 });
+
             document.querySelectorAll('section').forEach(el => observer.observe(el));
         }
 
@@ -413,17 +419,23 @@
             const title = document.getElementById('modal-title');
             const list = document.getElementById('gift-list');
             const form = document.getElementById('selection-form');
+            
             title.innerText = category;
             list.innerHTML = '';
             selectedGift = "";
             form.classList.add('hidden-state');
+            
             giftData[category].forEach(item => {
                 const button = document.createElement('button');
                 button.className = 'gift-btn flex items-center justify-between p-6 bg-primary/5 rounded-2xl text-left hover:bg-tertiary/10 transition-all duration-300 border border-primary/5 mb-1 group';
-                button.innerHTML = `<span class="font-body-md text-primary font-semibold text-lg">${item}</span><span class="material-symbols-outlined text-tertiary opacity-40 group-hover:opacity-100 transition-opacity">circle</span>`;
+                button.innerHTML = `
+                    <span class="font-body-md text-primary font-semibold text-lg">${item}</span>
+                    <span class="material-symbols-outlined text-tertiary opacity-40 group-hover:opacity-100 transition-opacity">circle</span>
+                `;
                 button.onclick = () => selectItem(button, item);
                 list.appendChild(button);
             });
+            
             modal.classList.remove('hidden');
             modal.classList.add('fade-in');
         }
@@ -435,15 +447,21 @@
                 icon.innerText = 'circle';
                 icon.classList.add('opacity-40');
             });
+            
             element.classList.add('gift-item-selected');
             const icon = element.querySelector('.material-symbols-outlined');
             icon.innerText = 'check_circle';
             icon.classList.remove('opacity-40');
+            
             selectedGift = item;
             const form = document.getElementById('selection-form');
             document.getElementById('selected-item-name').innerText = item;
+            
             form.classList.remove('hidden-state');
-            setTimeout(() => { form.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 150);
+            
+            setTimeout(() => {
+                form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 150);
         }
 
         function closeModal() {
@@ -454,16 +472,26 @@
 
         function sendWhatsAppMessage() {
             const name = document.getElementById('guest-name').value.trim();
-            if (!name) { alert('Por favor, digite seu nome antes de enviar.'); return; }
+            if (!name) {
+                alert('Por favor, digite seu nome antes de enviar.');
+                return;
+            }
+
             const message = `Olá Ana Kelly e Lourenço Paz! Me chamo ${name} e gostaria de confirmar que escolhi presentear vocês com: ${selectedGift}`;
             const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/5585988660540?text=${encodedMessage}`, '_blank');
+            const whatsappUrl = `https://wa.me/5585988660540?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
             closeModal();
         }
 
         window.onclick = function(event) {
             const modal = document.getElementById('gifts-modal');
-            if (event.target == modal) closeModal();
+            if (event.target == modal) {
+                closeModal();
+            }
         }
     </script>
+
+
 </body></html>
