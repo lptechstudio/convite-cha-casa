@@ -3,7 +3,15 @@
 <html class="light" lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Livro de Cobranças - Gestão Financeira</title>
+<title>ControlCont - Gestão de Cobranças</title>
+<link rel="manifest" href="manifest.json"/>
+<meta name="theme-color" content="#091426"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="ControlCont"/>
+<meta name="description" content="Sistema de controle de cobranças e clientes."/>
+<link rel="apple-touch-icon" href="/controle-contas/icon-192.png"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -1054,5 +1062,15 @@
     renderTable();
     switchView('livro');
     checkPinOnLoad();
+</script>
+
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/controle-contas/sw.js")
+        .then(r => console.log("SW ok:", r.scope))
+        .catch(e => console.warn("SW erro:", e));
+    });
+  }
 </script>
 </body></html>
