@@ -3,1078 +3,467 @@
 <html class="light" lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ControlCont - Gestão de Cobranças</title>
-<link rel="manifest" href="manifest.json"/>
-<meta name="theme-color" content="#091426"/>
-<meta name="mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="ControlCont"/>
-<meta name="description" content="Sistema de controle de cobranças e clientes."/>
-<link rel="apple-touch-icon" href="/controle-contas/icon-192.png"/>
+<title>Nossa Nova Casa - Ana Kelly & Lourenço Paz</title>
+        <meta name="description" content="Venha celebrar conosco esse momento especial ❤️">
+
+<!-- Open Graph / WhatsApp -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Chá de Casa Nova • Ana Kelly & Lourenço Paz">
+<meta property="og:description" content="Estamos muito felizes em compartilhar esse momento especial com você.">
+
+<meta property="og:image" content="https://i.imgur.com/UMP31PY.jpeg">
+
+<meta property="og:url" content="https://lptechstudio.github.io/convite-cha-casa/">
+
+<meta property="og:site_name" content="Chá de Casa Nova">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="favicon.png"/>     
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind Configuration -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "secondary-container": "#6bff8f",
-                    "on-secondary-fixed": "#002109",
-                    "surface-container-lowest": "#ffffff",
-                    "on-error-container": "#93000a",
-                    "on-surface": "#191c1e",
-                    "primary-fixed-dim": "#bcc7de",
-                    "on-primary": "#ffffff",
-                    "on-secondary": "#ffffff",
-                    "on-tertiary-fixed": "#410004",
-                    "inverse-surface": "#2d3133",
-                    "on-tertiary-container": "#ff5250",
-                    "tertiary-fixed-dim": "#ffb3ad",
-                    "inverse-on-surface": "#eff1f3",
-                    "inverse-primary": "#bcc7de",
-                    "outline": "#75777d",
-                    "on-surface-variant": "#45474c",
-                    "on-primary-container": "#8590a6",
-                    "tertiary": "#330002",
-                    "surface-dim": "#d8dadc",
-                    "outline-variant": "#c5c6cd",
-                    "on-secondary-container": "#007432",
-                    "on-tertiary-fixed-variant": "#930013",
-                    "on-primary-fixed": "#111c2d",
-                    "surface-bright": "#f7f9fb",
-                    "surface-container": "#eceef0",
-                    "surface-container-low": "#f2f4f6",
-                    "secondary": "#006e2f",
-                    "primary-container": "#1e293b",
-                    "primary-fixed": "#d8e3fb",
-                    "tertiary-container": "#5a0008",
-                    "background": "#f7f9fb",
-                    "error": "#ba1a1a",
-                    "tertiary-fixed": "#ffdad7",
-                    "surface-container-highest": "#e0e3e5",
-                    "secondary-fixed-dim": "#4ae176",
-                    "secondary-fixed": "#6bff8f",
-                    "primary": "#091426",
-                    "on-error": "#ffffff",
-                    "on-primary-fixed-variant": "#3c475a",
-                    "surface-tint": "#545f73",
-                    "on-background": "#191c1e",
-                    "on-secondary-fixed-variant": "#005321",
-                    "surface-container-high": "#e6e8ea",
-                    "surface": "#f7f9fb",
-                    "error-container": "#ffdad6",
-                    "on-tertiary": "#ffffff",
-                    "surface-variant": "#e0e3e5"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0.125rem",
-                    "lg": "0.25rem",
-                    "xl": "0.5rem",
-                    "full": "0.75rem"
-            },
-            "spacing": {
-                    "margin-desktop": "32px",
-                    "lg": "24px",
-                    "xs": "4px",
-                    "gutter": "16px",
-                    "base": "4px",
-                    "md": "16px",
-                    "sm": "8px",
-                    "margin-mobile": "16px",
-                    "xl": "32px"
-            },
-            "fontFamily": {
-                    "headline-lg": ["Inter"],
-                    "body-md": ["Inter"],
-                    "label-md": ["Inter"],
-                    "headline-sm": ["Inter"],
-                    "headline-lg-mobile": ["Inter"],
-                    "label-lg": ["Inter"],
-                    "headline-md": ["Inter"],
-                    "body-lg": ["Inter"],
-                    "body-sm": ["Inter"],
-                    "data-tabular": ["Inter"]
-            },
-            "fontSize": {
-                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
-                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
-                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
-                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                    "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
-                    "data-tabular": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#3d5a2c",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#2e3b23",
+                        "secondary": "#b35a38",
+                        "tertiary": "#c5a059",
+                        "background": "#fdfaf6", 
+                        "on-background": "#2e3b23",
+                        "surface": "#ffffff",
+                        "on-surface": "#2e3b23",
+                        "surface-variant": "#f1eee4",
+                        "on-surface-variant": "#4a5a3d",
+                        "outline": "#c5a059",
+                        "outline-variant": "#e5d5b7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "64px",
+                        "gutter": "16px",
+                        "container-padding-mobile": "24px",
+                        "container-padding-desktop": "64px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "display-lg-mobile": ["Playfair Display"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"]
+                    }
+                }
             }
-          },
-        },
-      }
+        }
     </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
-        }
-        input:focus {
-            outline: none !important;
-            box-shadow: inset 0 0 0 2px #091426 !important;
-        }
-        .data-grid-container::-webkit-scrollbar {
-            height: 8px;
-            width: 8px;
-        }
-        .data-grid-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        .data-grid-container::-webkit-scrollbar-thumb {
-            background: #c5c6cd;
-            border-radius: 4px;
-        }
-        .data-grid-container::-webkit-scrollbar-thumb:hover {
-            background: #75777d;
+<style type="text/tailwindcss">
+        @layer utilities {
+            .premium-shadow {
+                box-shadow: 0 20px 50px rgba(46, 59, 35, 0.15);
+            }
+            .envelope-shadow {
+                box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
+            }
+            .fade-in {
+                opacity: 0;
+                animation: fadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+            .fade-in-up {
+                opacity: 0;
+                transform: translateY(30px);
+                animation: fadeInUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+            @keyframes fadeIn { to { opacity: 1; } }
+            @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+            
+            .unfold-top {
+                animation: unfoldTop 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+                transform-origin: top;
+            }
+            .unfold-bottom {
+                animation: unfoldBottom 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+                transform-origin: bottom;
+            }
+            @keyframes unfoldTop { 
+                to { transform: rotateX(-115deg); opacity: 0; visibility: hidden; } 
+            }
+            @keyframes unfoldBottom { 
+                to { transform: rotateX(115deg); opacity: 0; visibility: hidden; } 
+            }
+            
+            .confetti {
+                position: fixed;
+                width: 8px;
+                height: 8px;
+                border-radius: 2px;
+                z-index: 1000;
+                pointer-events: none;
+            }
+
+            .hidden-state {
+                display: none;
+            }
+            
+            .gift-item-selected {
+                @apply ring-2 ring-tertiary bg-tertiary/10 border-tertiary/20;
+            }
+
+            .bg-texture-rich {
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD1JXdGVGFWnUoSKS1RDM1MPnYvbaHFVdMY8q8_d91S-VFrkcgd0su1krAXz4nPgIooOAtZNSeD7Ljd7MZ-rxqSYu1SGLsdtcH6F47PEP98sIOOG-epUV84WkSAQodm70Sp9U4hog2uPiY4NV7Rhml8qViWYIxs806R7aquw6rIwmi8YkHgkHD9ft1PgZRdiamAxKbViNh8VvZAD_jSUO6wfqYzEmrJp1oLoTNGikV6Rzkwx7DRHZyfJr6MVzbzFuOdO6YBB7-NE7hp');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+            }
+
+            .glass-card {
+                @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-2xl;
+            }
+
+            .btn-terracotta {
+                @apply bg-gradient-to-br from-[#b35a38] to-[#91462a] text-white shadow-[0_10px_20px_rgba(179,90,56,0.3)] hover:shadow-[0_15px_30px_rgba(179,90,56,0.4)] active:scale-95 transition-all duration-300;
+            }
+
+            .btn-gold {
+                @apply bg-gradient-to-br from-[#d4b476] to-[#c5a059] text-white shadow-[0_10px_20px_rgba(197,160,89,0.3)] hover:shadow-[0_15px_30px_rgba(197,160,89,0.4)] active:scale-95 transition-all duration-300;
+            }
+
+            .text-luxury-gradient {
+                @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
+            }
         }
         body {
-            min-height: max(884px, 100dvh);
-        }
-        .view-section {
-            display: none;
-        }
-        .view-section.active {
-            display: block;
+            scroll-behavior: smooth;
         }
     </style>
 </head>
-
-<!-- ===== TELA DE BLOQUEIO PIN ===== -->
-<div id="pinLockScreen" style="display:none;position:fixed;inset:0;z-index:9999;background:#091426;flex-direction:column;align-items:center;justify-content:center;gap:24px;">
-  <div style="text-align:center;">
-    <div id="pinAvatarLock" style="width:72px;height:72px;border-radius:50%;background:#006e2f;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#fff;margin:0 auto 12px;overflow:hidden;"></div>
-    <p style="color:#bcc7de;font-size:14px;margin:0" id="pinLockName">ControlCont</p>
-    <h2 style="color:#fff;font-size:20px;font-weight:700;margin:4px 0 0">Digite seu PIN</h2>
-  </div>
-  <div style="display:flex;gap:12px;" id="pinDots">
-    <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
-  </div>
-  <p id="pinLockError" style="color:#ff5250;font-size:13px;min-height:18px;margin:0;"></p>
-  <div style="display:grid;grid-template-columns:repeat(3,72px);gap:12px;">
-    <button class="pin-key" onclick="pinKey('1')">1</button>
-    <button class="pin-key" onclick="pinKey('2')">2</button>
-    <button class="pin-key" onclick="pinKey('3')">3</button>
-    <button class="pin-key" onclick="pinKey('4')">4</button>
-    <button class="pin-key" onclick="pinKey('5')">5</button>
-    <button class="pin-key" onclick="pinKey('6')">6</button>
-    <button class="pin-key" onclick="pinKey('7')">7</button>
-    <button class="pin-key" onclick="pinKey('8')">8</button>
-    <button class="pin-key" onclick="pinKey('9')">9</button>
-    <button class="pin-key pin-key-ghost" onclick="pinKey('back')" style="font-size:20px;">⌫</button>
-    <button class="pin-key" onclick="pinKey('0')">0</button>
-    <button class="pin-key pin-key-ghost" style="opacity:0" disabled></button>
-  </div>
-  <style>
-    .pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid #bcc7de;background:transparent;transition:background .15s}
-    .pin-dot.filled{background:#4ae176;border-color:#4ae176}
-    .pin-key{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.08);color:#fff;font-size:24px;font-weight:600;border:none;cursor:pointer;transition:background .15s;-webkit-tap-highlight-color:transparent;}
-    .pin-key:active{background:rgba(255,255,255,0.22)}
-    .pin-key-ghost{background:transparent!important}
-  </style>
+<body class="bg-background text-on-background antialiased min-h-screen overflow-x-hidden relative">
+<div class="fixed inset-0 bg-texture-rich opacity-40 z-0 scale-110"></div>
+<div class="fixed inset-0 bg-gradient-to-b from-white/20 via-transparent to-white/20 z-[1] pointer-events-none"></div>
+<div class="fixed inset-0 z-[200] flex items-center justify-center bg-primary-container/95 overflow-hidden p-6" id="envelope-cover">
+<div class="absolute inset-0 bg-texture-rich opacity-20 z-0"></div>
+<div class="relative w-full max-w-[440px] aspect-[4/5] bg-white rounded-lg envelope-shadow flex flex-col items-center justify-center overflow-hidden transition-all duration-1000 border border-outline-variant/50">
+<img alt="Invitation Cover Background" class="absolute inset-0 w-full h-full object-cover opacity-100 mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1JXdGVGFWnUoSKS1RDM1MPnYvbaHFVdMY8q8_d91S-VFrkcgd0su1krAXz4nPgIooOAtZNSeD7Ljd7MZ-rxqSYu1SGLsdtcH6F47PEP98sIOOG-epUV84WkSAQodm70Sp9U4hog2uPiY4NV7Rhml8qViWYIxs806R7aquw6rIwmi8YkHgkHD9ft1PgZRdiamAxKbViNh8VvZAD_jSUO6wfqYzEmrJp1oLoTNGikV6Rzkwx7DRHZyfJr6MVzbzFuOdO6YBB7-NE7hp"/>
+<div class="z-20 flex flex-col items-center gap-10 text-center px-10">
+<button class="group relative flex flex-col items-center gap-8 focus:outline-none" onclick="openInvitation()">
+<div class="w-40 h-40 bg-white/95 backdrop-blur-xl rounded-full flex items-center justify-center border-2 border-tertiary/30 shadow-2xl group-hover:scale-110 group-hover:border-tertiary transition-all duration-700">
+<span class="material-symbols-outlined text-secondary text-6xl font-light">home_pin</span>
 </div>
-
-<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col">
-<!-- Top Navigation Shell -->
-<header class="bg-surface border-b border-outline-variant flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-16 fixed top-0 z-50">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-headline-sm" data-icon="account_balance">account_balance</span>
-<h1 class="text-headline-sm font-headline-sm font-bold text-primary">Controle de Cobranças</h1>
+<div class="space-y-3">
+<span class="font-display-lg-mobile text-primary tracking-[0.4em] text-sm uppercase transition-all group-hover:tracking-[0.5em] font-bold">Abrir Convite</span>
+<div class="h-0.5 w-12 bg-secondary/60 mx-auto transition-all group-hover:w-24"></div>
 </div>
-<div class="hidden md:flex gap-8 items-center">
-<nav class="flex gap-6">
-<a class="text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded transition-colors text-label-lg cursor-pointer" onclick="switchView('inicio')">Dashboard</a>
-<a class="text-primary font-bold text-label-lg transition-colors cursor-pointer" id="nav-desktop-livro-link" onclick="switchView('livro')">Registros</a>
-<a class="text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded transition-colors text-label-lg cursor-pointer" onclick="switchView('stats')">Relatórios</a>
-</nav>
-<div class="flex items-center gap-2 text-on-surface-variant">
-<span class="material-symbols-outlined cursor-pointer hover:bg-surface-container-high p-2 rounded-full" data-icon="search">search</span>
-<span class="material-symbols-outlined cursor-pointer hover:bg-surface-container-high p-2 rounded-full" data-icon="notifications">notifications</span>
-<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-bold text-xs cursor-pointer" onclick="switchView('menu')">AD</div>
-</div>
-</div>
-</header>
-<!-- Sidebar for Desktop -->
-<aside class="hidden md:flex flex-col fixed left-0 top-0 h-full w-72 bg-surface-container-low border-r border-outline-variant pt-20 z-40">
-<div class="px-6 mb-8">
-<h2 class="text-headline-md font-headline-md font-bold text-primary">Gestor Financeiro</h2>
-</div>
-<nav class="flex flex-col px-4 gap-1">
-<button class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all text-left" id="nav-desktop-inicio" onclick="switchView('inicio')">
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span class="font-body-md">Painel Principal</span>
 </button>
-<button class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container font-bold rounded-full transition-all text-left" id="nav-desktop-livro" onclick="switchView('livro')">
-<span class="material-symbols-outlined" data-icon="table_chart">table_chart</span>
-<span class="font-body-md">Livro de Contas</span>
-</button>
-<button class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all text-left" id="nav-desktop-stats" onclick="switchView('stats')">
-<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
-<span class="font-body-md">Relatórios</span>
-</button>
-<button class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all text-left" id="nav-desktop-menu" onclick="switchView('menu')">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
-<span class="font-body-md">Configurações</span>
-</button>
-</nav>
-</aside>
-<!-- Main Content Area -->
-<main class="flex-1 mt-16 md:ml-72 p-margin-mobile md:p-margin-desktop mb-20 md:mb-0">
-<!-- INICIO VIEW -->
-<div class="view-section" id="view-inicio">
-<div class="mb-lg">
-<h2 class="text-headline-md font-bold text-primary mb-2">Bem-vindo, Administrador</h2>
-<p class="text-on-surface-variant">Aqui está o resumo da sua saúde financeira hoje.</p>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-lg mb-xl">
-<div class="bg-primary text-on-primary p-lg rounded-xl shadow-lg flex flex-col justify-between h-40">
-<span class="text-label-md uppercase opacity-80">Saldo Projetado</span>
-<h3 class="text-headline-lg font-bold" id="dashTotalOpen">R$ 0,00</h3>
-<div class="flex items-center gap-2 text-sm">
-<span class="material-symbols-outlined text-secondary-fixed">trending_up</span>
-<span>+12% em relação ao mês anterior</span>
+<div class="absolute top-0 left-0 w-full h-1/2 bg-[#fdfaf6] border-b border-outline-variant/30 origin-top z-10" id="flap-top"></div>
+<div class="absolute bottom-0 left-0 w-full h-1/2 bg-[#fdfaf6] border-t border-outline-variant/30 origin-bottom z-10" id="flap-bottom"></div>
 </div>
 </div>
-<div class="bg-surface border border-outline-variant p-lg rounded-xl flex flex-col justify-between h-40">
-<span class="text-label-md text-on-surface-variant uppercase">Eficiência de Cobrança</span>
-<div class="flex items-end gap-2">
-<h3 class="text-headline-lg font-bold text-primary">84%</h3>
-<div class="w-full bg-surface-container-high h-2 rounded-full mb-3 overflow-hidden">
-<div class="bg-secondary h-full" style="width: 84%"></div>
+<div class="transition-opacity duration-1000 pb-24 relative z-10 hidden-state opacity-0" id="invitation-content">
+<main class="max-w-[1140px] mx-auto w-full">
+<section class="min-h-screen flex flex-col items-center justify-center relative px-container-padding-mobile py-section-gap text-center" id="inicio">
+<div class="z-10 space-y-12 max-w-2xl glass-card p-12 md:p-20 rounded-[3rem] reveal-stagger-1">
+<div class="space-y-8">
+<div class="inline-block p-6 rounded-full bg-primary/10 mb-2 ring-1 ring-primary/20">
+<span class="material-symbols-outlined text-primary text-6xl font-light">nest_eco_leaf</span>
 </div>
+<h1 class="font-display-lg text-primary text-5xl md:text-7xl tracking-tight leading-tight font-bold">Chá de Casa Nova</h1>
+<p class="font-display-lg text-secondary italic text-3xl md:text-4xl">Ana Kelly & Lourenço Paz</p>
 </div>
-<p class="text-body-sm text-on-surface-variant">Melhor desempenho que 90% dos usuários.</p>
+<p class="font-body-lg text-on-surface-variant leading-relaxed max-w-md mx-auto text-lg">
+                        Estamos muito felizes em compartilhar esse momento especial com você. Venha celebrar nossa nova conquista e encher nosso novo lar de boas energias!
+                    </p>
+<div class="pt-10 border-t border-outline-variant/40">
+<div class="space-y-8 text-primary">
+<div class="flex items-center justify-center gap-5">
+<span class="material-symbols-outlined text-secondary text-3xl font-light">event</span>
+<span class="font-label-md tracking-[0.1em] text-lg font-semibold">Sábado, 15 de Outubro de 2024</span>
+</div>
+<div class="flex items-center justify-center gap-5">
+<span class="material-symbols-outlined text-secondary text-3xl font-light">schedule</span>
+<span class="font-label-md tracking-[0.1em] text-lg font-semibold">Às 15:00 horas</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="flex items-center justify-center gap-5">
+<span class="material-symbols-outlined text-secondary text-3xl font-light">location_on</span>
+<span class="font-label-md tracking-[0.1em] text-lg font-semibold">Rua Joaquim Boticário, 2523</span>
+</div>
+<span class="text-base text-on-surface-variant font-body-md bg-secondary/5 px-4 py-1 rounded-full border border-secondary/10">Monte, Canindé</span>
 </div>
 </div>
 </div>
-<!-- LIVRO VIEW (Primary Table) -->
-<div class="view-section active" id="view-livro">
-<!-- Action Bar -->
-<section class="mb-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
-<div class="relative w-full md:w-96">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
-<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg focus:border-primary text-body-md transition-all" id="searchInput" placeholder="Filtrar por nome do cliente..." type="text"/>
 </div>
-<div class="flex flex-wrap items-center gap-sm w-full md:w-auto">
-<button class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-primary text-on-primary px-lg py-2 rounded-xl font-label-lg hover:opacity-90 transition-all active:scale-95" onclick="addRow()">
-<span class="material-symbols-outlined" data-icon="add">add</span>
-                    ADICIONAR CLIENTE
-                </button>
-<button class="flex items-center justify-center gap-2 border border-outline-variant text-on-surface-variant px-md py-2 rounded-xl font-label-lg hover:bg-surface-container-high transition-all" onclick="exportToCSV()">
-<span class="material-symbols-outlined" data-icon="download">download</span>
-                    EXPORTAR
-                </button>
-<button class="flex items-center justify-center gap-2 border border-outline-variant text-error px-md py-2 rounded-xl font-label-lg hover:bg-error-container transition-all" onclick="clearAllData()">
-<span class="material-symbols-outlined" data-icon="delete_sweep">delete_sweep</span>
-                    LIMPAR
-                </button>
+<div class="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce text-secondary">
+<span class="material-symbols-outlined text-3xl font-light">expand_more</span>
 </div>
 </section>
-<!-- Data Grid -->
-<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm mb-xl">
-<div class="data-grid-container overflow-x-auto">
-<table class="w-full text-left border-collapse min-w-[1100px]" id="ledgerTable">
-<thead class="bg-surface-container-high text-on-surface-variant font-label-md uppercase tracking-wider">
-<tr>
-<th class="px-md py-3 border-r border-outline-variant w-12 text-center">#</th>
-<th class="px-md py-3 border-r border-outline-variant">Nome</th>
-<th class="px-md py-3 border-r border-outline-variant">Aquisição</th>
-<th class="px-md py-3 border-r border-outline-variant text-right">Valor Original (R$)</th>
-<th class="px-md py-3 border-r border-outline-variant text-center">Data Cobrança</th>
-<th class="px-md py-3 border-r border-outline-variant text-center">Dias Atraso</th>
-<th class="px-md py-3 border-r border-outline-variant text-right" id="thJuros">Juros (20%)</th>
-<th class="px-md py-3 border-r border-outline-variant text-right font-bold">Total</th>
-<th class="px-md py-3 text-center w-16">Ações</th>
-</tr>
-</thead>
-<tbody class="font-data-tabular" id="ledgerBody">
-<!-- Filas injetadas por JavaScript -->
-</tbody>
-</table>
+<section class="py-12 px-container-padding-mobile">
+<div class="glass-card rounded-[3.5rem] p-12 md:p-20 text-center relative overflow-hidden border-2 border-tertiary/20">
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-secondary/5 rounded-full blur-3xl"></div>
+<div class="relative z-10 max-w-xl mx-auto space-y-8">
+<span class="material-symbols-outlined text-tertiary text-5xl font-light">auto_awesome</span>
+<h2 class="font-display-lg text-primary text-3xl md:text-4xl font-bold">Sobre Presentes</h2>
+<p class="font-body-md text-on-surface-variant leading-relaxed text-xl italic px-4">
+                            "Preparamos uma lista de sugestões com muito carinho. Sua presença é o nosso maior presente, mas se desejar nos agraciar, escolha um item abaixo."
+                        </p>
 </div>
 </div>
+</section>
+<section class="py-section-gap px-container-padding-mobile" id="presentes">
+<div class="text-center mb-20 space-y-6">
+<h2 class="font-display-lg text-primary text-4xl md:text-5xl font-bold">Sugestões de Presentes</h2>
+<div class="h-1 w-24 bg-tertiary/40 mx-auto rounded-full"></div>
+<p class="font-body-md text-on-surface-variant text-lg">Toque em uma categoria para ver as sugestões</p>
 </div>
-<!-- STATS VIEW -->
-<div class="view-section" id="view-stats">
-<div class="mb-lg">
-<h2 class="text-headline-md font-bold text-primary mb-2">Estatísticas Financeiras</h2>
-<p class="text-on-surface-variant">Visão detalhada dos valores em aberto e juros.</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+<button class="group glass-card rounded-[2rem] p-12 hover:-translate-y-2 transition-all duration-500 border-b-4 border-b-primary/20" onclick="showGifts('Cozinha')">
+<div class="w-20 h-20 mx-auto mb-8 flex items-center justify-center rounded-full bg-primary/5 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+<span class="material-symbols-outlined text-4xl font-light">restaurant</span>
 </div>
-<!-- Summary Cards -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
-<div class="bg-surface border border-outline-variant p-lg rounded-xl flex items-center justify-between">
-<div>
-<p class="text-label-md text-on-surface-variant mb-base uppercase">Total em Aberto</p>
-<h3 class="text-headline-md font-bold text-primary" id="totalOpen">R$ 0,00</h3>
+<span class="font-label-md text-primary font-bold uppercase tracking-[0.2em] text-sm">Cozinha</span>
+</button>
+<button class="group glass-card rounded-[2rem] p-12 hover:-translate-y-2 transition-all duration-500 border-b-4 border-b-secondary/20" onclick="showGifts('Sala')">
+<div class="w-20 h-20 mx-auto mb-8 flex items-center justify-center rounded-full bg-secondary/5 group-hover:bg-secondary group-hover:text-white transition-all duration-500">
+<span class="material-symbols-outlined text-4xl font-light">living</span>
 </div>
-<div class="bg-error-container text-on-error-container p-3 rounded-full">
-<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="font-label-md text-secondary font-bold uppercase tracking-[0.2em] text-sm">Sala</span>
+</button>
+<button class="group glass-card rounded-[2rem] p-12 hover:-translate-y-2 transition-all duration-500 border-b-4 border-b-tertiary/20" onclick="showGifts('Quarto')">
+<div class="w-20 h-20 mx-auto mb-8 flex items-center justify-center rounded-full bg-tertiary/5 group-hover:bg-tertiary group-hover:text-white transition-all duration-500">
+<span class="material-symbols-outlined text-4xl font-light">bedtime</span>
 </div>
+<span class="font-label-md text-tertiary font-bold uppercase tracking-[0.2em] text-sm">Quarto</span>
+</button>
+<button class="group glass-card rounded-[2rem] p-12 hover:-translate-y-2 transition-all duration-500 border-b-4 border-b-primary/20" onclick="showGifts('Banheiro')">
+<div class="w-20 h-20 mx-auto mb-8 flex items-center justify-center rounded-full bg-primary/5 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+<span class="material-symbols-outlined text-4xl font-light">wash</span>
 </div>
-<div class="bg-surface border border-outline-variant p-lg rounded-xl flex items-center justify-between">
-<div>
-<p class="text-label-md text-on-surface-variant mb-base uppercase">Clientes em Atraso</p>
-<h3 class="text-headline-md font-bold text-primary" id="countLate">0</h3>
+<span class="font-label-md text-primary font-bold uppercase tracking-[0.2em] text-sm">Banheiro</span>
+</button>
+<button class="group glass-card rounded-[2rem] p-12 hover:-translate-y-2 transition-all duration-500 border-b-4 border-b-secondary/20 md:col-span-2" onclick="showGifts('Lavanderia')">
+<div class="w-20 h-20 mx-auto mb-8 flex items-center justify-center rounded-full bg-secondary/5 group-hover:bg-secondary group-hover:text-white transition-all duration-500">
+<span class="material-symbols-outlined text-4xl font-light">laundry</span>
 </div>
-<div class="bg-tertiary-container text-tertiary-fixed p-3 rounded-full">
-<span class="material-symbols-outlined" data-icon="warning">warning</span>
-</div>
-</div>
-<div class="bg-surface border border-outline-variant p-lg rounded-xl flex items-center justify-between">
-<div>
-<p class="text-label-md text-on-surface-variant mb-base uppercase">Juros Acumulados</p>
-<h3 class="text-headline-md font-bold text-secondary" id="totalInterest">R$ 0,00</h3>
-</div>
-<div class="bg-secondary-container text-on-secondary-container p-3 rounded-full">
-<span class="material-symbols-outlined" data-icon="payments">payments</span>
-</div>
-</div>
-</div>
-</div>
-<!-- MENU VIEW -->
-<div class="view-section" id="view-menu">
-<div class="mb-lg">
-<h2 class="text-headline-md font-bold text-primary mb-2">Configurações e Perfil</h2>
-<p class="text-on-surface-variant">Gerencie sua conta e preferências do sistema.</p>
-</div>
-<div class="max-w-3xl mx-auto space-y-md">
-<!-- Profile Header -->
-<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm">
-<div class="bg-primary p-lg flex items-center gap-6">
-<div class="w-20 h-20 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container text-headline-lg font-bold border-4 border-surface/20 overflow-hidden" id="avatarCircle" style="cursor:pointer" onclick="openModal('modalPerfil')">AD</div>
-<div>
-<h3 class="text-headline-md font-bold text-on-primary" id="profileName">Administrador</h3>
-<p class="text-body-md text-on-primary opacity-80" id="profileEmail">admin@financeiro.com.br</p>
-<span class="inline-block mt-sm px-3 py-1 bg-secondary-container/20 text-secondary-container text-xs font-bold rounded-full border border-secondary-container/30 uppercase tracking-wider">Conta Pro</span>
-</div>
-</div>
-<div class="p-md bg-surface-container-low border-t border-outline-variant flex justify-end">
-<button class="text-primary font-bold text-label-md flex items-center gap-1 hover:underline" onclick="openModal('modalPerfil')">
-<span class="material-symbols-outlined text-sm">edit</span> Editar Perfil
+<span class="font-label-md text-secondary font-bold uppercase tracking-[0.2em] text-sm">Lavanderia</span>
 </button>
 </div>
+</section>
+<section class="py-section-gap px-container-padding-mobile" id="cores">
+<div class="glass-card rounded-[4rem] p-16 text-center border-2 border-white relative overflow-hidden">
+<h2 class="font-display-lg text-primary text-3xl md:text-4xl font-bold mb-6">Cores do Nosso Lar</h2>
+<p class="font-body-md text-on-surface-variant max-w-lg mx-auto mb-16 text-lg italic">
+                        Tonalidades que guiam a decoração do nosso novo espaço.
+                    </p>
+<div class="flex flex-wrap justify-center gap-12">
+<div class="flex flex-col items-center gap-6">
+<div class="w-20 h-20 rounded-full bg-white shadow-xl ring-4 ring-white"></div>
+<span class="font-label-sm text-primary font-bold tracking-widest uppercase text-xs">Branco Pure</span>
 </div>
-<!-- Menu List -->
-<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm">
-<div class="flex flex-col divide-y divide-outline-variant">
-<button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group" onclick="openModal('modalConfig')">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all"><span class="material-symbols-outlined">settings</span></div>
-<div><h4 class="font-bold text-primary">Configurações da Conta</h4><p class="text-body-sm text-on-surface-variant">Taxa de juros e dados da empresa</p></div>
+<div class="flex flex-col items-center gap-6">
+<div class="w-20 h-20 rounded-full bg-[#f1f3f5] shadow-xl ring-4 ring-white"></div>
+<span class="font-label-sm text-primary font-bold tracking-widest uppercase text-xs">Cinza Gelo</span>
 </div>
-<span class="material-symbols-outlined text-outline">chevron_right</span>
-</button>
-<button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group" onclick="openModal('modalNotif')">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all"><span class="material-symbols-outlined">notifications</span></div>
-<div><h4 class="font-bold text-primary">Notificações</h4><p class="text-body-sm text-on-surface-variant">Alertas de vencimento e avisos</p></div>
+<div class="flex flex-col items-center gap-6">
+<div class="w-20 h-20 rounded-full bg-[#3d5a2c] shadow-xl ring-4 ring-white"></div>
+<span class="font-label-sm text-primary font-bold tracking-widest uppercase text-xs">Oliva</span>
 </div>
-<div class="flex items-center gap-2">
-<span class="text-xs font-bold px-2 py-1 rounded-full" id="notifBadge" style="background:#e8f5e9;color:#006e2f">ATIVO</span>
-<span class="material-symbols-outlined text-outline">chevron_right</span>
-</div>
-</button>
-<button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group" onclick="openModal('modalSeg')">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all"><span class="material-symbols-outlined">security</span></div>
-<div><h4 class="font-bold text-primary">Segurança</h4><p class="text-body-sm text-on-surface-variant">PIN de acesso ao sistema</p></div>
-</div>
-<span class="material-symbols-outlined text-outline">chevron_right</span>
-</button>
-<button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group" onclick="openModal('modalAjuda')">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all"><span class="material-symbols-outlined">help</span></div>
-<div><h4 class="font-bold text-primary">Ajuda e Suporte</h4><p class="text-body-sm text-on-surface-variant">Documentação e contato</p></div>
-</div>
-<span class="material-symbols-outlined text-outline">chevron_right</span>
-</button>
-<button class="flex items-center justify-between p-lg hover:bg-error-container/10 transition-all text-left group" onclick="confirmarSair()">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-error-container text-error flex items-center justify-center transition-all"><span class="material-symbols-outlined">logout</span></div>
-<div><h4 class="font-bold text-error">Sair e Limpar Dados</h4><p class="text-body-sm text-error/70">Encerrar sessão e apagar tudo</p></div>
-</div>
-</button>
-</div>
-</div>
-<div class="text-center p-md"><p class="text-body-sm text-on-surface-variant">Versão do Sistema: 2.1.0-stable</p></div>
-</div>
-</div>
-
-<!-- ===== MODAIS ===== -->
-<style>
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .2s}
-.modal-overlay.open{opacity:1;pointer-events:all}
-.modal-box{background:#f7f9fb;border-radius:16px;width:100%;max-width:440px;padding:24px;transform:translateY(20px);transition:transform .2s;box-shadow:0 8px 32px rgba(0,0,0,0.18)}
-.modal-overlay.open .modal-box{transform:translateY(0)}
-.modal-title{font-size:18px;font-weight:700;color:#091426;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.modal-input{width:100%;border:1px solid #c5c6cd;border-radius:8px;padding:10px 12px;font-size:14px;background:#fff;color:#191c1e;margin-bottom:12px}
-.modal-input:focus{outline:none;border-color:#091426}
-.modal-btn{padding:10px 20px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;transition:opacity .15s}
-.modal-btn:hover{opacity:.85}
-.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #e0e3e5}
-.toggle-row:last-child{border-bottom:none}
-.toggle{position:relative;width:44px;height:24px;cursor:pointer}
-.toggle input{opacity:0;width:0;height:0}
-.toggle-slider{position:absolute;inset:0;background:#c5c6cd;border-radius:24px;transition:.3s}
-.toggle-slider:before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.3s}
-.toggle input:checked+.toggle-slider{background:#006e2f}
-.toggle input:checked+.toggle-slider:before{transform:translateX(20px)}
-</style>
-
-<!-- Modal Editar Perfil -->
-<div class="modal-overlay" id="modalPerfil" onclick="closeModalOutside(event,'modalPerfil')">
-<div class="modal-box">
-<div class="modal-title"><span class="material-symbols-outlined">manage_accounts</span> Editar Perfil</div>
-<div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
-  <div id="previewFoto" style="width:64px;height:64px;border-radius:50%;background:#1e293b;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;overflow:hidden;flex-shrink:0;"></div>
-  <div style="flex:1">
-    <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Foto de Perfil</label>
-    <label style="display:inline-flex;align-items:center;gap:6px;background:#eceef0;color:#45474c;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">
-      <span class="material-symbols-outlined" style="font-size:16px;">upload</span> Escolher foto
-      <input type="file" id="inputFoto" accept="image/*" style="display:none" onchange="previewPhoto(event)"/>
-    </label>
-    <button onclick="removerFoto()" style="margin-left:6px;font-size:11px;color:#ba1a1a;background:none;border:none;cursor:pointer;font-weight:600;">Remover</button>
-  </div>
-</div>
-<label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Nome</label>
-<input class="modal-input" id="inputNome" placeholder="Seu nome" type="text"/>
-<label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">E-mail</label>
-<input class="modal-input" id="inputEmail" placeholder="seu@email.com" type="email"/>
-<label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Iniciais do Avatar (sem foto)</label>
-<input class="modal-input" id="inputIniciais" maxlength="2" placeholder="Ex: AD" type="text"/>
-<div class="flex gap-2 justify-end mt-2">
-<button class="modal-btn" onclick="closeModal('modalPerfil')" style="background:#eceef0;color:#45474c">Cancelar</button>
-<button class="modal-btn" onclick="salvarPerfil()" style="background:#091426;color:#fff">Salvar</button>
+<div class="flex flex-col items-center gap-6">
+<div class="w-20 h-20 rounded-full bg-[#b35a38] shadow-xl ring-4 ring-white"></div>
+<span class="font-label-sm text-secondary font-bold tracking-widest uppercase text-xs">Terracotta</span>
 </div>
 </div>
 </div>
-
-<!-- Modal Configurações -->
-<div class="modal-overlay" id="modalConfig" onclick="closeModalOutside(event,'modalConfig')">
-<div class="modal-box">
-<div class="modal-title"><span class="material-symbols-outlined">settings</span> Configurações da Conta</div>
-<label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Nome da Empresa</label>
-<input class="modal-input" id="inputEmpresa" placeholder="Nome da empresa" type="text"/>
-<label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Taxa de Juros (%)</label>
-<input class="modal-input" id="inputJuros" max="100" min="0" placeholder="Ex: 20" step="0.1" type="number"/>
-<p class="text-xs text-on-surface-variant mb-4">A taxa é aplicada sobre o valor original de cada cobrança em atraso.</p>
-<div class="flex gap-2 justify-end">
-<button class="modal-btn" onclick="closeModal('modalConfig')" style="background:#eceef0;color:#45474c">Cancelar</button>
-<button class="modal-btn" onclick="salvarConfig()" style="background:#091426;color:#fff">Salvar</button>
+</section>
+<section class="py-section-gap px-container-padding-mobile text-center" id="rsvp">
+<div class="glass-card p-16 md:p-24 rounded-[4rem] border-2 border-tertiary/30 max-w-3xl mx-auto shadow-2xl relative overflow-hidden">
+<div class="space-y-6 mb-16">
+<h2 class="font-display-lg text-primary text-4xl md:text-6xl font-bold">Esperamos por você!</h2>
+<div class="h-1.5 w-16 bg-secondary mx-auto rounded-full"></div>
+<p class="font-body-lg text-on-surface-variant text-xl">Sua presença tornará nossa casa um verdadeiro lar.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+<button class="w-full sm:w-auto px-12 py-6 rounded-full btn-terracotta font-label-md flex items-center justify-center gap-4 uppercase tracking-[0.2em] text-sm" onclick="window.open('https://wa.me/5585988660540?text=Olá Ana Kelly e Lourenço Paz! Gostaria de confirmar minha presença no Chá de Casa Nova.', '_blank')">
+<span class="material-symbols-outlined text-xl">check_circle</span>
+                            Confirmar Presença
+                        </button>
+<button class="w-full sm:w-auto px-12 py-6 rounded-full glass-card text-primary font-label-md flex items-center justify-center gap-4 uppercase tracking-[0.2em] text-sm border-2 border-primary/20 hover:bg-primary hover:text-white transition-all duration-500" onclick="window.open('https://maps.google.com/?q=Rua+Joaquim+Boticário,+2523,+Monte,+Canindé', '_blank')">
+<span class="material-symbols-outlined text-xl">map</span>
+                            Ver Localização
+                        </button>
 </div>
 </div>
-</div>
-
-<!-- Modal Notificações -->
-<div class="modal-overlay" id="modalNotif" onclick="closeModalOutside(event,'modalNotif')">
-<div class="modal-box">
-<div class="modal-title"><span class="material-symbols-outlined">notifications</span> Notificações</div>
-<div class="toggle-row">
-<div><p class="font-bold text-primary text-sm">Alertas de atraso</p><p class="text-xs text-on-surface-variant">Avisar quando houver cobranças vencidas</p></div>
-<label class="toggle"><input id="toggleAtraso" type="checkbox"/><span class="toggle-slider"></span></label>
-</div>
-<div class="toggle-row">
-<div><p class="font-bold text-primary text-sm">Resumo diário</p><p class="text-xs text-on-surface-variant">Resumo dos valores em aberto por dia</p></div>
-<label class="toggle"><input id="toggleResumo" type="checkbox"/><span class="toggle-slider"></span></label>
-</div>
-<div class="toggle-row">
-<div><p class="font-bold text-primary text-sm">Novidades do sistema</p><p class="text-xs text-on-surface-variant">Atualizações e melhorias do app</p></div>
-<label class="toggle"><input id="toggleNews" type="checkbox"/><span class="toggle-slider"></span></label>
-</div>
-<div class="flex gap-2 justify-end mt-4">
-<button class="modal-btn" onclick="closeModal('modalNotif')" style="background:#eceef0;color:#45474c">Cancelar</button>
-<button class="modal-btn" onclick="salvarNotif()" style="background:#091426;color:#fff">Salvar</button>
-</div>
-</div>
-</div>
-
-<!-- Modal Segurança -->
-<div class="modal-overlay" id="modalSeg" onclick="closeModalOutside(event,'modalSeg')">
-<div class="modal-box">
-<div class="modal-title"><span class="material-symbols-outlined">security</span> Segurança — PIN</div>
-<p class="text-sm text-on-surface-variant mb-4">Defina um PIN de 4 dígitos para proteger o acesso ao sistema.</p>
-<label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Novo PIN</label>
-<input class="modal-input" id="inputPin1" inputmode="numeric" maxlength="4" pattern="[0-9]*" placeholder="••••" type="password"/>
-<label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Confirmar PIN</label>
-<input class="modal-input" id="inputPin2" inputmode="numeric" maxlength="4" pattern="[0-9]*" placeholder="••••" type="password"/>
-<p class="text-xs text-error mb-2 hidden" id="pinError">Os PINs não coincidem ou são inválidos.</p>
-<div class="flex gap-2 justify-end flex-wrap">
-<button class="modal-btn" onclick="closeModal('modalSeg')" style="background:#eceef0;color:#45474c">Cancelar</button>
-<button class="modal-btn" onclick="removerPin()" style="background:#ffdad6;color:#ba1a1a">Remover PIN</button>
-<button class="modal-btn" onclick="salvarPin()" style="background:#091426;color:#fff">Salvar PIN</button>
-</div>
-</div>
-</div>
-
-<!-- Modal Ajuda -->
-<div class="modal-overlay" id="modalAjuda" onclick="closeModalOutside(event,'modalAjuda')">
-<div class="modal-box">
-<div class="modal-title"><span class="material-symbols-outlined">help</span> Ajuda e Suporte</div>
-<div class="space-y-3 text-sm text-on-surface-variant">
-<div class="bg-surface-container-low rounded-lg p-3"><p class="font-bold text-primary mb-1">📋 Como adicionar um cliente?</p><p>Vá em Registros e clique em "Adicionar Cliente". Preencha os campos diretamente na tabela.</p></div>
-<div class="bg-surface-container-low rounded-lg p-3"><p class="font-bold text-primary mb-1">💰 Como funciona o juros?</p><p>A taxa configurada em Configurações é aplicada sobre o valor original de cada cobrança. Ajuste em Menu → Configurações da Conta.</p></div>
-<div class="bg-surface-container-low rounded-lg p-3"><p class="font-bold text-primary mb-1">📥 Como exportar os dados?</p><p>Na tela de Registros, clique em "Exportar" para baixar um arquivo CSV com todas as cobranças.</p></div>
-<div class="bg-surface-container-low rounded-lg p-3"><p class="font-bold text-primary mb-1">☁️ Os dados ficam salvos?</p><p>Sim, tudo é salvo automaticamente no seu dispositivo via localStorage.</p></div>
-</div>
-<div class="flex justify-end mt-4">
-<button class="modal-btn" onclick="closeModal('modalAjuda')" style="background:#091426;color:#fff">Fechar</button>
-</div>
-</div>
-</div>
+</section>
 </main>
-<!-- Bottom Navigation for Mobile -->
-<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface border-t border-outline-variant shadow-md">
-<button class="flex flex-col items-center justify-center text-on-surface-variant w-1/4 h-full" id="nav-mobile-inicio" onclick="switchView('inicio')">
-<span class="material-symbols-outlined" data-icon="home">home</span>
-<span class="text-[10px] font-bold uppercase">Início</span>
-</button>
-<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 mx-2" id="nav-mobile-livro" onclick="switchView('livro')">
-<span class="material-symbols-outlined" data-icon="grid_on">grid_on</span>
-<span class="text-[10px] font-bold uppercase">Livro</span>
-</button>
-<button class="flex flex-col items-center justify-center text-on-surface-variant w-1/4 h-full" id="nav-mobile-stats" onclick="switchView('stats')">
-<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
-<span class="text-[10px] font-bold uppercase">Stats</span>
-</button>
-<button class="flex flex-col items-center justify-center text-on-surface-variant w-1/4 h-full" id="nav-mobile-menu" onclick="switchView('menu')">
-<span class="material-symbols-outlined" data-icon="menu">menu</span>
-<span class="text-[10px] font-bold uppercase">Menu</span>
-</button>
-</nav>
+</div>
+<div class="hidden fixed inset-0 z-[300] flex items-center justify-center p-6 bg-primary-container/40 backdrop-blur-md" id="gifts-modal">
+<div class="bg-white/95 backdrop-blur-2xl w-full max-w-lg rounded-[3rem] p-10 shadow-[0_50px_100px_rgba(0,0,0,0.3)] flex flex-col max-h-[85vh] border border-white">
+<div class="flex justify-between items-center mb-10">
+<div class="space-y-1">
+<p class="text-xs uppercase tracking-[0.3em] text-secondary font-bold">Categoria</p>
+<h3 class="font-display-lg text-3xl text-primary font-bold" id="modal-title">Categoria</h3>
+</div>
+<button class="material-symbols-outlined p-3 bg-secondary/5 hover:bg-secondary/10 rounded-full text-secondary transition-colors" onclick="closeModal()">close</button>
+</div>
+<div class="overflow-y-auto flex-1 space-y-8 pr-2 custom-scrollbar">
+<div class="grid grid-cols-1 gap-3" id="gift-list"></div>
+<div class="hidden-state space-y-10 pt-10 border-t border-outline-variant/30 animate-fade-in" id="selection-form">
+<div class="bg-primary/5 rounded-3xl p-6 flex items-center gap-6 border border-primary/10 shadow-inner">
+<div class="w-16 h-16 rounded-2xl overflow-hidden bg-white flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-secondary text-3xl font-light">card_giftcard</span>
+</div>
+<div class="text-left">
+<p class="text-[11px] text-primary font-bold uppercase tracking-[0.2em] mb-1">Item Selecionado</p>
+<p class="font-display-lg text-primary text-2xl" id="selected-item-name">Nome do Item</p>
+</div>
+</div>
+<div class="space-y-6">
+<div class="space-y-3">
+<label class="block text-xs font-bold text-primary uppercase tracking-[0.2em] ml-2" for="guest-name">Seu Nome Completo</label>
+<input class="w-full px-6 py-5 rounded-[1.5rem] border-primary/20 focus:ring-secondary focus:border-secondary bg-white font-body-md placeholder:text-on-surface-variant/30 shadow-sm" id="guest-name" placeholder="Como devemos lhe chamar?" type="text"/>
+</div>
+<button class="w-full btn-gold py-6 rounded-full flex items-center justify-center gap-4 uppercase tracking-[0.2em] text-sm font-bold" onclick="sendWhatsAppMessage()">
+<span class="material-symbols-outlined text-xl">send</span>
+                            Confirmar Item
+                        </button>
+</div>
+</div>
+</div>
+<p class="text-[10px] text-on-surface-variant/60 font-bold italic text-center mt-10 uppercase tracking-[0.2em]">Escolha um item com carinho</p>
+</div>
+</div>
 <script>
-    const STORAGE_KEY = 'billing_ledger_data_v2';
-    let ledgerData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [
-        { id: Date.now(), nome: "Acme Corp", aquisicao: "Serviços Cloud", valorOriginal: 1200.00, dataCobranca: "2023-10-15" },
-        { id: Date.now() + 1, nome: "Fintech Solutions", aquisicao: "Consultoria", valorOriginal: 5000.00, dataCobranca: "2024-05-20" }
-    ];
-
-    const searchInput = document.getElementById('searchInput');
-    const ledgerBody = document.getElementById('ledgerBody');
-
-    function switchView(viewId) {
-        // Hide all views
-        document.querySelectorAll('.view-section').forEach(view => {
-            view.classList.remove('active');
-        });
-        // Show target view
-        const targetView = document.getElementById(`view-${viewId}`);
-        if (targetView) targetView.classList.add('active');
-
-        // Update Desktop Header Link colors
-        const navLinks = ['inicio', 'livro', 'stats'];
-        navLinks.forEach(link => {
-            const el = document.getElementById(`nav-desktop-${link}-link`);
-            if (el) {
-                if (link === viewId) {
-                    el.className = "text-primary font-bold text-label-lg transition-colors cursor-pointer";
-                } else {
-                    el.className = "text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded transition-colors text-label-lg cursor-pointer";
-                }
-            }
-        });
-
-        // Update navigation states (Mobile)
-        const mobileNavs = ['inicio', 'livro', 'stats', 'menu'];
-        mobileNavs.forEach(id => {
-            const btn = document.getElementById(`nav-mobile-${id}`);
-            if (btn) {
-                if (id === viewId) {
-                    btn.className = "flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 mx-2 transition-all duration-300";
-                } else {
-                    btn.className = "flex flex-col items-center justify-center text-on-surface-variant w-1/4 h-full transition-all duration-300";
-                }
-            }
-        });
-
-        // Update navigation states (Desktop Sidebar)
-        mobileNavs.forEach(id => {
-            const btn = document.getElementById(`nav-desktop-${id}`);
-            if (btn) {
-                if (id === viewId) {
-                    btn.className = "flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container font-bold rounded-full transition-all text-left";
-                } else {
-                    btn.className = "flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all text-left";
-                }
-            }
-        });
-
-        // Ensure stats or dash update if needed
-        if (viewId === 'inicio' || viewId === 'stats') {
-            updateTotals();
-        }
-    }
-
-    function formatCurrency(value) {
-        if (value === null || value === undefined || isNaN(value)) return "R$ 0,00";
-        return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
-    }
-
-    function calculateMetrics(row) {
-        const valorOrig = parseFloat(row.valorOriginal) || 0;
-        
-        // Juros is ALWAYS 20% of Original Value
-        const juros = valorOrig * 0.20;
-        
-        let dias = 0;
-        if (row.dataCobranca) {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            const cobrancaDate = new Date(row.dataCobranca);
-            // Handling UTC offset for local date
-            cobrancaDate.setMinutes(cobrancaDate.getMinutes() + cobrancaDate.getTimezoneOffset());
-            cobrancaDate.setHours(0,0,0,0);
-
-            dias = Math.floor((today - cobrancaDate) / (1000 * 60 * 60 * 24));
-            dias = dias > 0 ? dias : 0;
-        }
-        
-        const total = valorOrig + juros;
-
-        return { 
-            diasAtraso: dias, 
-            juros: juros, 
-            total: total 
+        const giftData = {
+            'Cozinha': ['Jogo de Panelas', 'Fritadeira Elétrica', 'Liquidificador', 'Conjunto de Pratos', 'Porta Temperos', 'Conjunto de Talheres', 'Micro-ondas', 'Garrafa Térmica'],
+            'Sala': ['Manta para Sofá', 'Almofadas Decorativas', 'Vaso de Cerâmica', 'Quadro Decorativo', 'Tapete Geométrico', 'Porta Retratos'],
+            'Quarto': ['Jogo de Lençol', 'Travesseiros Extra Soft', 'Abajur Minimalista', 'Espelho de Parede', 'Manta de Tricô', 'Organizador de Closet'],
+            'Banheiro': ['Kit Toalhas de Banho', 'Porta Sabonete Líquido', 'Tapete de Algodão', 'Cesto Organizador', 'Nichos de Parede'],
+            'Lavanderia': ['Varal Retrátil', 'Ferro a Vapor', 'Cesto de Roupa Suja', 'Organizador de Produtos', 'Tábua de Passar']
         };
-    }
 
-    function updateTotals() {
-        let openTotal = 0;
-        let lateCount = 0;
-        let totalInterest = 0;
+        let selectedGift = "";
 
-        ledgerData.forEach(row => {
-            const metrics = calculateMetrics(row);
-            openTotal += metrics.total;
-            if (metrics.diasAtraso > 0) lateCount++;
-            totalInterest += metrics.juros;
-        });
-
-        const formattedOpen = formatCurrency(openTotal);
-        const formattedInterest = formatCurrency(totalInterest);
-
-        const totalOpenEl = document.getElementById('totalOpen');
-        const dashTotalOpenEl = document.getElementById('dashTotalOpen');
-        const countLateEl = document.getElementById('countLate');
-        const totalInterestEl = document.getElementById('totalInterest');
-
-        if (totalOpenEl) totalOpenEl.textContent = formattedOpen;
-        if (dashTotalOpenEl) dashTotalOpenEl.textContent = formattedOpen;
-        if (countLateEl) countLateEl.textContent = lateCount;
-        if (totalInterestEl) totalInterestEl.textContent = formattedInterest;
-    }
-
-    function renderTable(filter = "") {
-        if (!ledgerBody) return;
-        ledgerBody.innerHTML = "";
-        const filtered = ledgerData.filter(row => 
-            (row.nome || "").toLowerCase().includes(filter.toLowerCase())
-        );
-
-        filtered.forEach((row, index) => {
-            const metrics = calculateMetrics(row);
-            const isLate = metrics.diasAtraso > 0;
-            
-            const tr = document.createElement('tr');
-            tr.className = `group hover:bg-surface-container transition-colors ${isLate ? 'bg-error-container/5' : 'bg-secondary-container/5'}`;
-            
-            tr.innerHTML = `
-                <td class="px-md py-2 border-r border-outline-variant text-center text-on-surface-variant font-label-md">${index + 1}</td>
-                <td class="px-md py-2 border-r border-outline-variant">
-                    <input type="text" value="${row.nome || ''}" oninput="updateRowSilent(${row.id}, 'nome', this.value)" class="w-full bg-transparent border-none p-1 rounded hover:bg-surface-container-highest transition-all" placeholder="Nome do Cliente">
-                </td>
-                <td class="px-md py-2 border-r border-outline-variant">
-                    <input type="text" value="${row.aquisicao || ''}" oninput="updateRowSilent(${row.id}, 'aquisicao', this.value)" class="w-full bg-transparent border-none p-1 rounded hover:bg-surface-container-highest transition-all" placeholder="Item/Serviço">
-                </td>
-                <td class="px-md py-2 border-r border-outline-variant text-right">
-                    <input type="number" step="0.01" value="${row.valorOriginal !== null ? row.valorOriginal : ''}" onchange="updateRowImmediate(${row.id}, 'valorOriginal', this.value)" onblur="updateRowImmediate(${row.id}, 'valorOriginal', this.value)" class="w-full bg-transparent border-none text-right p-1 rounded hover:bg-surface-container-highest transition-all" placeholder="0.00">
-                </td>
-                <td class="px-md py-2 border-r border-outline-variant text-center">
-                    <input type="date" value="${row.dataCobranca || ''}" onchange="updateRowImmediate(${row.id}, 'dataCobranca', this.value)" class="w-full bg-transparent border-none p-1 rounded hover:bg-surface-container-highest transition-all text-center">
-                </td>
-                <td class="px-md py-2 border-r border-outline-variant text-center font-bold ${isLate ? 'text-error' : 'text-secondary'}">
-                    ${metrics.diasAtraso}
-                </td>
-                <td class="px-md py-2 border-r border-outline-variant text-right ${isLate ? 'text-error font-bold' : 'text-on-surface-variant'}">
-                    ${formatCurrency(metrics.juros)}
-                </td>
-                <td class="px-md py-2 border-r border-outline-variant text-right font-bold ${isLate ? 'text-error' : 'text-secondary'}">
-                    ${formatCurrency(metrics.total)}
-                </td>
-                <td class="px-md py-2 text-center">
-                    <button onclick="deleteRow(${row.id})" class="text-on-surface-variant hover:text-error transition-colors p-1" title="Excluir">
-                        <span class="material-symbols-outlined text-xl" data-icon="delete">delete</span>
-                    </button>
-                </td>
-            `;
-            ledgerBody.appendChild(tr);
-        });
-        updateTotals();
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(ledgerData));
-    }
-
-    function addRow() {
-        const newRow = {
-            id: Date.now(),
-            nome: "",
-            aquisicao: "",
-            valorOriginal: 0,
-            dataCobranca: new Date().toISOString().split('T')[0]
-        };
-        ledgerData.unshift(newRow);
-        renderTable(searchInput ? searchInput.value : "");
-    }
-
-    function updateRowSilent(id, field, value) {
-        const index = ledgerData.findIndex(r => r.id === id);
-        if (index !== -1) {
-            ledgerData[index][field] = value;
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(ledgerData));
-        }
-    }
-
-    function updateRowImmediate(id, field, value) {
-        const index = ledgerData.findIndex(r => r.id === id);
-        if (index !== -1) {
-            if (field === 'valorOriginal') {
-                const val = parseFloat(value);
-                ledgerData[index][field] = isNaN(val) ? 0 : val;
-            } else {
-                ledgerData[index][field] = value;
-            }
-            renderTable(searchInput ? searchInput.value : "");
-        }
-    }
-
-    function deleteRow(id) {
-        if (confirm("Deseja realmente excluir este registro?")) {
-            ledgerData = ledgerData.filter(r => r.id !== id);
-            renderTable(searchInput ? searchInput.value : "");
-        }
-    }
-
-    function clearAllData() {
-        if (confirm("ATENÇÃO: Isso apagará permanentemente todos os seus dados. Continuar?")) {
-            ledgerData = [];
-            renderTable();
-        }
-    }
-
-    function exportToCSV() {
-        if (ledgerData.length === 0) {
-            alert("Não há dados para exportar.");
-            return;
-        }
-
-        let csv = "ID;Nome;Aquisicao;Valor Original;Data Cobranca;Dias Atraso;Juros;Total\n";
-        ledgerData.forEach((row, i) => {
-            const m = calculateMetrics(row);
-            csv += `${i + 1};${row.nome || ''};${row.aquisicao || ''};${row.valorOriginal || 0};${row.dataCobranca || ''};${m.diasAtraso || 0};${m.juros || 0};${m.total || 0}\n`;
-        });
-
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement("a");
-        const url = URL.createObjectURL(blob);
-        link.setAttribute("href", url);
-        link.setAttribute("download", "livro_de_cobrancas.csv");
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            renderTable(e.target.value);
-        });
-    }
-
-    // ===== CONFIGURAÇÕES SALVAS =====
-    const CONFIG_KEY = 'controlcont_config';
-    let appConfig = JSON.parse(localStorage.getItem(CONFIG_KEY)) || {
-        nome: 'Administrador',
-        email: 'admin@financeiro.com.br',
-        iniciais: 'AD',
-        empresa: 'Minha Empresa',
-        juros: 20,
-        notifAtraso: true,
-        notifResumo: false,
-        notifNews: true,
-        pin: ''
-    };
-
-    function saveConfig() {
-        localStorage.setItem(CONFIG_KEY, JSON.stringify(appConfig));
-    }
-
-    function applyProfileUI() {
-        const el = id => document.getElementById(id);
-        const thJuros = document.getElementById('thJuros');
-        if (thJuros) thJuros.textContent = 'Juros (' + (appConfig.juros || 20) + '%)';
-        if (el('profileName')) el('profileName').textContent = appConfig.nome;
-        if (el('profileEmail')) el('profileEmail').textContent = appConfig.email;
-        const av = el('avatarCircle');
-        if (av) {
-            if (appConfig.foto) {
-                av.innerHTML = '<img src="' + appConfig.foto + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
-            } else {
-                av.innerHTML = appConfig.iniciais;
-            }
-        }
-        updateNotifBadge();
-    }
-
-    function updateNotifBadge() {
-        const badge = document.getElementById('notifBadge');
-        if (!badge) return;
-        const any = appConfig.notifAtraso || appConfig.notifResumo || appConfig.notifNews;
-        badge.textContent = any ? 'ATIVO' : 'INATIVO';
-        badge.style.background = any ? '#e8f5e9' : '#fbe9e7';
-        badge.style.color = any ? '#006e2f' : '#ba1a1a';
-    }
-
-    // ===== MODAIS =====
-    function openModal(id) {
-        const m = document.getElementById(id);
-        if (!m) return;
-        // Preencher campos ao abrir
-        if (id === 'modalPerfil') {
-            document.getElementById('inputNome').value = appConfig.nome;
-            document.getElementById('inputEmail').value = appConfig.email;
-            document.getElementById('inputIniciais').value = appConfig.iniciais;
-            const prev = document.getElementById('previewFoto');
-            if (prev) {
-                if (appConfig.foto) {
-                    prev.innerHTML = '<img src="' + appConfig.foto + '" style="width:100%;height:100%;object-fit:cover">';
-                } else {
-                    prev.innerHTML = appConfig.iniciais || 'AD';
-                }
-            }
-        }
-        if (id === 'modalConfig') {
-            document.getElementById('inputEmpresa').value = appConfig.empresa;
-            document.getElementById('inputJuros').value = appConfig.juros;
-        }
-        if (id === 'modalNotif') {
-            document.getElementById('toggleAtraso').checked = appConfig.notifAtraso;
-            document.getElementById('toggleResumo').checked = appConfig.notifResumo;
-            document.getElementById('toggleNews').checked = appConfig.notifNews;
-        }
-        if (id === 'modalSeg') {
-            document.getElementById('inputPin1').value = '';
-            document.getElementById('inputPin2').value = '';
-            document.getElementById('pinError').classList.add('hidden');
-        }
-        m.classList.add('open');
-    }
-
-    function closeModal(id) {
-        const m = document.getElementById(id);
-        if (m) m.classList.remove('open');
-    }
-
-    function closeModalOutside(event, id) {
-        if (event.target.id === id) closeModal(id);
-    }
-
-    // ===== FOTO PERFIL =====
-    let _tempFoto = null;
-    function previewPhoto(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = e => {
-            _tempFoto = e.target.result;
-            const prev = document.getElementById('previewFoto');
-            if (prev) prev.innerHTML = '<img src="' + _tempFoto + '" style="width:100%;height:100%;object-fit:cover">';
-        };
-        reader.readAsDataURL(file);
-    }
-    function removerFoto() {
-        _tempFoto = '';
-        const prev = document.getElementById('previewFoto');
-        const iniciais = document.getElementById('inputIniciais');
-        if (prev) prev.innerHTML = iniciais ? iniciais.value.toUpperCase() : 'AD';
-    }
-
-    // ===== SALVAR PERFIL =====
-    function salvarPerfil() {
-        const nome = document.getElementById('inputNome').value.trim();
-        const email = document.getElementById('inputEmail').value.trim();
-        const iniciais = document.getElementById('inputIniciais').value.trim().toUpperCase();
-        if (!nome) return alert('Informe seu nome.');
-        appConfig.nome = nome;
-        appConfig.email = email || appConfig.email;
-        appConfig.iniciais = iniciais || appConfig.iniciais;
-        if (_tempFoto !== null) appConfig.foto = _tempFoto;
-        _tempFoto = null;
-        saveConfig();
-        applyProfileUI();
-        closeModal('modalPerfil');
-    }
-
-    // ===== SALVAR CONFIGURAÇÕES =====
-    function salvarConfig() {
-        const empresa = document.getElementById('inputEmpresa').value.trim();
-        const juros = parseFloat(document.getElementById('inputJuros').value);
-        if (isNaN(juros) || juros < 0 || juros > 100) return alert('Informe uma taxa de juros válida (0–100).');
-        appConfig.empresa = empresa || appConfig.empresa;
-        appConfig.juros = juros;
-        saveConfig();
-        renderTable(searchInput ? searchInput.value : '');
-        const thJuros = document.getElementById('thJuros');
-        if (thJuros) thJuros.textContent = 'Juros (' + juros + '%)';
-        closeModal('modalConfig');
-        alert(`Taxa de juros atualizada para ${juros}%!`);
-    }
-
-    // ===== SALVAR NOTIFICAÇÕES =====
-    function salvarNotif() {
-        appConfig.notifAtraso = document.getElementById('toggleAtraso').checked;
-        appConfig.notifResumo = document.getElementById('toggleResumo').checked;
-        appConfig.notifNews = document.getElementById('toggleNews').checked;
-        saveConfig();
-        updateNotifBadge();
-        closeModal('modalNotif');
-    }
-
-    // ===== SALVAR PIN =====
-    function salvarPin() {
-        const p1 = document.getElementById('inputPin1').value;
-        const p2 = document.getElementById('inputPin2').value;
-        const errEl = document.getElementById('pinError');
-        if (p1.length !== 4 || !/^\d{4}$/.test(p1) || p1 !== p2) {
-            errEl.classList.remove('hidden');
-            return;
-        }
-        errEl.classList.add('hidden');
-        appConfig.pin = p1;
-        saveConfig();
-        closeModal('modalSeg');
-        alert('PIN salvo! Ele será pedido na próxima vez que abrir o app.');
-    }
-    function removerPin() {
-        if (!appConfig.pin) return alert('Nenhum PIN configurado.');
-        if (confirm('Remover o PIN de acesso?')) {
-            appConfig.pin = '';
-            saveConfig();
-            closeModal('modalSeg');
-            alert('PIN removido.');
-        }
-    }
-
-    // ===== SAIR =====
-    function confirmarSair() {
-        if (confirm('Deseja sair e apagar todos os dados locais?')) {
-            localStorage.clear();
-            location.reload();
-        }
-    }
-
-    // Sobrescrever calculateMetrics para usar juros dinâmico
-    const _origCalc = calculateMetrics;
-    calculateMetrics = function(row) {
-        const valorOrig = parseFloat(row.valorOriginal) || 0;
-        const taxa = (appConfig.juros || 0) / 100;
-        const juros = valorOrig * taxa;
-        let dias = 0;
-        if (row.dataCobranca) {
-            const today = new Date(); today.setHours(0,0,0,0);
-            const d = new Date(row.dataCobranca);
-            d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
-            d.setHours(0,0,0,0);
-            dias = Math.floor((today - d) / 86400000);
-            dias = dias > 0 ? dias : 0;
-        }
-        return { diasAtraso: dias, juros: juros, total: valorOrig + juros };
-    };
-
-    // ===== PIN LOCK =====
-    let pinBuffer = '';
-    let pinAttempts = 0;
-    let pinLocked = false;
-
-    function checkPinOnLoad() {
-        if (!appConfig.pin) return; // sem PIN, abre direto
-        const screen = document.getElementById('pinLockScreen');
-        screen.style.display = 'flex';
-        // Set avatar on lock screen
-        const av = document.getElementById('pinAvatarLock');
-        const nameEl = document.getElementById('pinLockName');
-        if (nameEl) nameEl.textContent = appConfig.nome || 'ControlCont';
-        if (av) {
-            if (appConfig.foto) {
-                av.innerHTML = '<img src="' + appConfig.foto + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
-            } else {
-                av.textContent = appConfig.iniciais || 'CC';
-            }
-        }
-    }
-
-    function pinKey(val) {
-        if (pinLocked) return;
-        const errEl = document.getElementById('pinLockError');
-        if (val === 'back') {
-            pinBuffer = pinBuffer.slice(0, -1);
-        } else {
-            if (pinBuffer.length >= 4) return;
-            pinBuffer += val;
-        }
-        updatePinDots();
-        if (pinBuffer.length === 4) {
+        function openInvitation() {
+            const cover = document.getElementById('envelope-cover');
+            const main = document.getElementById('invitation-content');
+            const flapTop = document.getElementById('flap-top');
+            const flapBottom = document.getElementById('flap-bottom');
+            flapTop.classList.add('unfold-top');
+            flapBottom.classList.add('unfold-bottom');
+            createConfetti();
             setTimeout(() => {
-                if (pinBuffer === appConfig.pin) {
-                    document.getElementById('pinLockScreen').style.display = 'none';
-                    pinBuffer = '';
-                    pinAttempts = 0;
-                    updatePinDots();
-                } else {
-                    pinAttempts++;
-                    pinBuffer = '';
-                    updatePinDots();
-                    if (pinAttempts >= 3) {
-                        pinLocked = true;
-                        errEl.textContent = 'Muitas tentativas. Aguarde 30s...';
-                        setTimeout(() => { pinLocked = false; pinAttempts = 0; errEl.textContent = ''; }, 30000);
-                    } else {
-                        errEl.textContent = 'PIN incorreto. Tentativa ' + pinAttempts + '/3';
-                        setTimeout(() => errEl.textContent = '', 1500);
-                    }
-                }
-            }, 100);
+                cover.style.opacity = '0';
+                cover.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    cover.classList.add('hidden-state');
+                    main.classList.remove('hidden-state');
+                    setTimeout(() => {
+                        main.classList.remove('opacity-0');
+                        main.classList.add('opacity-100');
+                        initScrollObserver();
+                    }, 50);
+                }, 1000);
+            }, 1000);
         }
-    }
 
-    function updatePinDots() {
-        const dots = document.querySelectorAll('.pin-dot');
-        dots.forEach((d, i) => {
-            d.classList.toggle('filled', i < pinBuffer.length);
-        });
-    }
+        function createConfetti() {
+            const colors = ['#3d5a2c', '#b35a38', '#c5a059', '#ffffff'];
+            for(let i = 0; i < 80; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = Math.random() * 100 + 'vh';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.opacity = Math.random() * 0.9;
+                confetti.style.transform = `rotate(${Math.random() * 360}deg) scale(${Math.random() * 1.2 + 0.2})`;
+                document.body.appendChild(confetti);
+                confetti.animate([
+                    { transform: `translate(0, 0) rotate(0deg)`, opacity: confetti.style.opacity },
+                    { transform: `translate(${(Math.random() - 0.5) * 1200}px, ${(Math.random() - 0.5) * 1200}px) rotate(${Math.random() * 1080}deg)`, opacity: 0 }
+                ], { duration: 3000 + Math.random() * 4000, easing: 'cubic-bezier(0.1, 1, 1, 1)', fill: 'forwards' });
+                setTimeout(() => confetti.remove(), 7000);
+            }
+        }
 
-    // Initialize the application
-    applyProfileUI();
-    renderTable();
-    switchView('livro');
-    checkPinOnLoad();
-</script>
+        function initScrollObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) entry.target.classList.add('fade-in-up');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('section').forEach(el => observer.observe(el));
+        }
 
-<script>
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("/controle-contas/sw.js")
-        .then(r => console.log("SW ok:", r.scope))
-        .catch(e => console.warn("SW erro:", e));
-    });
-  }
-</script>
+        function showGifts(category) {
+            const modal = document.getElementById('gifts-modal');
+            const title = document.getElementById('modal-title');
+            const list = document.getElementById('gift-list');
+            const form = document.getElementById('selection-form');
+            title.innerText = category;
+            list.innerHTML = '';
+            selectedGift = "";
+            form.classList.add('hidden-state');
+            giftData[category].forEach(item => {
+                const button = document.createElement('button');
+                button.className = 'gift-btn flex items-center justify-between p-6 bg-primary/5 rounded-2xl text-left hover:bg-tertiary/10 transition-all duration-300 border border-primary/5 mb-1 group';
+                button.innerHTML = `<span class="font-body-md text-primary font-semibold text-lg">${item}</span><span class="material-symbols-outlined text-tertiary opacity-40 group-hover:opacity-100 transition-opacity">circle</span>`;
+                button.onclick = () => selectItem(button, item);
+                list.appendChild(button);
+            });
+            modal.classList.remove('hidden');
+            modal.classList.add('fade-in');
+        }
+
+        function selectItem(element, item) {
+            document.querySelectorAll('.gift-btn').forEach(btn => {
+                btn.classList.remove('gift-item-selected');
+                const icon = btn.querySelector('.material-symbols-outlined');
+                icon.innerText = 'circle';
+                icon.classList.add('opacity-40');
+            });
+            element.classList.add('gift-item-selected');
+            const icon = element.querySelector('.material-symbols-outlined');
+            icon.innerText = 'check_circle';
+            icon.classList.remove('opacity-40');
+            selectedGift = item;
+            const form = document.getElementById('selection-form');
+            document.getElementById('selected-item-name').innerText = item;
+            form.classList.remove('hidden-state');
+            setTimeout(() => { form.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 150);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('gifts-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('fade-in');
+        }
+
+        function sendWhatsAppMessage() {
+            const name = document.getElementById('guest-name').value.trim();
+            if (!name) { alert('Por favor, digite seu nome antes de enviar.'); return; }
+            const message = `Olá Ana Kelly e Lourenço Paz! Me chamo ${name} e gostaria de confirmar que escolhi presentear vocês com: ${selectedGift}`;
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/5585988660540?text=${encodedMessage}`, '_blank');
+            closeModal();
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('gifts-modal');
+            if (event.target == modal) closeModal();
+        }
+    </script>
 </body></html>
