@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ControlCont - Gestão de Cobranças</title>
+<link rel="manifest" href="manifest.json"/>
+<meta name="theme-color" content="#0a2e1a"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="ControlCont"/>
+<meta name="description" content="Sistema de controle de cobranças e clientes."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "secondary-container":"#bbf7d0","on-secondary-fixed":"#052e16","surface-container-lowest":"#ffffff",
+        "on-error-container":"#7f1d1d","on-surface":"#0a2e1a","primary-fixed-dim":"#86efac",
+        "on-primary":"#ffffff","on-secondary":"#ffffff","inverse-surface":"#134d2a",
+        "on-tertiary-container":"#dc2626","tertiary-fixed-dim":"#fca5a5","inverse-on-surface":"#f0fdf4",
+        "inverse-primary":"#86efac","outline":"#4b7a5a","on-surface-variant":"#2d5a3d",
+        "on-primary-container":"#6aaa80","tertiary":"#7f1d1d","surface-dim":"#d1fae5",
+        "outline-variant":"#a7f3d0","on-secondary-container":"#14532d","on-primary-fixed":"#0a2e1a",
+        "surface-bright":"#f0fdf4","surface-container":"#dcfce7","surface-container-low":"#f0fdf4",
+        "secondary":"#15803d","primary-container":"#134d2a","primary-fixed":"#bbf7d0",
+        "tertiary-container":"#7f1d1d","background":"#f0fdf4","error":"#dc2626",
+        "tertiary-fixed":"#fecaca","surface-container-highest":"#bbf7d0","secondary-fixed-dim":"#4ade80",
+        "secondary-fixed":"#86efac","primary":"#0a2e1a","on-error":"#ffffff",
+        "on-primary-fixed-variant":"#166534","surface-tint":"#15803d","on-background":"#0a2e1a",
+        "on-secondary-fixed-variant":"#14532d","surface-container-high":"#d1fae5",
+        "surface":"#f0fdf4","error-container":"#fee2e2","on-tertiary":"#ffffff","surface-variant":"#d1fae5"
+      },
+      borderRadius: { DEFAULT:"0.125rem", lg:"0.25rem", xl:"0.5rem", full:"0.75rem" },
+      spacing: {
+        "margin-desktop":"32px","lg":"24px","xs":"4px","gutter":"16px","base":"4px",
+        "md":"16px","sm":"8px","margin-mobile":"16px","xl":"32px"
+      },
+      fontFamily: {
+        "headline-lg":["Inter"],"body-md":["Inter"],"label-md":["Inter"],"headline-sm":["Inter"],
+        "label-lg":["Inter"],"headline-md":["Inter"],"body-lg":["Inter"],"body-sm":["Inter"],"data-tabular":["Inter"]
+      },
+      fontSize: {
+        "headline-lg":["32px",{lineHeight:"40px",letterSpacing:"-0.02em",fontWeight:"700"}],
+        "body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],
+        "label-md":["12px",{lineHeight:"16px",fontWeight:"600"}],
+        "headline-sm":["20px",{lineHeight:"28px",fontWeight:"600"}],
+        "label-lg":["14px",{lineHeight:"20px",letterSpacing:"0.05em",fontWeight:"600"}],
+        "headline-md":["24px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"600"}],
+        "body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}],
+        "body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],
+        "data-tabular":["14px",{lineHeight:"20px",fontWeight:"500"}]
+      }
+    }
+  }
+}
+</script>
+<style>
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle}
+input:focus{outline:none!important;box-shadow:inset 0 0 0 2px #0a2e1a!important}
+.data-grid-container::-webkit-scrollbar{height:8px;width:8px}
+.data-grid-container::-webkit-scrollbar-track{background:#f0fdf4}
+.data-grid-container::-webkit-scrollbar-thumb{background:#86efac;border-radius:4px}
+.data-grid-container::-webkit-scrollbar-thumb:hover{background:#4b7a5a}
+body{min-height:max(884px,100dvh)}
+.view-section{display:none}
+.view-section.active{display:block}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:#f0fdf4;border-radius:16px;width:100%;max-width:440px;padding:24px;transform:translateY(20px);transition:transform .2s;box-shadow:0 8px 32px rgba(0,0,0,0.18)}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+.modal-title{font-size:18px;font-weight:700;color:#0a2e1a;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.modal-input{width:100%;border:1.5px solid #a7f3d0;border-radius:8px;padding:10px 12px;font-size:15px;background:#fff;color:#191c1e;margin-bottom:12px;box-sizing:border-box}
+.modal-input:focus{outline:none!important;border-color:#0a2e1a;box-shadow:none!important}
+.modal-btn{padding:10px 20px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;transition:opacity .15s}
+.modal-btn:hover{opacity:.85}
+
+/* Grupo tabs */
+.group-tab{display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;border:none;transition:all .2s;flex-shrink:0}
+.group-tab.active{background:#0a2e1a;color:#86efac}
+.group-tab:not(.active){background:#dcfce7;color:#14532d}
+.group-tab:not(.active):hover{background:#bbf7d0}
+
+/* Pin */
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid #86efac;background:transparent;transition:background .15s}
+.pin-dot.filled{background:#4ade80;border-color:#4ade80}
+.pin-key{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.08);color:#fff;font-size:24px;font-weight:600;border:none;cursor:pointer;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.pin-key:active{background:rgba(255,255,255,0.22)}
+.pin-key-ghost{background:transparent!important}
+
+/* Toggle */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #d1fae5}
+.toggle-row:last-child{border-bottom:none}
+.toggle{position:relative;width:44px;height:24px;cursor:pointer}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:#86efac;border-radius:24px;transition:.3s}
+.toggle-slider:before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.3s}
+.toggle input:checked+.toggle-slider{background:#15803d}
+.toggle input:checked+.toggle-slider:before{transform:translateX(20px)}
+
+/* Toast */
+#toast{display:none;position:fixed;top:80px;left:50%;transform:translateX(-50%);background:#0a2e1a;color:#86efac;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:600;z-index:500;white-space:nowrap}
+@keyframes fadeInOut{0%{opacity:0;transform:translateX(-50%) translateY(-8px)}15%{opacity:1;transform:translateX(-50%) translateY(0)}75%{opacity:1}100%{opacity:0}}
+
+/* Mobile cards */
+@media(max-width:767px){
+  .desktop-only{display:none!important}
+}
+@media(min-width:768px){
+  .mobile-only{display:none!important}
+}
+</style>
+</head>
+
+<!-- PIN LOCK -->
+<div id="pinLockScreen" style="display:none;position:fixed;inset:0;z-index:9999;background:#0a2e1a;flex-direction:column;align-items:center;justify-content:center;gap:24px;">
+  <div style="text-align:center">
+    <div id="pinAvatarLock" style="width:72px;height:72px;border-radius:50%;background:#15803d;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#fff;margin:0 auto 12px;overflow:hidden"></div>
+    <p style="color:#bcc7de;font-size:14px;margin:0" id="pinLockName">ControlCont</p>
+    <h2 style="color:#fff;font-size:20px;font-weight:700;margin:4px 0 0">Digite seu PIN</h2>
+  </div>
+  <div style="display:flex;gap:12px" id="pinDots">
+    <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+  </div>
+  <p id="pinLockError" style="color:#ff5250;font-size:13px;min-height:18px;margin:0"></p>
+  <div style="display:grid;grid-template-columns:repeat(3,72px);gap:12px">
+    <button class="pin-key" onclick="pinKey('1')">1</button>
+    <button class="pin-key" onclick="pinKey('2')">2</button>
+    <button class="pin-key" onclick="pinKey('3')">3</button>
+    <button class="pin-key" onclick="pinKey('4')">4</button>
+    <button class="pin-key" onclick="pinKey('5')">5</button>
+    <button class="pin-key" onclick="pinKey('6')">6</button>
+    <button class="pin-key" onclick="pinKey('7')">7</button>
+    <button class="pin-key" onclick="pinKey('8')">8</button>
+    <button class="pin-key" onclick="pinKey('9')">9</button>
+    <button class="pin-key pin-key-ghost" onclick="pinKey('back')" style="font-size:20px">⌫</button>
+    <button class="pin-key" onclick="pinKey('0')">0</button>
+    <button class="pin-key pin-key-ghost" style="opacity:0" disabled></button>
+  </div>
+</div>
+
+<body class="bg-[#f0fdf4] text-[#0a2e1a] font-body-md min-h-screen flex flex-col">
+<div id="toast"></div>
+
+<!-- HEADER -->
+<header class="bg-white border-b border-[#a7f3d0] flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-16 fixed top-0 z-50">
+  <div class="flex items-center gap-3">
+    <span class="material-symbols-outlined text-[#15803d] text-headline-sm">account_balance</span>
+    <h1 class="text-headline-sm font-bold text-[#0a2e1a]">Controle de Cobranças</h1>
+  </div>
+  <div class="hidden md:flex gap-8 items-center">
+    <nav class="flex gap-6">
+      <a class="text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded transition-colors text-label-lg cursor-pointer" onclick="switchView('inicio')">Dashboard</a>
+      <a class="text-primary font-bold text-label-lg cursor-pointer" onclick="switchView('livro')">Registros</a>
+      <a class="text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded transition-colors text-label-lg cursor-pointer" onclick="switchView('stats')">Relatórios</a>
+    </nav>
+    <div class="flex items-center gap-2 text-on-surface-variant">
+      <div class="w-8 h-8 rounded-full bg-[#0a2e1a] flex items-center justify-center text-[#86efac] font-bold text-xs cursor-pointer" id="headerAvatar" onclick="switchView('menu')">AD</div>
+    </div>
+  </div>
+</header>
+
+<!-- SIDEBAR DESKTOP -->
+<aside class="hidden md:flex flex-col fixed left-0 top-0 h-full w-72 bg-[#0a2e1a] border-r border-[#1a5c30] pt-20 z-40">
+  <div class="px-6 mb-8">
+    <h2 class="text-headline-md font-bold text-[#86efac]">Gestor Financeiro</h2>
+  </div>
+  <nav class="flex flex-col px-4 gap-1">
+    <button class="flex items-center gap-3 px-4 py-3 text-[#86efac]/60 hover:bg-[#1a5c30] rounded-full transition-all text-left" id="nav-desktop-inicio" onclick="switchView('inicio')">
+      <span class="material-symbols-outlined">dashboard</span><span class="font-body-md">Painel Principal</span>
+    </button>
+    <button class="flex items-center gap-3 px-4 py-3 bg-[#1a5c30] text-[#86efac] font-bold rounded-full transition-all text-left" id="nav-desktop-livro" onclick="switchView('livro')">
+      <span class="material-symbols-outlined">table_chart</span><span class="font-body-md">Livro de Contas</span>
+    </button>
+    <button class="flex items-center gap-3 px-4 py-3 text-[#86efac]/60 hover:bg-[#1a5c30] rounded-full transition-all text-left" id="nav-desktop-stats" onclick="switchView('stats')">
+      <span class="material-symbols-outlined">assessment</span><span class="font-body-md">Relatórios</span>
+    </button>
+    <button class="flex items-center gap-3 px-4 py-3 text-[#86efac]/60 hover:bg-[#1a5c30] rounded-full transition-all text-left" id="nav-desktop-menu" onclick="switchView('menu')">
+      <span class="material-symbols-outlined">settings</span><span class="font-body-md">Configurações</span>
+    </button>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="flex-1 mt-16 md:ml-72 p-margin-mobile md:p-margin-desktop mb-20 md:mb-0">
+
+  <!-- DASHBOARD -->
+  <div class="view-section" id="view-inicio">
+    <div class="mb-lg">
+      <h2 class="text-headline-md font-bold text-primary mb-2" id="dashWelcome">Bem-vindo, Administrador</h2>
+      <p class="text-on-surface-variant">Resumo consolidado de todos os grupos.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-lg mb-xl">
+      <div class="bg-[#0a2e1a] text-white p-lg rounded-xl shadow-lg flex flex-col justify-between h-40">
+        <span class="text-label-md uppercase opacity-80">Total em Aberto</span>
+        <h3 class="text-headline-lg font-bold" id="dashTotalOpen">R$ 0,00</h3>
+        <div class="flex items-center gap-2 text-sm opacity-70">
+          <span class="material-symbols-outlined" style="font-size:18px">groups</span>
+          <span id="dashGruposInfo">0 grupos · 0 clientes</span>
+        </div>
+      </div>
+      <div class="bg-white border border-[#a7f3d0] p-lg rounded-xl flex flex-col justify-between h-40">
+        <span class="text-label-md text-on-surface-variant uppercase">Clientes em Atraso</span>
+        <h3 class="text-headline-lg font-bold text-error" id="dashCountLate">0</h3>
+        <p class="text-body-sm text-on-surface-variant">Cobranças vencidas (todos os grupos)</p>
+      </div>
+    </div>
+    <!-- Resumo por grupo -->
+    <div id="dashGrupoCards" class="grid grid-cols-1 md:grid-cols-2 gap-md"></div>
+  </div>
+
+  <!-- LIVRO -->
+  <div class="view-section active" id="view-livro">
+
+    <!-- Barra de grupos -->
+    <div class="mb-md">
+      <div class="flex items-center gap-2 mb-3">
+        <h2 class="text-headline-sm font-bold text-primary flex-1">Grupos de Taxa</h2>
+        <button onclick="openNovoGrupo()" class="flex items-center gap-1 bg-[#15803d] text-white px-md py-2 rounded-xl font-label-lg hover:opacity-90 transition-all active:scale-95 text-sm">
+          <span class="material-symbols-outlined" style="font-size:18px">add</span> Novo Grupo
+        </button>
+      </div>
+      <div class="overflow-x-auto pb-1">
+        <div class="flex gap-2 min-w-max" id="grupoTabs"></div>
+      </div>
+    </div>
+
+    <!-- Info do grupo ativo -->
+    <div class="bg-[#dcfce7] border border-[#a7f3d0] rounded-xl px-md py-3 mb-md flex items-center justify-between" id="grupoInfoBar">
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-[#15803d]">percent</span>
+        <div>
+          <p class="text-label-md text-on-surface-variant uppercase">Grupo Ativo</p>
+          <p class="font-bold text-[#0a2e1a]" id="grupoInfoNome">—</p>
+        </div>
+      </div>
+      <button onclick="confirmarExcluirGrupo()" class="flex items-center gap-1 text-error text-sm font-bold hover:bg-error-container/30 px-3 py-2 rounded-lg transition-all">
+        <span class="material-symbols-outlined" style="font-size:18px">delete</span>
+        <span class="hidden md:inline">Excluir grupo</span>
+      </button>
+    </div>
+
+    <!-- Action bar -->
+    <section class="mb-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+      <div class="relative w-full md:w-96">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+        <input class="w-full pl-10 pr-4 py-2 bg-white border border-[#a7f3d0] rounded-lg text-body-md transition-all" id="searchInput" placeholder="Filtrar por nome..." type="text"/>
+      </div>
+      <div class="flex flex-wrap items-center gap-sm w-full md:w-auto">
+        <button class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-[#15803d] text-white px-lg py-2 rounded-xl font-label-lg hover:opacity-90 transition-all active:scale-95" onclick="addRow()">
+          <span class="material-symbols-outlined">add</span> ADICIONAR CLIENTE
+        </button>
+        <button class="flex items-center justify-center gap-2 border border-outline-variant text-on-surface-variant px-md py-2 rounded-xl font-label-lg hover:bg-surface-container-high transition-all" onclick="exportToCSV()">
+          <span class="material-symbols-outlined">download</span> EXPORTAR
+        </button>
+        <button class="flex items-center justify-center gap-2 border border-outline-variant text-error px-md py-2 rounded-xl font-label-lg hover:bg-error-container transition-all" onclick="clearGroupData()">
+          <span class="material-symbols-outlined">delete_sweep</span> LIMPAR
+        </button>
+      </div>
+    </section>
+
+    <!-- Tabela Desktop -->
+    <div class="desktop-only bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm mb-xl">
+      <div class="data-grid-container overflow-x-auto">
+        <table class="w-full text-left border-collapse min-w-[1100px]">
+          <thead class="bg-[#0a2e1a] text-[#86efac] font-label-md uppercase tracking-wider">
+            <tr>
+              <th class="px-md py-3 border-r border-outline-variant w-12 text-center">#</th>
+              <th class="px-md py-3 border-r border-outline-variant">Nome</th>
+              <th class="px-md py-3 border-r border-outline-variant">Aquisição</th>
+              <th class="px-md py-3 border-r border-outline-variant text-right">Valor Original (R$)</th>
+              <th class="px-md py-3 border-r border-outline-variant text-center">Data Cobrança</th>
+              <th class="px-md py-3 border-r border-outline-variant text-center">Dias Atraso</th>
+              <th class="px-md py-3 border-r border-outline-variant text-right" id="thJuros">Juros (?%)</th>
+              <th class="px-md py-3 border-r border-outline-variant text-right font-bold">Total</th>
+              <th class="px-md py-3 text-center w-16">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="ledgerBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Cards Mobile -->
+    <div class="mobile-only" id="mobileCards"></div>
+
+  </div>
+
+  <!-- STATS -->
+  <div class="view-section" id="view-stats">
+    <div class="mb-lg">
+      <h2 class="text-headline-md font-bold text-primary mb-2">Relatórios</h2>
+      <p class="text-on-surface-variant">Consolidado de todos os grupos de taxa.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-lg mb-xl">
+      <div class="bg-white border border-[#a7f3d0] p-lg rounded-xl flex items-center justify-between">
+        <div><p class="text-label-md text-on-surface-variant uppercase mb-base">Total em Aberto</p>
+          <h3 class="text-headline-md font-bold text-primary" id="totalOpen">R$ 0,00</h3></div>
+        <div class="bg-error-container text-on-error-container p-3 rounded-full"><span class="material-symbols-outlined">trending_up</span></div>
+      </div>
+      <div class="bg-white border border-[#a7f3d0] p-lg rounded-xl flex items-center justify-between">
+        <div><p class="text-label-md text-on-surface-variant uppercase mb-base">Clientes em Atraso</p>
+          <h3 class="text-headline-md font-bold text-primary" id="countLate">0</h3></div>
+        <div class="bg-tertiary-container text-tertiary-fixed p-3 rounded-full"><span class="material-symbols-outlined">warning</span></div>
+      </div>
+      <div class="bg-white border border-[#a7f3d0] p-lg rounded-xl flex items-center justify-between">
+        <div><p class="text-label-md text-on-surface-variant uppercase mb-base">Juros Acumulados</p>
+          <h3 class="text-headline-md font-bold text-secondary" id="totalInterest">R$ 0,00</h3></div>
+        <div class="bg-secondary-container text-on-secondary-container p-3 rounded-full"><span class="material-symbols-outlined">payments</span></div>
+      </div>
+    </div>
+    <!-- Detalhe por grupo -->
+    <h3 class="text-headline-sm font-bold text-primary mb-md">Por Grupo de Taxa</h3>
+    <div id="statsGrupoCards" class="grid grid-cols-1 md:grid-cols-2 gap-md"></div>
+  </div>
+
+  <!-- MENU -->
+  <div class="view-section" id="view-menu">
+    <div class="mb-lg">
+      <h2 class="text-headline-md font-bold text-primary mb-2">Configurações e Perfil</h2>
+      <p class="text-on-surface-variant">Gerencie sua conta e preferências.</p>
+    </div>
+    <div class="max-w-3xl mx-auto space-y-md">
+      <div class="bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+        <div class="bg-[#0a2e1a] p-lg flex items-center gap-6">
+          <div class="w-20 h-20 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container text-headline-lg font-bold border-4 border-surface/20 overflow-hidden cursor-pointer" id="avatarCircle" onclick="openModal('modalPerfil')">AD</div>
+          <div>
+            <h3 class="text-headline-md font-bold text-white" id="profileName">Administrador</h3>
+            <p class="text-body-md text-white opacity-80" id="profileEmail">admin@financeiro.com.br</p>
+          </div>
+        </div>
+        <div class="p-md bg-surface-container-low border-t border-outline-variant flex justify-end">
+          <button class="text-primary font-bold text-label-md flex items-center gap-1 hover:underline" onclick="openModal('modalPerfil')">
+            <span class="material-symbols-outlined text-sm">edit</span> Editar Perfil
+          </button>
+        </div>
+      </div>
+      <div class="bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+        <div class="flex flex-col divide-y divide-outline-variant">
+          <button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group" onclick="openModal('modalSeg')">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all"><span class="material-symbols-outlined">security</span></div>
+              <div><h4 class="font-bold text-primary">Segurança</h4><p class="text-body-sm text-on-surface-variant">PIN de acesso ao sistema</p></div>
+            </div>
+            <span class="material-symbols-outlined text-outline">chevron_right</span>
+          </button>
+          <button class="flex items-center justify-between p-lg hover:bg-surface-container transition-all text-left group" onclick="openModal('modalAjuda')">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all"><span class="material-symbols-outlined">help</span></div>
+              <div><h4 class="font-bold text-primary">Ajuda e Suporte</h4><p class="text-body-sm text-on-surface-variant">Como usar o sistema</p></div>
+            </div>
+            <span class="material-symbols-outlined text-outline">chevron_right</span>
+          </button>
+          <button class="flex items-center justify-between p-lg hover:bg-error-container/10 transition-all text-left" onclick="confirmarSair()">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full bg-error-container text-error flex items-center justify-center"><span class="material-symbols-outlined">logout</span></div>
+              <div><h4 class="font-bold text-error">Sair e Limpar Dados</h4><p class="text-body-sm text-error/70">Apagar tudo e recarregar</p></div>
+            </div>
+          </button>
+        </div>
+      </div>
+      <div class="text-center p-md"><p class="text-body-sm text-on-surface-variant">Versão 3.0.0 · Grupos de Taxa</p></div>
+    </div>
+  </div>
+
+</main>
+
+<!-- BOTTOM NAV -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-white border-t border-[#a7f3d0] shadow-md">
+  <button class="flex flex-col items-center justify-center text-on-surface-variant w-1/4 h-full" id="nav-mobile-inicio" onclick="switchView('inicio')">
+    <span class="material-symbols-outlined">home</span>
+    <span class="text-[10px] font-bold uppercase">Início</span>
+  </button>
+  <button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 mx-2" id="nav-mobile-livro" onclick="switchView('livro')">
+    <span class="material-symbols-outlined">grid_on</span>
+    <span class="text-[10px] font-bold uppercase">Livro</span>
+  </button>
+  <button class="flex flex-col items-center justify-center text-on-surface-variant w-1/4 h-full" id="nav-mobile-stats" onclick="switchView('stats')">
+    <span class="material-symbols-outlined">analytics</span>
+    <span class="text-[10px] font-bold uppercase">Stats</span>
+  </button>
+  <button class="flex flex-col items-center justify-center text-on-surface-variant w-1/4 h-full" id="nav-mobile-menu" onclick="switchView('menu')">
+    <span class="material-symbols-outlined">menu</span>
+    <span class="text-[10px] font-bold uppercase">Menu</span>
+  </button>
+</nav>
+
+<!-- ===== MODAIS ===== -->
+
+<!-- Modal: Novo Grupo -->
+<div class="modal-overlay" id="modalNovoGrupo" onclick="closeModalOutside(event,'modalNovoGrupo')">
+  <div class="modal-box">
+    <div class="modal-title"><span class="material-symbols-outlined">add_circle</span> Novo Grupo de Taxa</div>
+    <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Nome do Grupo (opcional)</label>
+    <input class="modal-input" id="inputGrupoNome" placeholder="Ex: Clientes VIP, Inadimplentes..." type="text"/>
+    <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Taxa de Juros (%)*</label>
+    <input class="modal-input" id="inputGrupoTaxa" placeholder="Ex: 25" type="number" min="0" max="999" step="0.1"/>
+    <p class="text-xs text-on-surface-variant mb-4">Cada grupo tem sua própria lista de clientes e taxa independente.</p>
+    <div class="flex gap-2 justify-end">
+      <button class="modal-btn" onclick="closeModal('modalNovoGrupo')" style="background:#dcfce7;color:#14532d">Cancelar</button>
+      <button class="modal-btn" onclick="criarGrupo()" style="background:#0a2e1a;color:#86efac">Criar Grupo</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Perfil -->
+<div class="modal-overlay" id="modalPerfil" onclick="closeModalOutside(event,'modalPerfil')">
+  <div class="modal-box">
+    <div class="modal-title"><span class="material-symbols-outlined">manage_accounts</span> Editar Perfil</div>
+    <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Nome</label>
+    <input class="modal-input" id="inputNome" placeholder="Seu nome" type="text"/>
+    <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">E-mail</label>
+    <input class="modal-input" id="inputEmail" placeholder="seu@email.com" type="email"/>
+    <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Iniciais (avatar)</label>
+    <input class="modal-input" id="inputIniciais" maxlength="2" placeholder="Ex: AD" type="text"/>
+    <div class="flex gap-2 justify-end mt-2">
+      <button class="modal-btn" onclick="closeModal('modalPerfil')" style="background:#dcfce7;color:#14532d">Cancelar</button>
+      <button class="modal-btn" onclick="salvarPerfil()" style="background:#0a2e1a;color:#86efac">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Segurança -->
+<div class="modal-overlay" id="modalSeg" onclick="closeModalOutside(event,'modalSeg')">
+  <div class="modal-box">
+    <div class="modal-title"><span class="material-symbols-outlined">security</span> Segurança — PIN</div>
+    <p class="text-sm text-on-surface-variant mb-4">PIN de 4 dígitos para proteger o acesso.</p>
+    <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Novo PIN</label>
+    <input class="modal-input" id="inputPin1" inputmode="numeric" maxlength="4" placeholder="••••" type="password"/>
+    <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Confirmar PIN</label>
+    <input class="modal-input" id="inputPin2" inputmode="numeric" maxlength="4" placeholder="••••" type="password"/>
+    <p class="text-xs text-error mb-2 hidden" id="pinError">PINs não coincidem ou inválidos.</p>
+    <div class="flex gap-2 justify-end flex-wrap">
+      <button class="modal-btn" onclick="closeModal('modalSeg')" style="background:#dcfce7;color:#14532d">Cancelar</button>
+      <button class="modal-btn" onclick="removerPin()" style="background:#ffdad6;color:#ba1a1a">Remover</button>
+      <button class="modal-btn" onclick="salvarPin()" style="background:#0a2e1a;color:#86efac">Salvar PIN</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Ajuda -->
+<div class="modal-overlay" id="modalAjuda" onclick="closeModalOutside(event,'modalAjuda')">
+  <div class="modal-box">
+    <div class="modal-title"><span class="material-symbols-outlined">help</span> Ajuda e Suporte</div>
+    <div class="space-y-3 text-sm text-on-surface-variant">
+      <div class="bg-surface-container-low rounded-lg p-3"><p class="font-bold text-primary mb-1">📂 Como criar um grupo de taxa?</p><p>No Livro de Contas, clique em "Novo Grupo", defina um nome (opcional) e a taxa de juros. Cada grupo tem seus próprios clientes.</p></div>
+      <div class="bg-surface-container-low rounded-lg p-3"><p class="font-bold text-primary mb-1">🔄 Como trocar entre grupos?</p><p>Clique nas abas coloridas no topo do Livro de Contas. Os dados de cada grupo ficam salvos separadamente.</p></div>
+      <div class="bg-surface-container-low rounded-lg p-3"><p class="font-bold text-primary mb-1">🗑️ Como excluir um grupo?</p><p>Com o grupo ativo, clique em "Excluir grupo" na barra vermelha. Isso remove o grupo e todos os clientes dele.</p></div>
+      <div class="bg-surface-container-low rounded-lg p-3"><p class="font-bold text-primary mb-1">☁️ Os dados ficam salvos?</p><p>Sim, tudo salvo no dispositivo via localStorage automaticamente.</p></div>
+    </div>
+    <div class="flex justify-end mt-4">
+      <button class="modal-btn" onclick="closeModal('modalAjuda')" style="background:#0a2e1a;color:#86efac">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// STORAGE KEYS
+// ═══════════════════════════════════════════════════
+const GROUPS_KEY   = 'controlcont_groups_v1';
+const CONFIG_KEY   = 'controlcont_config_v1';
+
+// ═══════════════════════════════════════════════════
+// CONFIG (perfil, PIN)
+// ═══════════════════════════════════════════════════
+let appConfig = JSON.parse(localStorage.getItem(CONFIG_KEY)) || {
+  nome: 'Administrador', email: 'admin@financeiro.com.br',
+  iniciais: 'AD', pin: ''
+};
+function saveAppConfig() { localStorage.setItem(CONFIG_KEY, JSON.stringify(appConfig)); }
+
+// ═══════════════════════════════════════════════════
+// GRUPOS
+// Estrutura: [ { id, nome, taxa, clientes: [...] } ]
+// ═══════════════════════════════════════════════════
+let grupos = JSON.parse(localStorage.getItem(GROUPS_KEY)) || [];
+let grupoAtivoId = null;
+
+function saveGrupos() { localStorage.setItem(GROUPS_KEY, JSON.stringify(grupos)); }
+
+function getGrupoAtivo() { return grupos.find(g => g.id === grupoAtivoId) || null; }
+
+// Inicializa com grupo padrão se vazio
+function initGrupos() {
+  if (grupos.length === 0) {
+    grupos.push({
+      id: Date.now(),
+      nome: 'Padrão',
+      taxa: 20,
+      clientes: [
+        { id: Date.now()+1, nome: 'Acme Corp', aquisicao: 'Serviços Cloud', valorOriginal: 1200, dataCobranca: '2023-10-15' },
+        { id: Date.now()+2, nome: 'Fintech Solutions', aquisicao: 'Consultoria', valorOriginal: 5000, dataCobranca: '2024-05-20' }
+      ]
+    });
+    saveGrupos();
+  }
+  grupoAtivoId = grupos[0].id;
+}
+
+// ═══════════════════════════════════════════════════
+// CRIAR / EXCLUIR GRUPO
+// ═══════════════════════════════════════════════════
+function openNovoGrupo() {
+  document.getElementById('inputGrupoNome').value = '';
+  document.getElementById('inputGrupoTaxa').value = '';
+  openModal('modalNovoGrupo');
+  setTimeout(() => document.getElementById('inputGrupoTaxa').focus(), 200);
+}
+
+function criarGrupo() {
+  const taxaVal = parseFloat(document.getElementById('inputGrupoTaxa').value);
+  if (isNaN(taxaVal) || taxaVal < 0) {
+    document.getElementById('inputGrupoTaxa').focus();
+    showToast('Informe uma taxa válida');
+    return;
+  }
+  const nomeVal = document.getElementById('inputGrupoNome').value.trim() || taxaVal + '%';
+  const novoGrupo = { id: Date.now(), nome: nomeVal, taxa: taxaVal, clientes: [] };
+  grupos.push(novoGrupo);
+  saveGrupos();
+  grupoAtivoId = novoGrupo.id;
+  closeModal('modalNovoGrupo');
+  renderGrupoTabs();
+  renderTable();
+  showToast(`Grupo "${nomeVal}" criado ✓`);
+}
+
+function confirmarExcluirGrupo() {
+  const g = getGrupoAtivo();
+  if (!g) return;
+  if (grupos.length === 1) { showToast('Não é possível excluir o único grupo'); return; }
+  if (!confirm(`Excluir o grupo "${g.nome}" e todos os ${g.clientes.length} cliente(s)? Essa ação não pode ser desfeita.`)) return;
+  grupos = grupos.filter(x => x.id !== grupoAtivoId);
+  grupoAtivoId = grupos[0].id;
+  saveGrupos();
+  renderGrupoTabs();
+  renderTable();
+  showToast('Grupo excluído');
+}
+
+// ═══════════════════════════════════════════════════
+// RENDER ABAS
+// ═══════════════════════════════════════════════════
+const TAB_COLORS = [
+  {bg:'#0a2e1a',text:'#86efac'},{bg:'#15803d',text:'#fff'},{bg:'#166534',text:'#fff'},
+  {bg:'#14532d',text:'#86efac'},{bg:'#134d2a',text:'#4ade80'},{bg:'#1a5c30',text:'#bbf7d0'},
+  {bg:'#052e16',text:'#4ade80'},{bg:'#064e3b',text:'#6ee7b7'},{bg:'#065f46',text:'#6ee7b7'},
+];
+
+function getTabColor(index) { return TAB_COLORS[index % TAB_COLORS.length]; }
+
+function renderGrupoTabs() {
+  const container = document.getElementById('grupoTabs');
+  container.innerHTML = '';
+  grupos.forEach((g, i) => {
+    const color = getTabColor(i);
+    const isActive = g.id === grupoAtivoId;
+    const btn = document.createElement('button');
+    btn.className = 'group-tab' + (isActive ? ' active' : '');
+    if (isActive) {
+      btn.style.background = color.bg;
+      btn.style.color = color.text;
+    } else {
+      btn.style.background = '#eceef0';
+      btn.style.color = '#45474c';
+    }
+    btn.innerHTML = `
+      <span class="material-symbols-outlined" style="font-size:16px">percent</span>
+      ${g.nome} · ${g.taxa}%
+      <span style="font-size:11px;opacity:0.7">(${g.clientes.length})</span>
+    `;
+    btn.onclick = () => { grupoAtivoId = g.id; renderGrupoTabs(); renderTable(); };
+    container.appendChild(btn);
+  });
+
+  // Atualiza info bar
+  const g = getGrupoAtivo();
+  if (g) {
+    document.getElementById('grupoInfoNome').textContent = `${g.nome} · ${g.taxa}% de juros · ${g.clientes.length} cliente(s)`;
+    document.getElementById('thJuros').textContent = `Juros (${g.taxa}%)`;
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// MÉTRICAS
+// ═══════════════════════════════════════════════════
+function formatCurrency(v) {
+  if (v === null || v === undefined || isNaN(v)) return 'R$ 0,00';
+  return new Intl.NumberFormat('pt-BR', { style:'currency', currency:'BRL' }).format(v);
+}
+
+function calculateMetrics(cliente, taxa) {
+  const valorOrig = parseFloat(cliente.valorOriginal) || 0;
+  const juros = valorOrig * (taxa / 100);
+  let dias = 0;
+  if (cliente.dataCobranca) {
+    const today = new Date(); today.setHours(0,0,0,0);
+    const d = new Date(cliente.dataCobranca);
+    d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
+    d.setHours(0,0,0,0);
+    dias = Math.max(0, Math.floor((today - d) / 86400000));
+  }
+  return { diasAtraso: dias, juros, total: valorOrig + juros };
+}
+
+// ═══════════════════════════════════════════════════
+// TOTAIS GLOBAIS
+// ═══════════════════════════════════════════════════
+function updateTotals() {
+  let totalOpen = 0, totalLate = 0, totalInterest = 0, totalClientes = 0;
+  grupos.forEach(g => {
+    g.clientes.forEach(c => {
+      const m = calculateMetrics(c, g.taxa);
+      totalOpen += m.total;
+      totalInterest += m.juros;
+      if (m.diasAtraso > 0) totalLate++;
+      totalClientes++;
+    });
+  });
+  el('totalOpen').textContent = formatCurrency(totalOpen);
+  el('totalInterest').textContent = formatCurrency(totalInterest);
+  el('countLate').textContent = totalLate;
+  el('dashTotalOpen').textContent = formatCurrency(totalOpen);
+  el('dashCountLate').textContent = totalLate;
+  el('dashGruposInfo').textContent = `${grupos.length} grupo(s) · ${totalClientes} cliente(s)`;
+
+  renderDashGrupoCards();
+  renderStatsGrupoCards();
+}
+
+function renderDashGrupoCards() {
+  const container = el('dashGrupoCards');
+  if (!container) return;
+  container.innerHTML = '';
+  grupos.forEach((g, i) => {
+    let total = 0, late = 0;
+    g.clientes.forEach(c => {
+      const m = calculateMetrics(c, g.taxa);
+      total += m.total;
+      if (m.diasAtraso > 0) late++;
+    });
+    const color = getTabColor(i);
+    const card = document.createElement('div');
+    card.className = 'bg-surface border border-outline-variant rounded-xl p-lg flex items-center justify-between cursor-pointer hover:bg-surface-container transition-all';
+    card.onclick = () => { grupoAtivoId = g.id; switchView('livro'); };
+    card.innerHTML = `
+      <div class="flex items-center gap-4">
+        <div style="width:48px;height:48px;border-radius:50%;background:${color.bg};display:flex;align-items:center;justify-content:center;color:${color.text};font-weight:700;font-size:14px;flex-shrink:0">${g.taxa}%</div>
+        <div>
+          <p class="font-bold text-primary">${g.nome}</p>
+          <p class="text-body-sm text-on-surface-variant">${g.clientes.length} cliente(s) · ${late} em atraso</p>
+        </div>
+      </div>
+      <div class="text-right">
+        <p class="font-bold text-primary">${formatCurrency(total)}</p>
+        <p class="text-body-sm text-on-surface-variant">total</p>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function renderStatsGrupoCards() {
+  const container = el('statsGrupoCards');
+  if (!container) return;
+  container.innerHTML = '';
+  grupos.forEach((g, i) => {
+    let totalOrig = 0, totalJuros = 0, totalFinal = 0, late = 0;
+    g.clientes.forEach(c => {
+      const m = calculateMetrics(c, g.taxa);
+      totalOrig += parseFloat(c.valorOriginal) || 0;
+      totalJuros += m.juros;
+      totalFinal += m.total;
+      if (m.diasAtraso > 0) late++;
+    });
+    const color = getTabColor(i);
+    const card = document.createElement('div');
+    card.className = 'bg-surface border border-outline-variant rounded-xl overflow-hidden';
+    card.innerHTML = `
+      <div style="background:${color.bg};padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+        <span style="color:${color.text};font-weight:700;font-size:15px">${g.nome}</span>
+        <span style="color:${color.text};opacity:.8;font-size:13px">${g.taxa}% de juros</span>
+      </div>
+      <div class="grid grid-cols-3 divide-x divide-outline-variant">
+        <div class="p-md"><p class="text-xs text-on-surface-variant uppercase font-bold mb-1">Valor Original</p><p class="font-bold text-on-surface">${formatCurrency(totalOrig)}</p></div>
+        <div class="p-md"><p class="text-xs text-on-surface-variant uppercase font-bold mb-1">Juros</p><p class="font-bold text-secondary">${formatCurrency(totalJuros)}</p></div>
+        <div class="p-md"><p class="text-xs text-on-surface-variant uppercase font-bold mb-1">Total</p><p class="font-bold text-primary">${formatCurrency(totalFinal)}</p></div>
+      </div>
+      <div class="px-md pb-md text-body-sm text-on-surface-variant">${g.clientes.length} cliente(s) · <span class="text-error font-bold">${late} em atraso</span></div>`;
+    container.appendChild(card);
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// RENDER TABELA
+// ═══════════════════════════════════════════════════
+function renderTable(filter = '') {
+  const g = getGrupoAtivo();
+  const ledgerBody = el('ledgerBody');
+  const mobileCards = el('mobileCards');
+  if (!g) return;
+
+  const filtered = g.clientes.filter(c => (c.nome||'').toLowerCase().includes(filter.toLowerCase()));
+
+  // Desktop
+  if (ledgerBody) {
+    ledgerBody.innerHTML = '';
+    filtered.forEach((row, index) => {
+      const m = calculateMetrics(row, g.taxa);
+      const isLate = m.diasAtraso > 0;
+      const tr = document.createElement('tr');
+      tr.className = `group hover:bg-surface-container transition-colors ${isLate ? 'bg-error-container/5' : 'bg-secondary-container/5'}`;
+      tr.innerHTML = `
+        <td class="px-md py-2 border-r border-outline-variant text-center text-on-surface-variant font-label-md">${index+1}</td>
+        <td class="px-md py-2 border-r border-outline-variant">
+          <input type="text" value="${row.nome||''}" oninput="updateClienteSilent(${row.id},'nome',this.value)" class="w-full bg-transparent border-none p-1 rounded hover:bg-surface-container-highest transition-all" placeholder="Nome do Cliente">
+        </td>
+        <td class="px-md py-2 border-r border-outline-variant">
+          <input type="text" value="${row.aquisicao||''}" oninput="updateClienteSilent(${row.id},'aquisicao',this.value)" class="w-full bg-transparent border-none p-1 rounded hover:bg-surface-container-highest transition-all" placeholder="Item/Serviço">
+        </td>
+        <td class="px-md py-2 border-r border-outline-variant text-right">
+          <input type="number" step="0.01" value="${row.valorOriginal!==null?row.valorOriginal:''}" onchange="updateClienteImmediate(${row.id},'valorOriginal',this.value)" class="w-full bg-transparent border-none text-right p-1 rounded hover:bg-surface-container-highest transition-all" placeholder="0.00">
+        </td>
+        <td class="px-md py-2 border-r border-outline-variant text-center">
+          <input type="date" value="${row.dataCobranca||''}" onchange="updateClienteImmediate(${row.id},'dataCobranca',this.value)" class="w-full bg-transparent border-none p-1 rounded hover:bg-surface-container-highest transition-all text-center">
+        </td>
+        <td class="px-md py-2 border-r border-outline-variant text-center font-bold ${isLate?'text-error':'text-secondary'}">${m.diasAtraso}</td>
+        <td class="px-md py-2 border-r border-outline-variant text-right ${isLate?'text-error font-bold':'text-on-surface-variant'}">${formatCurrency(m.juros)}</td>
+        <td class="px-md py-2 border-r border-outline-variant text-right font-bold ${isLate?'text-error':'text-secondary'}">${formatCurrency(m.total)}</td>
+        <td class="px-md py-2 text-center">
+          <button onclick="deleteCliente(${row.id})" class="text-on-surface-variant hover:text-error transition-colors p-1">
+            <span class="material-symbols-outlined text-xl">delete</span>
+          </button>
+        </td>`;
+      ledgerBody.appendChild(tr);
+    });
+  }
+
+  // Mobile
+  if (mobileCards) {
+    mobileCards.innerHTML = '';
+    if (filtered.length === 0) {
+      mobileCards.innerHTML = `<div class="flex flex-col items-center justify-center py-16 text-on-surface-variant">
+        <span class="material-symbols-outlined text-5xl mb-3 opacity-40">inbox</span>
+        <p class="text-body-md">Nenhum cliente neste grupo</p>
+        <p class="text-body-sm opacity-70 mt-1">Clique em "Adicionar Cliente"</p>
+      </div>`;
+    } else {
+      filtered.forEach(row => {
+        const m = calculateMetrics(row, g.taxa);
+        const isLate = m.diasAtraso > 0;
+        const card = document.createElement('div');
+        card.className = `mb-3 bg-surface border rounded-xl overflow-hidden ${isLate?'border-error/40':'border-outline-variant'}`;
+        card.innerHTML = `
+          <div class="flex items-center justify-between px-4 pt-4 pb-2">
+            <div class="flex-1 min-w-0">
+              <p class="font-bold text-primary truncate">${row.nome||'—'}</p>
+              <p class="text-body-sm text-on-surface-variant truncate">${row.aquisicao||'Sem descrição'}</p>
+            </div>
+            <span class="ml-3 px-2 py-0.5 rounded-full text-xs font-bold ${isLate?'bg-error-container text-error':'bg-secondary-container text-on-secondary-container'}">
+              ${isLate?`${m.diasAtraso}d atraso`:'Em dia'}
+            </span>
+          </div>
+          <div class="grid grid-cols-3 border-t border-outline-variant">
+            <div class="px-4 py-3 border-r border-outline-variant">
+              <p class="text-[10px] text-on-surface-variant uppercase font-bold mb-1">Valor</p>
+              <p class="text-sm font-bold">${formatCurrency(row.valorOriginal)}</p>
+            </div>
+            <div class="px-4 py-3 border-r border-outline-variant">
+              <p class="text-[10px] text-on-surface-variant uppercase font-bold mb-1">Juros ${g.taxa}%</p>
+              <p class="text-sm font-bold ${isLate?'text-error':'text-on-surface-variant'}">${formatCurrency(m.juros)}</p>
+            </div>
+            <div class="px-4 py-3">
+              <p class="text-[10px] text-on-surface-variant uppercase font-bold mb-1">Total</p>
+              <p class="text-sm font-bold ${isLate?'text-error':'text-secondary'}">${formatCurrency(m.total)}</p>
+            </div>
+          </div>
+          <div class="border-t border-outline-variant">
+            <button onclick="deleteCliente(${row.id})" class="w-full flex items-center justify-center gap-2 py-3 text-error hover:bg-error-container/20 transition-colors text-sm font-medium">
+              <span class="material-symbols-outlined text-base">delete</span> Excluir
+            </button>
+          </div>`;
+        mobileCards.appendChild(card);
+      });
+    }
+  }
+
+  // Atualiza header da coluna
+  const th = el('thJuros');
+  if (th) th.textContent = `Juros (${g.taxa}%)`;
+
+  updateTotals();
+  saveGrupos();
+}
+
+// ═══════════════════════════════════════════════════
+// CRUD CLIENTES
+// ═══════════════════════════════════════════════════
+function addRow() {
+  const g = getGrupoAtivo();
+  if (!g) return;
+  g.clientes.unshift({ id: Date.now(), nome:'', aquisicao:'', valorOriginal:0, dataCobranca: new Date().toISOString().split('T')[0] });
+  renderTable(el('searchInput')?.value||'');
+}
+
+function updateClienteSilent(id, field, value) {
+  const g = getGrupoAtivo(); if (!g) return;
+  const c = g.clientes.find(x => x.id === id);
+  if (c) { c[field] = value; saveGrupos(); updateTotals(); }
+}
+
+function updateClienteImmediate(id, field, value) {
+  const g = getGrupoAtivo(); if (!g) return;
+  const c = g.clientes.find(x => x.id === id);
+  if (c) {
+    c[field] = field === 'valorOriginal' ? (parseFloat(value)||0) : value;
+    renderTable(el('searchInput')?.value||'');
+  }
+}
+
+function deleteCliente(id) {
+  if (!confirm('Excluir este cliente?')) return;
+  const g = getGrupoAtivo(); if (!g) return;
+  g.clientes = g.clientes.filter(c => c.id !== id);
+  renderTable(el('searchInput')?.value||'');
+  showToast('Cliente excluído');
+}
+
+function clearGroupData() {
+  const g = getGrupoAtivo(); if (!g) return;
+  if (!confirm(`Limpar todos os ${g.clientes.length} cliente(s) do grupo "${g.nome}"?`)) return;
+  g.clientes = [];
+  renderTable();
+  showToast('Dados do grupo limpos');
+}
+
+function exportToCSV() {
+  const g = getGrupoAtivo(); if (!g || g.clientes.length === 0) { showToast('Sem dados para exportar'); return; }
+  let csv = `Grupo;Taxa;Nome;Aquisicao;Valor Original;Data Cobranca;Dias Atraso;Juros;Total\n`;
+  g.clientes.forEach((c,i) => {
+    const m = calculateMetrics(c, g.taxa);
+    csv += `${g.nome};${g.taxa}%;${c.nome||''};${c.aquisicao||''};${c.valorOriginal||0};${c.dataCobranca||''};${m.diasAtraso};${m.juros.toFixed(2)};${m.total.toFixed(2)}\n`;
+  });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8;'}));
+  link.download = `grupo_${g.nome.replace(/\s/g,'_')}_${g.taxa}pct.csv`;
+  link.click();
+  showToast('CSV exportado ✓');
+}
+
+// ═══════════════════════════════════════════════════
+// NAVEGAÇÃO
+// ═══════════════════════════════════════════════════
+function switchView(viewId) {
+  document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+  const t = document.getElementById(`view-${viewId}`);
+  if (t) t.classList.add('active');
+
+  const ids = ['inicio','livro','stats','menu'];
+  ids.forEach(id => {
+    const mob = el(`nav-mobile-${id}`);
+    if (mob) mob.className = id === viewId
+      ? 'flex flex-col items-center justify-center bg-[#dcfce7] text-[#14532d] rounded-full px-4 py-1 mx-2'
+      : 'flex flex-col items-center justify-center text-[#4b7a5a] w-1/4 h-full';
+    const desk = el(`nav-desktop-${id}`);
+    if (desk) desk.className = id === viewId
+      ? 'flex items-center gap-3 px-4 py-3 bg-[#1a5c30] text-[#86efac] font-bold rounded-full transition-all text-left'
+      : 'flex items-center gap-3 px-4 py-3 text-[#86efac]/60 hover:bg-[#1a5c30] rounded-full transition-all text-left';
+  });
+  if (viewId === 'stats' || viewId === 'inicio') updateTotals();
+}
+
+// ═══════════════════════════════════════════════════
+// PERFIL / MODAIS
+// ═══════════════════════════════════════════════════
+function applyProfileUI() {
+  el('profileName').textContent = appConfig.nome;
+  el('profileEmail').textContent = appConfig.email;
+  const av = el('avatarCircle');
+  if (av) av.textContent = appConfig.iniciais;
+  const ha = el('headerAvatar');
+  if (ha) ha.textContent = appConfig.iniciais;
+  el('dashWelcome').textContent = `Bem-vindo, ${appConfig.nome}`;
+}
+
+function openModal(id) {
+  const m = el(id); if (!m) return;
+  if (id === 'modalPerfil') {
+    el('inputNome').value = appConfig.nome;
+    el('inputEmail').value = appConfig.email;
+    el('inputIniciais').value = appConfig.iniciais;
+  }
+  if (id === 'modalSeg') {
+    el('inputPin1').value = ''; el('inputPin2').value = '';
+    el('pinError').classList.add('hidden');
+  }
+  m.classList.add('open');
+}
+function closeModal(id) { const m = el(id); if (m) m.classList.remove('open'); }
+function closeModalOutside(e, id) { if (e.target.id === id) closeModal(id); }
+
+function salvarPerfil() {
+  const nome = el('inputNome').value.trim();
+  if (!nome) { showToast('Informe um nome'); return; }
+  appConfig.nome = nome;
+  appConfig.email = el('inputEmail').value.trim() || appConfig.email;
+  appConfig.iniciais = el('inputIniciais').value.trim().toUpperCase() || appConfig.iniciais;
+  saveAppConfig(); applyProfileUI(); closeModal('modalPerfil'); showToast('Perfil salvo ✓');
+}
+
+function salvarPin() {
+  const p1 = el('inputPin1').value, p2 = el('inputPin2').value;
+  if (p1.length !== 4 || !/^\d{4}$/.test(p1) || p1 !== p2) {
+    el('pinError').classList.remove('hidden'); return;
+  }
+  el('pinError').classList.add('hidden');
+  appConfig.pin = p1; saveAppConfig(); closeModal('modalSeg');
+  showToast('PIN salvo ✓');
+}
+function removerPin() {
+  if (!appConfig.pin) { showToast('Nenhum PIN configurado'); return; }
+  if (!confirm('Remover o PIN?')) return;
+  appConfig.pin = ''; saveAppConfig(); closeModal('modalSeg'); showToast('PIN removido');
+}
+function confirmarSair() {
+  if (!confirm('Apagar todos os dados e recarregar?')) return;
+  localStorage.clear(); location.reload();
+}
+
+// ═══════════════════════════════════════════════════
+// PIN LOCK
+// ═══════════════════════════════════════════════════
+let pinBuffer = '', pinAttempts = 0, pinLocked = false;
+
+function checkPinOnLoad() {
+  if (!appConfig.pin) return;
+  const screen = el('pinLockScreen'); screen.style.display = 'flex';
+  el('pinLockName').textContent = appConfig.nome;
+  el('pinAvatarLock').textContent = appConfig.iniciais;
+}
+
+function pinKey(val) {
+  if (pinLocked) return;
+  const errEl = el('pinLockError');
+  if (val === 'back') { pinBuffer = pinBuffer.slice(0,-1); }
+  else { if (pinBuffer.length >= 4) return; pinBuffer += val; }
+  updatePinDots();
+  if (pinBuffer.length === 4) {
+    setTimeout(() => {
+      if (pinBuffer === appConfig.pin) {
+        el('pinLockScreen').style.display = 'none';
+        pinBuffer = ''; pinAttempts = 0; updatePinDots();
+      } else {
+        pinAttempts++; pinBuffer = ''; updatePinDots();
+        if (pinAttempts >= 3) {
+          pinLocked = true; errEl.textContent = 'Muitas tentativas. Aguarde 30s...';
+          setTimeout(() => { pinLocked = false; pinAttempts = 0; errEl.textContent = ''; }, 30000);
+        } else {
+          errEl.textContent = `PIN incorreto. Tentativa ${pinAttempts}/3`;
+          setTimeout(() => errEl.textContent = '', 1500);
+        }
+      }
+    }, 100);
+  }
+}
+function updatePinDots() {
+  document.querySelectorAll('.pin-dot').forEach((d,i) => d.classList.toggle('filled', i < pinBuffer.length));
+}
+
+// ═══════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════
+function el(id) { return document.getElementById(id); }
+
+function showToast(msg) {
+  const t = el('toast');
+  t.textContent = msg; t.style.display = 'block';
+  t.style.animation = 'none'; void t.offsetWidth;
+  t.style.animation = 'fadeInOut 2.5s ease forwards';
+  setTimeout(() => t.style.display = 'none', 2600);
+}
+
+// Search
+document.getElementById('searchInput')?.addEventListener('input', e => renderTable(e.target.value));
+
+// ═══════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════
+initGrupos();
+applyProfileUI();
+renderGrupoTabs();
+renderTable();
+switchView('livro');
+checkPinOnLoad();
+</script>
+</body>
+</html>
