@@ -767,6 +767,9 @@ function renderTable(filter = '') {
         <td class="px-md py-2 border-r border-outline-variant text-right font-bold ${isLate?'text-error':'text-secondary'}">${formatCurrency(m.total)}</td>
         <td class="px-md py-2 text-center">
           <div class="flex items-center justify-center gap-1">
+            <button onclick="pagarJuros(${row.id})" title="Marcar juros como pago" class="text-[#15803d] hover:bg-[#dcfce7] rounded p-1 transition-colors">
+              <span class="material-symbols-outlined text-xl">payments</span>
+            </button>
             <button onclick="editarCliente(${row.id})" class="text-on-surface-variant hover:text-primary transition-colors p-1">
               <span class="material-symbols-outlined text-xl">edit</span>
             </button>
@@ -774,6 +777,7 @@ function renderTable(filter = '') {
               <span class="material-symbols-outlined text-xl">delete</span>
             </button>
           </div>
+          ${(row.historicoJuros||[]).length > 0 ? `<span class="text-[10px] text-[#15803d] font-bold cursor-pointer" onclick="toggleHistorico(${row.id})">📋 ${(row.historicoJuros||[]).length}x pago</span>` : ''}
         </td>`;
       ledgerBody.appendChild(tr);
     });
@@ -792,6 +796,8 @@ function renderTable(filter = '') {
       filtered.forEach(row => {
         const m = calculateMetrics(row, g.taxa);
         const isLate = m.diasAtraso > 0;
+        const historico = row.historicoJuros || [];
+        const dataFormatada = row.dataCobranca ? new Date(row.dataCobranca + 'T12:00:00').toLocaleDateString('pt-BR') : '—';
         const card = document.createElement('div');
         card.className = `mb-3 bg-surface border rounded-xl overflow-hidden ${isLate?'border-error/40':'border-outline-variant'}`;
         card.innerHTML = `
@@ -799,6 +805,10 @@ function renderTable(filter = '') {
             <div class="flex-1 min-w-0">
               <p class="font-bold text-primary truncate">${row.nome||'—'}</p>
               <p class="text-body-sm text-on-surface-variant truncate">${row.aquisicao||'Sem descrição'}</p>
+              <p class="text-[11px] text-on-surface-variant mt-1 flex items-center gap-1">
+                <span class="material-symbols-outlined" style="font-size:13px">calendar_today</span>
+                Vence: <strong>${dataFormatada}</strong>
+              </p>
             </div>
             <span class="ml-3 px-2 py-0.5 rounded-full text-xs font-bold ${isLate?'bg-error-container text-error':'bg-secondary-container text-on-secondary-container'}">
               ${isLate?`${m.diasAtraso}d atraso`:'Em dia'}
@@ -806,7 +816,7 @@ function renderTable(filter = '') {
           </div>
           <div class="grid grid-cols-3 border-t border-outline-variant">
             <div class="px-4 py-3 border-r border-outline-variant">
-              <p class="text-[10px] text-on-surface-variant uppercase font-bold mb-1">Valor</p>
+              <p class="text-[10px] text-on-surface-variant uppercase font-bold mb-1">Dívida</p>
               <p class="text-sm font-bold">${formatCurrency(row.valorOriginal)}</p>
             </div>
             <div class="px-4 py-3 border-r border-outline-variant">
@@ -818,13 +828,30 @@ function renderTable(filter = '') {
               <p class="text-sm font-bold ${isLate?'text-error':'text-secondary'}">${formatCurrency(m.total)}</p>
             </div>
           </div>
-          <div class="border-t border-outline-variant flex">
-            <button onclick="editarCliente(${row.id})" class="flex-1 flex items-center justify-center gap-2 py-3 text-on-surface-variant hover:bg-surface-container transition-colors text-sm font-medium">
-              <span class="material-symbols-outlined text-base">edit</span> Editar
+          ${historico.length > 0 ? `
+          <div class="px-4 py-2 bg-[#f0fdf4] border-t border-outline-variant">
+            <button onclick="toggleHistorico(${row.id})" class="text-[11px] text-[#15803d] font-bold flex items-center gap-1">
+              <span class="material-symbols-outlined" style="font-size:14px">history</span>
+              ${historico.length} pagamento(s) de juros registrado(s)
             </button>
-            <div class="w-px bg-outline-variant"></div>
-            <button onclick="deleteCliente(${row.id})" class="flex-1 flex items-center justify-center gap-2 py-3 text-error hover:bg-error-container/20 transition-colors text-sm font-medium">
-              <span class="material-symbols-outlined text-base">delete</span> Excluir
+            <div id="hist-${row.id}" style="display:none" class="mt-2 space-y-1">
+              ${historico.map(h=>`
+                <div class="flex justify-between text-[11px] text-on-surface-variant py-1 border-b border-outline-variant/50 last:border-0">
+                  <span>${h.data}</span>
+                  <span class="font-bold text-secondary">${formatCurrency(h.valor)}</span>
+                  <span class="text-[10px] opacity-60">próx: ${h.proxData}</span>
+                </div>`).join('')}
+            </div>
+          </div>` : ''}
+          <div class="border-t border-outline-variant grid grid-cols-3">
+            <button onclick="editarCliente(${row.id})" class="flex items-center justify-center gap-1 py-3 text-on-surface-variant hover:bg-surface-container transition-colors text-xs font-medium border-r border-outline-variant">
+              <span class="material-symbols-outlined text-sm">edit</span> Editar
+            </button>
+            <button onclick="pagarJuros(${row.id})" class="flex items-center justify-center gap-1 py-3 text-[#15803d] hover:bg-[#dcfce7] transition-colors text-xs font-bold border-r border-outline-variant">
+              <span class="material-symbols-outlined text-sm">payments</span> Juros Pago
+            </button>
+            <button onclick="deleteCliente(${row.id})" class="flex items-center justify-center gap-1 py-3 text-error hover:bg-error-container/20 transition-colors text-xs font-medium">
+              <span class="material-symbols-outlined text-sm">delete</span> Excluir
             </button>
           </div>`;
         mobileCards.appendChild(card);
@@ -891,6 +918,43 @@ function updateClienteImmediate(id, field, value) {
   }
 }
 
+function pagarJuros(id) {
+  const g = getGrupoAtivo(); if (!g) return;
+  const c = g.clientes.find(x => x.id === id); if (!c) return;
+  const m = calculateMetrics(c, g.taxa);
+  const valorJuros = m.juros;
+  const dataAtual = c.dataCobranca || new Date().toISOString().split('T')[0];
+
+  // Avança a data 1 mês
+  const d = new Date(dataAtual + 'T12:00:00');
+  d.setMonth(d.getMonth() + 1);
+  const novaData = d.toISOString().split('T')[0];
+  const novaDataFormatada = d.toLocaleDateString('pt-BR');
+  const dataAtualFormatada = new Date(dataAtual + 'T12:00:00').toLocaleDateString('pt-BR');
+
+  if (!confirm(`Confirmar pagamento de juros de ${formatCurrency(valorJuros)}?\n\nA dívida de ${formatCurrency(c.valorOriginal)} continua.\nNova data de cobrança: ${novaDataFormatada}`)) return;
+
+  // Registra no histórico
+  if (!c.historicoJuros) c.historicoJuros = [];
+  c.historicoJuros.push({
+    data: dataAtualFormatada,
+    valor: valorJuros,
+    proxData: novaDataFormatada
+  });
+
+  // Avança a data
+  c.dataCobranca = novaData;
+
+  saveGrupos();
+  renderTable(el('searchInput')?.value||'');
+  showToast(`Juros de ${formatCurrency(valorJuros)} registrado ✓ · Nova data: ${novaDataFormatada}`);
+}
+
+function toggleHistorico(id) {
+  const el2 = document.getElementById(`hist-${id}`);
+  if (el2) el2.style.display = el2.style.display === 'none' ? 'block' : 'none';
+}
+
 function editarCliente(id) {
   const g = getGrupoAtivo(); if (!g) return;
   const c = g.clientes.find(x => x.id === id); if (!c) return;
@@ -921,10 +985,11 @@ function clearGroupData() {
 
 function exportToCSV() {
   const g = getGrupoAtivo(); if (!g || g.clientes.length === 0) { showToast('Sem dados para exportar'); return; }
-  let csv = `Grupo;Taxa;Nome;Aquisicao;Valor Original;Data Cobranca;Dias Atraso;Juros;Total\n`;
+  let csv = `Grupo;Taxa;Nome;Aquisicao;Valor Original;Data Cobranca;Dias Atraso;Juros;Total;Vezes Juros Pago\n`;
   g.clientes.forEach((c,i) => {
     const m = calculateMetrics(c, g.taxa);
-    csv += `${g.nome};${g.taxa}%;${c.nome||''};${c.aquisicao||''};${c.valorOriginal||0};${c.dataCobranca||''};${m.diasAtraso};${m.juros.toFixed(2)};${m.total.toFixed(2)}\n`;
+    const hist = (c.historicoJuros||[]).length;
+    csv += `${g.nome};${g.taxa}%;${c.nome||''};${c.aquisicao||''};${c.valorOriginal||0};${c.dataCobranca||''};${m.diasAtraso};${m.juros.toFixed(2)};${m.total.toFixed(2)};${hist}\n`;
   });
   const link = document.createElement('a');
   link.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8;'}));
