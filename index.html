@@ -414,15 +414,46 @@ body{min-height:max(884px,100dvh)}
 <div class="modal-overlay" id="modalPerfil" onclick="closeModalOutside(event,'modalPerfil')">
   <div class="modal-box">
     <div class="modal-title"><span class="material-symbols-outlined">manage_accounts</span> Editar Perfil</div>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+      <div id="previewFoto" style="width:64px;height:64px;border-radius:50%;background:#134d2a;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#86efac;overflow:hidden;flex-shrink:0;"></div>
+      <div style="flex:1">
+        <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Foto de Perfil</label>
+        <label style="display:inline-flex;align-items:center;gap:6px;background:#dcfce7;color:#14532d;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">
+          <span class="material-symbols-outlined" style="font-size:16px">upload</span> Escolher foto
+          <input type="file" id="inputFoto" accept="image/*" style="display:none" onchange="previewPhoto(event)"/>
+        </label>
+        <button onclick="removerFoto()" style="margin-left:6px;font-size:11px;color:#dc2626;background:none;border:none;cursor:pointer;font-weight:600;">Remover</button>
+      </div>
+    </div>
     <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Nome</label>
     <input class="modal-input" id="inputNome" placeholder="Seu nome" type="text"/>
     <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">E-mail</label>
     <input class="modal-input" id="inputEmail" placeholder="seu@email.com" type="email"/>
-    <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Iniciais (avatar)</label>
+    <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Iniciais (sem foto)</label>
     <input class="modal-input" id="inputIniciais" maxlength="2" placeholder="Ex: AD" type="text"/>
     <div class="flex gap-2 justify-end mt-2">
       <button class="modal-btn" onclick="closeModal('modalPerfil')" style="background:#dcfce7;color:#14532d">Cancelar</button>
       <button class="modal-btn" onclick="salvarPerfil()" style="background:#0a2e1a;color:#86efac">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Adicionar/Editar Cliente -->
+<div class="modal-overlay" id="modalCliente" onclick="closeModalOutside(event,'modalCliente')">
+  <div class="modal-box">
+    <div class="modal-title"><span class="material-symbols-outlined">person_add</span> <span id="modalClienteTitulo">Novo Cliente</span></div>
+    <input type="hidden" id="modalClienteId"/>
+    <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Nome do Cliente *</label>
+    <input class="modal-input" id="modalClienteNome" placeholder="Ex: João Silva" type="text" autocomplete="name"/>
+    <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Produto / Serviço</label>
+    <input class="modal-input" id="modalClienteAquisicao" placeholder="Ex: Consultoria, Produto X..." type="text"/>
+    <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Valor Original (R$) *</label>
+    <input class="modal-input" id="modalClienteValor" placeholder="0,00" type="number" step="0.01" min="0" inputmode="decimal"/>
+    <label class="text-xs font-bold text-on-surface-variant uppercase mb-1 block">Data da Cobrança *</label>
+    <input class="modal-input" id="modalClienteData" type="date"/>
+    <div class="flex gap-2 justify-end mt-2">
+      <button class="modal-btn" onclick="closeModal('modalCliente')" style="background:#dcfce7;color:#14532d">Cancelar</button>
+      <button class="modal-btn" onclick="salvarCliente()" style="background:#0a2e1a;color:#86efac">Salvar</button>
     </div>
   </div>
 </div>
@@ -735,9 +766,14 @@ function renderTable(filter = '') {
         <td class="px-md py-2 border-r border-outline-variant text-right ${isLate?'text-error font-bold':'text-on-surface-variant'}">${formatCurrency(m.juros)}</td>
         <td class="px-md py-2 border-r border-outline-variant text-right font-bold ${isLate?'text-error':'text-secondary'}">${formatCurrency(m.total)}</td>
         <td class="px-md py-2 text-center">
-          <button onclick="deleteCliente(${row.id})" class="text-on-surface-variant hover:text-error transition-colors p-1">
-            <span class="material-symbols-outlined text-xl">delete</span>
-          </button>
+          <div class="flex items-center justify-center gap-1">
+            <button onclick="editarCliente(${row.id})" class="text-on-surface-variant hover:text-primary transition-colors p-1">
+              <span class="material-symbols-outlined text-xl">edit</span>
+            </button>
+            <button onclick="deleteCliente(${row.id})" class="text-on-surface-variant hover:text-error transition-colors p-1">
+              <span class="material-symbols-outlined text-xl">delete</span>
+            </button>
+          </div>
         </td>`;
       ledgerBody.appendChild(tr);
     });
@@ -782,8 +818,12 @@ function renderTable(filter = '') {
               <p class="text-sm font-bold ${isLate?'text-error':'text-secondary'}">${formatCurrency(m.total)}</p>
             </div>
           </div>
-          <div class="border-t border-outline-variant">
-            <button onclick="deleteCliente(${row.id})" class="w-full flex items-center justify-center gap-2 py-3 text-error hover:bg-error-container/20 transition-colors text-sm font-medium">
+          <div class="border-t border-outline-variant flex">
+            <button onclick="editarCliente(${row.id})" class="flex-1 flex items-center justify-center gap-2 py-3 text-on-surface-variant hover:bg-surface-container transition-colors text-sm font-medium">
+              <span class="material-symbols-outlined text-base">edit</span> Editar
+            </button>
+            <div class="w-px bg-outline-variant"></div>
+            <button onclick="deleteCliente(${row.id})" class="flex-1 flex items-center justify-center gap-2 py-3 text-error hover:bg-error-container/20 transition-colors text-sm font-medium">
               <span class="material-symbols-outlined text-base">delete</span> Excluir
             </button>
           </div>`;
@@ -804,9 +844,35 @@ function renderTable(filter = '') {
 // CRUD CLIENTES
 // ═══════════════════════════════════════════════════
 function addRow() {
-  const g = getGrupoAtivo();
-  if (!g) return;
-  g.clientes.unshift({ id: Date.now(), nome:'', aquisicao:'', valorOriginal:0, dataCobranca: new Date().toISOString().split('T')[0] });
+  el('modalClienteTitulo').textContent = 'Novo Cliente';
+  el('modalClienteId').value = '';
+  el('modalClienteNome').value = '';
+  el('modalClienteAquisicao').value = '';
+  el('modalClienteValor').value = '';
+  el('modalClienteData').value = new Date().toISOString().split('T')[0];
+  openModal('modalCliente');
+  setTimeout(() => el('modalClienteNome').focus(), 200);
+}
+
+function salvarCliente() {
+  const nome = el('modalClienteNome').value.trim();
+  const aquisicao = el('modalClienteAquisicao').value.trim();
+  const valor = parseFloat(el('modalClienteValor').value);
+  const data = el('modalClienteData').value;
+  if (!nome) { showToast('Informe o nome do cliente'); el('modalClienteNome').focus(); return; }
+  if (isNaN(valor) || valor < 0) { showToast('Informe um valor válido'); el('modalClienteValor').focus(); return; }
+  if (!data) { showToast('Informe a data de cobrança'); el('modalClienteData').focus(); return; }
+  const g = getGrupoAtivo(); if (!g) return;
+  const editId = parseInt(el('modalClienteId').value);
+  if (editId) {
+    const c = g.clientes.find(x => x.id === editId);
+    if (c) { c.nome = nome; c.aquisicao = aquisicao; c.valorOriginal = valor; c.dataCobranca = data; }
+    showToast('Cliente atualizado ✓');
+  } else {
+    g.clientes.unshift({ id: Date.now(), nome, aquisicao, valorOriginal: valor, dataCobranca: data });
+    showToast('Cliente adicionado ✓');
+  }
+  closeModal('modalCliente');
   renderTable(el('searchInput')?.value||'');
 }
 
@@ -823,6 +889,18 @@ function updateClienteImmediate(id, field, value) {
     c[field] = field === 'valorOriginal' ? (parseFloat(value)||0) : value;
     renderTable(el('searchInput')?.value||'');
   }
+}
+
+function editarCliente(id) {
+  const g = getGrupoAtivo(); if (!g) return;
+  const c = g.clientes.find(x => x.id === id); if (!c) return;
+  el('modalClienteTitulo').textContent = 'Editar Cliente';
+  el('modalClienteId').value = id;
+  el('modalClienteNome').value = c.nome || '';
+  el('modalClienteAquisicao').value = c.aquisicao || '';
+  el('modalClienteValor').value = c.valorOriginal || '';
+  el('modalClienteData').value = c.dataCobranca || '';
+  openModal('modalCliente');
 }
 
 function deleteCliente(id) {
@@ -878,15 +956,48 @@ function switchView(viewId) {
 }
 
 // ═══════════════════════════════════════════════════
+// FOTO PERFIL
+// ═══════════════════════════════════════════════════
+let _tempFoto = null;
+function previewPhoto(event) {
+  const file = event.target.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    _tempFoto = e.target.result;
+    const prev = el('previewFoto');
+    if (prev) prev.innerHTML = `<img src="${_tempFoto}" style="width:100%;height:100%;object-fit:cover">`;
+  };
+  reader.readAsDataURL(file);
+}
+function removerFoto() {
+  _tempFoto = '';
+  const prev = el('previewFoto');
+  const iniciais = el('inputIniciais');
+  if (prev) prev.innerHTML = iniciais ? iniciais.value.toUpperCase() : 'AD';
+}
+
+// ═══════════════════════════════════════════════════
 // PERFIL / MODAIS
 // ═══════════════════════════════════════════════════
 function applyProfileUI() {
   el('profileName').textContent = appConfig.nome;
   el('profileEmail').textContent = appConfig.email;
   const av = el('avatarCircle');
-  if (av) av.textContent = appConfig.iniciais;
+  if (av) {
+    if (appConfig.foto) {
+      av.innerHTML = `<img src="${appConfig.foto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+    } else {
+      av.textContent = appConfig.iniciais;
+    }
+  }
   const ha = el('headerAvatar');
-  if (ha) ha.textContent = appConfig.iniciais;
+  if (ha) {
+    if (appConfig.foto) {
+      ha.innerHTML = `<img src="${appConfig.foto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+    } else {
+      ha.textContent = appConfig.iniciais;
+    }
+  }
   el('dashWelcome').textContent = `Bem-vindo, ${appConfig.nome}`;
 }
 
@@ -896,6 +1007,15 @@ function openModal(id) {
     el('inputNome').value = appConfig.nome;
     el('inputEmail').value = appConfig.email;
     el('inputIniciais').value = appConfig.iniciais;
+    _tempFoto = null;
+    const prev = el('previewFoto');
+    if (prev) {
+      if (appConfig.foto) {
+        prev.innerHTML = `<img src="${appConfig.foto}" style="width:100%;height:100%;object-fit:cover">`;
+      } else {
+        prev.innerHTML = appConfig.iniciais || 'AD';
+      }
+    }
   }
   if (id === 'modalSeg') {
     el('inputPin1').value = ''; el('inputPin2').value = '';
@@ -912,6 +1032,8 @@ function salvarPerfil() {
   appConfig.nome = nome;
   appConfig.email = el('inputEmail').value.trim() || appConfig.email;
   appConfig.iniciais = el('inputIniciais').value.trim().toUpperCase() || appConfig.iniciais;
+  if (_tempFoto !== null) appConfig.foto = _tempFoto;
+  _tempFoto = null;
   saveAppConfig(); applyProfileUI(); closeModal('modalPerfil'); showToast('Perfil salvo ✓');
 }
 
@@ -943,7 +1065,14 @@ function checkPinOnLoad() {
   if (!appConfig.pin) return;
   const screen = el('pinLockScreen'); screen.style.display = 'flex';
   el('pinLockName').textContent = appConfig.nome;
-  el('pinAvatarLock').textContent = appConfig.iniciais;
+  const av = el('pinAvatarLock');
+  if (av) {
+    if (appConfig.foto) {
+      av.innerHTML = `<img src="${appConfig.foto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+    } else {
+      av.textContent = appConfig.iniciais;
+    }
+  }
 }
 
 function pinKey(val) {
